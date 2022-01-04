@@ -20,7 +20,7 @@ module.exports = {
     {
       resolve: `gatsby-source-strapi`,
       options: {
-        apiURL: `https://strapi.redait.cloudspaceclient.com`,
+        apiURL: process.env.GATSBY_STRAPI_URL,
         queryLimit: 1000, // Defaults to 100
         collectionTypes: [`companies`],
         // singleTypes: [`home-page`, `contact`],
