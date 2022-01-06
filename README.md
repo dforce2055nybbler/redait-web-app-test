@@ -8,3 +8,4 @@
 - `yarn add sass`
 - `yarn add bootstrap`
 - `yarn add gatsby-plugin-sass`
+- `yarn add gatsby-plugin-web-font-loader`
