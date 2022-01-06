@@ -1,8 +1,31 @@
 /* make the customizations */
+
 $theme-colors: (
-  'info': tomato,
-  'danger': teal,
+  // 'info': tomato,
+  // 'danger': teal,
+  'dark': #353542
 );
 
+body {
+  font-family: 'Roboto' !important;
+}
+
+.bg-redait {
+  background: #353542 !important;
+}
+
+.btn-light {
+  color: #ffffff !important;
+  font-weight: 500 !important;
+}
+
+.btn-light:hover {
+  color: #353542 !important;
+}
+
+.navbar-collapse {
+  gap: 2rem;
+}
+
 /* import bootstrap to set changes */
-// @import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/bootstrap';

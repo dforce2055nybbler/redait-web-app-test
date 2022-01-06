@@ -1,11 +1,11 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
+import Header from './header';
 
 const Layout = ({ children }) => {
   return (
     <>
-      <h1>Bienvenidos</h1>
-      {children}
+      <Header />
+      <main>{children}</main>
       {/*Header  */}
       {/*Main  */}
       {/*Footer  */}

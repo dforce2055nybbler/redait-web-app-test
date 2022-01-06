@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Helmet } from 'react-helmet';
 
 import Layout from '../components/ui/layout';
 import Seo from '../components/seo';
