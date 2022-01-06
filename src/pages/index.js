@@ -4,6 +4,7 @@ import Layout from '../components/ui/layout';
 import Seo from '../components/seo';
 
 import '../components/styles/styles.scss';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const IndexPage = () => (
   <Layout>

@@ -3,11 +3,17 @@
 $theme-colors: (
   // 'info': tomato,
   // 'danger': teal,
-  'dark': #353542
+  'dark': #353542,
+  'primary': #0033ff
 );
 
 body {
   font-family: 'Roboto' !important;
+}
+
+h1 {
+  font-weight: 700 !important;
+  font-size: 2.25rem !important;
 }
 
 .bg-redait {
@@ -16,11 +22,26 @@ body {
 
 .btn-light {
   color: #ffffff !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
   font-weight: 500 !important;
 }
 
 .btn-light:hover {
   color: #353542 !important;
+  background-color: #f9fafb !important;
+  border-color: #f9fafb !important;
+}
+
+.btn-outline-primary {
+  color: #0d6efd !important;
+  border-color: #0d6efd !important;
+}
+
+.btn-outline-primary:hover {
+  color: #fff !important;
+  background-color: #0033ff !important;
+  border-color: #0033ff !important;
 }
 
 .navbar-collapse {
