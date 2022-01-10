@@ -24,10 +24,14 @@ const Header = () => {
             className="justify-content-end"
           >
             <Link to="/login">
-              <Button variant="light">Crear Cuenta</Button>
+              <Button className="btn-light-redait" aria-label="Crear Cuenta">
+                Crear Cuenta
+              </Button>
             </Link>
             <Link to="/login">
-              <Button variant="light">Iniciar Sesión</Button>
+              <Button className="btn-light-redait" aria-label="Iniciar Sesión">
+                Iniciar Sesión
+              </Button>
             </Link>
           </Navbar.Collapse>
         </Container>

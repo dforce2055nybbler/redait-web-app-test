@@ -21,14 +21,14 @@ h1 {
   background: #353542 !important;
 }
 
-.btn-light {
+.btn-light-redait {
   color: #ffffff !important;
   background-color: transparent !important;
   border-color: transparent !important;
   font-weight: 500 !important;
 }
 
-.btn-light:hover {
+.btn-light-redait:hover {
   color: #353542 !important;
   background-color: #f9fafb !important;
   border-color: #f9fafb !important;
@@ -70,15 +70,47 @@ h1 {
 }
 
 /* FORM */
-.form-redait-home {
+.search-redait-home {
   line-height: 2.1rem !important;
   padding-inline-start: 6% !important;
+  min-width: 28.5rem !important;
+}
+
+.search-border-redait {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 
 .icon-search-redait {
   position: absolute;
   left: 13px;
   top: 15px;
+}
+
+.btn-filter-redait {
+  display: flex !important;
+  gap: 0.813rem;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ced4da !important;
+  background-color: #fff !important;
+  color: #6c757d !important;
+
+  &:focus {
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%) !important;
+  }
+}
+
+.list-filter-redait {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: #fff;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  border: 1px solid #ced4da;
+  padding-inline: 1rem;
+  margin-inline-start: -0.5rem;
 }
 
 /* import bootstrap to set changes */
