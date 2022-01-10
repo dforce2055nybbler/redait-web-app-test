@@ -7,6 +7,7 @@ $theme-colors: (
   'primary': #0033ff
 );
 
+/* GLOBALS */
 body {
   font-family: 'Roboto' !important;
 }
@@ -48,9 +49,36 @@ h1 {
   gap: 2rem;
 }
 
+/* LOGIN */
 .login-redait {
   background-color: #0033ff;
   border-radius: 1rem;
+}
+
+/* HERO */
+.hero-redait {
+  background-color: #676876;
+  height: 11.875rem;
+
+  h1 {
+    font-size: 3.125rem !important;
+  }
+
+  h3 {
+    font-size: 1.25rem !important;
+  }
+}
+
+/* FORM */
+.form-redait-home {
+  line-height: 2.1rem !important;
+  padding-inline-start: 6% !important;
+}
+
+.icon-search-redait {
+  position: absolute;
+  left: 13px;
+  top: 15px;
 }
 
 /* import bootstrap to set changes */
