@@ -31,6 +31,9 @@ export const UserWrapper = ({ children }) => {
             dispatchUser(
               setUser({
                 ...response.data,
+                profileImage: storedUser.profileImage
+                  ? storedUser.profileImage
+                  : null,
                 jwt: storedUser.jwt,
                 onboarding: true,
               })

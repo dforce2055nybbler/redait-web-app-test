@@ -67,6 +67,38 @@ h1 {
   color: #842029;
 }
 
+.button-transparent button {
+  background-color: transparent !important;
+  border: none !important;
+  padding-inline: 0px !important;
+}
+
+.button-transparent .dropdown-menu.show::after {
+  display: block;
+  position: absolute;
+  right: 7px;
+  content: '';
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-style: none double solid;
+  width: 0;
+  height: 0;
+  top: -10px;
+  border-bottom: 10px solid #fff;
+}
+
+.button-transparent .dropdown-menu[data-bs-popper] {
+  margin-top: 0.2rem;
+}
+
+.button-transparent button:focus {
+  box-shadow: none !important;
+}
+
+.button-transparent button.dropdown-toggle::after {
+  display: none !important;
+}
+
 .input-icon-error-redait {
   display: none !important;
 }
