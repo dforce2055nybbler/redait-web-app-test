@@ -40,7 +40,8 @@ const Login = () => {
         ) : (
           <>
             <Button
-              variant="outline-primary"
+              variant="outline-primary-redait"
+              className="outline-primary-redait"
               onClick={() => navigate('/register?user=member')}
             >
               Crear Cuenta
