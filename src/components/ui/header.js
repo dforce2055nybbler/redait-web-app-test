@@ -1,12 +1,23 @@
 import React, { useContext } from 'react';
 import { Link } from 'gatsby';
-import { Button, Container, Navbar } from 'react-bootstrap';
+import {
+  Button,
+  Container,
+  Dropdown,
+  DropdownButton,
+  Navbar,
+} from 'react-bootstrap';
 import logo from '../../images/redait-logo.svg';
 import { UserContext } from '../../contexts';
 import { FaBell, FaCommentDots, FaUserCircle } from 'react-icons/fa';
+import { setUser } from '../../contexts/actions/user-actions';
 
 const Header = () => {
-  const { user } = useContext(UserContext);
+  const { user, dispatchUser, defaultUser } = useContext(UserContext);
+
+  const logoutHandler = () => {
+    dispatchUser(setUser(defaultUser));
+  };
 
   return (
     <>
@@ -40,7 +51,13 @@ const Header = () => {
                 </Link>
                 <FaBell color="#fff" size={29} />
                 <FaCommentDots color="#fff" size={29} />
-                <FaUserCircle color="#fff" size={29} />
+
+                <DropdownButton title={<FaUserCircle color="#fff" size={29} />}>
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={logoutHandler}>
+                    Cerrar sesión
+                  </Dropdown.Item>
+                </DropdownButton>
               </>
             ) : (
               <>
