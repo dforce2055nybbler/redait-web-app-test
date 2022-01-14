@@ -34,7 +34,9 @@ const resolveBreakpoint = width => {
 
 /** Get Media Query Breakpoints in React */
 const useBreakpoint = () => {
-  const [size, setSize] = useState(() => resolveBreakpoint(window.innerWidth));
+  const [size, setSize] = useState(() =>
+    resolveBreakpoint(typeof window !== 'undefined' ? window.innerWidth : null)
+  );
 
   useEffect(() => {
     const calcInnerWidth = debounce(function () {
@@ -44,8 +46,11 @@ const useBreakpoint = () => {
         )
       );
     }, 200);
-    window.addEventListener('resize', calcInnerWidth);
-    return () => window.removeEventListener('resize', calcInnerWidth);
+    typeof window !== 'undefined' &&
+      window.addEventListener('resize', calcInnerWidth);
+    return () =>
+      typeof window !== 'undefined' &&
+      window.removeEventListener('resize', calcInnerWidth);
   }, []);
 
   return size;
