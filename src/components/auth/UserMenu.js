@@ -3,12 +3,12 @@ import { Col, Dropdown, DropdownButton, Image, Row } from 'react-bootstrap';
 import { FaUserCircle } from 'react-icons/fa';
 import { roleCoordinador } from '../../constants';
 
+import userIcon from '../../images/icon-user.svg';
+
 const UserMenu = ({ logoutHandler, user }) => {
-  const userImg = user.profileImage ? (
-    `${process.env.GATSBY_STRAPI_URL}${user.profileImage.formats.thumbnail.url}`
-  ) : (
-    <FaUserCircle />
-  );
+  const userImg = user.profileImage
+    ? `${process.env.GATSBY_STRAPI_URL}${user.profileImage.formats.thumbnail.url}`
+    : userIcon;
 
   return (
     <DropdownButton
