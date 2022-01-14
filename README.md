@@ -10,3 +10,4 @@
 - `yarn add gatsby-plugin-sass`
 - `yarn add gatsby-plugin-web-font-loader`
 - `yarn add react-icons`
+- `yarn add debounce`

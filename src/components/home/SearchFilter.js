@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Button, Container, Form, FormControl, Badge } from 'react-bootstrap';
+import {
+  Button,
+  Container,
+  Form,
+  FormControl,
+  Badge,
+  InputGroup,
+} from 'react-bootstrap';
 import { FaSearch, FaSlidersH } from 'react-icons/fa';
 
 const SearchFilter = () => {
@@ -39,19 +46,22 @@ const SearchFilter = () => {
 
   return (
     <Container style={{ marginTop: '-1.5rem' }}>
-      <Form className="d-flex justify-content-center position-relative w-50 m-auto">
-        <FaSearch
-          className="icon-search-redait"
-          style={btnFilter && { left: '-67px' }}
-        />
-        <FormControl
-          type="search"
-          placeholder="Buscar..."
-          className={`me-2 search-redait-home ${
-            btnFilter ? `search-border-redait` : ''
-          }`}
-          aria-label="Buscar"
-        />
+      <Form className="d-flex justify-content-center w-50 m-auto">
+        <InputGroup style={{ flexWrap: 'nowrap' }}>
+          <InputGroup.Text
+            style={{ backgroundColor: '#fff', borderRightColor: 'transparent' }}
+          >
+            <FaSearch />{' '}
+          </InputGroup.Text>
+          <FormControl
+            type="search"
+            placeholder="Buscar..."
+            className={`me-2 search-redait-home ${
+              btnFilter ? `search-border-redait` : ''
+            }`}
+            aria-label="Buscar"
+          />
+        </InputGroup>
         {!btnFilter ? (
           <Button
             variant="light"

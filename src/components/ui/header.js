@@ -23,7 +23,7 @@ const Header = () => {
             id="basic-navbar-nav"
             className="justify-content-end"
           >
-            <Link to="/login">
+            <Link to="/register?user=member">
               <Button className="btn-light-redait" aria-label="Crear Cuenta">
                 Crear Cuenta
               </Button>

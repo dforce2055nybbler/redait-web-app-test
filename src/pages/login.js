@@ -1,35 +1,66 @@
-import React from 'react';
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import React, { useContext, useState, useEffect } from 'react';
+import { Link, navigate } from 'gatsby';
+import { Button } from 'react-bootstrap';
+import { FaArrowLeft } from 'react-icons/fa';
 import Seo from '../components/seo';
-
-import logoLogin from '../images/redait-login.svg';
+import AuthLayout from '../components/auth/AuthLayout';
+import LoginFields from '../components/auth/LoginFields';
+import { UserContext } from '../contexts';
 
 const Login = () => {
+  const [loginOption, setLoginOption] = useState(false);
+
+  const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    if (user.jwt && user.onboarding) {
+      navigate('/');
+    }
+  }, [user]);
+
   return (
-    <Container fluid>
+    <AuthLayout>
       <Seo title="Login" />
-      <Row className="d-lg-flex vh-100">
-        <Col
-          xs={6}
-          className="d-flex flex-column justify-content-around align-items-center"
-        >
-          <h1>¡Bienvenido!</h1>
-          <div className="d-grid gap-4 w-25">
-            <Button variant="outline-primary">Crear Cuenta</Button>
-            <Button variant="outline-primary">Ingresar</Button>
-          </div>
-          <div className="text-center">
-            <h6>¿Tu empresa no está registrada?</h6>
-            <h6 style={{ color: '#FF5C40' }}>Ingresá como invitado</h6>
-          </div>
-        </Col>
-        <Col xs={6} className="d-none d-md-flex p-3">
-          <div className="login-redait vw-100 d-flex align-items-center justify-content-center">
-            <img src={logoLogin} alt="RedAIT Logo" />
-          </div>
-        </Col>
-      </Row>
-    </Container>
+      {loginOption ? (
+        <FaArrowLeft
+          onClick={() => setLoginOption(false)}
+          style={{
+            alignSelf: 'flex-start',
+            width: '1.313rem',
+            height: '1.875rem',
+            marginInlineStart: 'calc(100% - 90%)',
+            cursor: 'pointer',
+          }}
+        />
+      ) : null}
+      <h1>¡Bienvenido!</h1>
+      <div className="d-grid gap-4 w-45">
+        {loginOption ? (
+          <LoginFields />
+        ) : (
+          <>
+            <Button
+              variant="outline-primary"
+              onClick={() => navigate('/register?user=member')}
+            >
+              Crear Cuenta
+            </Button>
+            <Button
+              variant="outline-primary"
+              onClick={() => setLoginOption(true)}
+            >
+              Ingresar
+            </Button>
+          </>
+        )}
+      </div>
+      <div className="text-center">
+        <h6>¿Tu empresa no está registrada?</h6>
+        <Link to="/register?user=guest" style={{ textDecoration: 'none' }}>
+          <h6 style={{ color: '#FF5C40' }}>Ingresá como invitado</h6>
+        </Link>
+      </div>
+    </AuthLayout>
   );
 };
 

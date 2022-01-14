@@ -49,6 +49,18 @@ h1 {
   gap: 2rem;
 }
 
+.field-error-redait {
+  color: #842029;
+}
+
+.input-icon-error-redait {
+  display: none !important;
+}
+
+.w-45 {
+  width: 45% !important;
+}
+
 /* LOGIN */
 .login-redait {
   background-color: #0033ff;
@@ -72,19 +84,14 @@ h1 {
 /* FORM */
 .search-redait-home {
   line-height: 2.1rem !important;
-  padding-inline-start: 6% !important;
   min-width: 28.5rem !important;
+  border-left-color: transparent !important;
+  padding-inline-start: 0px !important;
 }
 
 .search-border-redait {
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
-}
-
-.icon-search-redait {
-  position: absolute;
-  left: 13px;
-  top: 15px;
 }
 
 .btn-filter-redait {
