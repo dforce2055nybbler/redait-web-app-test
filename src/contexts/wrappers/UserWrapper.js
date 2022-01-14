@@ -33,7 +33,7 @@ export const UserWrapper = ({ children }) => {
                 ...response.data,
                 profileImage: storedUser.profileImage
                   ? storedUser.profileImage
-                  : null,
+                  : undefined,
                 jwt: storedUser.jwt,
                 onboarding: true,
               })
