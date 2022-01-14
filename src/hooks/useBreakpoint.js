@@ -38,7 +38,11 @@ const useBreakpoint = () => {
 
   useEffect(() => {
     const calcInnerWidth = debounce(function () {
-      setSize(resolveBreakpoint(window.innerWidth));
+      setSize(
+        resolveBreakpoint(
+          typeof window !== 'undefined' ? window.innerWidth : null
+        )
+      );
     }, 200);
     window.addEventListener('resize', calcInnerWidth);
     return () => window.removeEventListener('resize', calcInnerWidth);
