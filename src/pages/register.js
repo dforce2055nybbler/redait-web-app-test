@@ -13,7 +13,9 @@ const Register = () => {
 
   const { user } = useContext(UserContext);
 
-  const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(
+    typeof window !== 'undefined' ? window.location.search : null
+  );
   const status = params.get('status');
   const userParams = params.get('user');
 
