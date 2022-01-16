@@ -34,7 +34,7 @@ const Login = () => {
         />
       ) : null}
       <h1>¡Bienvenido!</h1>
-      <div className="d-grid gap-4 w-45">
+      <div className="d-grid gap-4 w-60">
         {loginOption ? (
           <LoginFields />
         ) : (

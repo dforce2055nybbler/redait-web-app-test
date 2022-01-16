@@ -22,7 +22,7 @@ const UserMenu = ({ logoutHandler, user }) => {
           className="align-items-center"
         >
           <Col sm={4}>
-            <Image src={userImg} roundedCircle fluid />
+            <Image src={userImg} alt="User Avatar" roundedCircle fluid />
           </Col>
           <Col sm={8}>
             <p
