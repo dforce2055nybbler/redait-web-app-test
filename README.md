@@ -11,3 +11,4 @@
 - `yarn add gatsby-plugin-web-font-loader`
 - `yarn add react-icons`
 - `yarn add debounce`
+- `yarn add react-select`

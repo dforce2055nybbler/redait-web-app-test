@@ -31,7 +31,7 @@ module.exports = {
       options: {
         apiURL: process.env.GATSBY_STRAPI_URL,
         queryLimit: 1000, // Defaults to 100
-        collectionTypes: [`markets`],
+        collectionTypes: [`markets`, `companies`],
         // singleTypes: [`home-page`, `contact`],
       },
     },
