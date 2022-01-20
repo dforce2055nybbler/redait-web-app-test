@@ -92,7 +92,7 @@ h1 {
 }
 
 .button-transparent .dropdown-menu[data-bs-popper] {
-  margin-top: 0.2rem;
+  margin-top: 0.9rem;
 }
 
 .button-transparent button:focus {
@@ -196,6 +196,43 @@ h1 {
 .filter-home-redait {
   width: 14rem;
   font-size: 0.8rem;
+}
+
+/* OPPORTUNITY CARD */
+.badge-redait {
+  text-transform: uppercase;
+  font-size: 0.625rem !important;
+  font-weight: 600;
+}
+
+.opportunity-company {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #264a75;
+}
+
+.opportunity-location {
+  font-size: 0.625rem;
+  font-weight: 400;
+  color: #657c97;
+}
+
+.opportunity-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #264a75;
+}
+
+.opportunity-description {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #657c97;
+}
+
+.opportunity-fav {
+  position: absolute;
+  right: 4%;
+  top: 5%;
 }
 
 /* import bootstrap to set changes */

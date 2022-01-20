@@ -37,6 +37,7 @@ module.exports = {
           `technologies`,
           `verticals`,
           `programming-langs`,
+          `opportunities`,
         ],
         // singleTypes: [`home-page`, `contact`],
       },
