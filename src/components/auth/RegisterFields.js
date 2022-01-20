@@ -71,7 +71,9 @@ const RegisterFields = ({ member }) => {
           'El email no corresponde a la empresa'
         )
         .required('Requerido'),
-      password: Yup.string().required('Requerido'),
+      password: Yup.string()
+        .min(12, 'Debe tener al menos 12 caracteres')
+        .required('Requerido'),
       passwordConfirmation: Yup.string().test(
         'passwords-match',
         'Las contraseñas deben ser iguales',
