@@ -14,7 +14,7 @@ const UserMenu = ({ logoutHandler, user }) => {
     <DropdownButton
       className="button-transparent"
       align="end"
-      title={<FaUserCircle color="#fff" size={29} />}
+      title={<FaUserCircle color="#657C97" size={29} />}
     >
       <Dropdown.Header className="mb-2">
         <Row

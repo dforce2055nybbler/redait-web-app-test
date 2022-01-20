@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'gatsby';
 import { Button, Container, Navbar } from 'react-bootstrap';
-import logo from '../../images/redait-logo.svg';
+import logo from '../../images/logo-redait-color.svg';
 import { UserContext } from '../../contexts';
 import { FaBell, FaCommentDots } from 'react-icons/fa';
 import { setUser } from '../../contexts/actions/user-actions';
@@ -44,8 +44,8 @@ const Header = () => {
                     Publicar
                   </Button>
                 </Link>
-                <FaBell color="#fff" size={29} />
-                <FaCommentDots color="#fff" size={29} />
+                <FaBell color="#657C97" size={29} />
+                <FaCommentDots color="#657C97" size={29} />
                 <UserMenu logoutHandler={logoutHandler} user={user} />
               </>
             ) : (
@@ -55,7 +55,7 @@ const Header = () => {
                     className="btn-light-redait"
                     aria-label="Crear Cuenta"
                   >
-                    Crear Cuenta
+                    Crear cuenta
                   </Button>
                 </Link>
                 <Link to="/login">
@@ -63,7 +63,7 @@ const Header = () => {
                     className="btn-light-main-redait"
                     aria-label="Iniciar Sesión"
                   >
-                    Iniciar Sesión
+                    Ingresar
                   </Button>
                 </Link>
               </>

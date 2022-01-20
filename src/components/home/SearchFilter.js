@@ -6,11 +6,17 @@ import {
   FormControl,
   Badge,
   InputGroup,
+  Row,
+  Col,
 } from 'react-bootstrap';
+import Select from 'react-select';
 import { FaSearch, FaSlidersH } from 'react-icons/fa';
+import { formatDataSelect } from '../../helpers/formatDataSelect';
+import { graphql, useStaticQuery } from 'gatsby';
 
 const SearchFilter = () => {
   const [btnFilter, setBtnFilter] = useState(false);
+  const [selectFilter, setSelectFilter] = useState({});
   const [filters, setFilters] = useState({
     services: {
       name: 'services',
@@ -43,6 +49,109 @@ const SearchFilter = () => {
       },
     });
   };
+
+  const data = useStaticQuery(graphql`
+    query FiltersQuery {
+      allStrapiMarkets {
+        edges {
+          node {
+            name
+            strapiId
+          }
+        }
+      }
+      allStrapiTechnologies {
+        edges {
+          node {
+            name
+            strapiId
+          }
+        }
+      }
+      allStrapiCompanies {
+        edges {
+          node {
+            name
+            strapiId
+          }
+        }
+      }
+      allStrapiVerticals {
+        edges {
+          node {
+            name
+            strapiId
+          }
+        }
+      }
+      allStrapiProgrammingLangs {
+        edges {
+          node {
+            name
+            strapiId
+          }
+        }
+      }
+    }
+  `);
+
+  const optionsMarkets = formatDataSelect(
+    data.allStrapiMarkets.edges,
+    'strapiId',
+    'name'
+  );
+
+  const optionsTechnologies = formatDataSelect(
+    data.allStrapiTechnologies.edges,
+    'strapiId',
+    'name'
+  );
+
+  const optionsCompanies = formatDataSelect(
+    data.allStrapiCompanies.edges,
+    'strapiId',
+    'name'
+  );
+
+  const optionsVerticals = formatDataSelect(
+    data.allStrapiVerticals.edges,
+    'strapiId',
+    'name'
+  );
+
+  const optionsProgrammingLangs = formatDataSelect(
+    data.allStrapiProgrammingLangs.edges,
+    'strapiId',
+    'name'
+  );
+
+  const filtersOptions = [
+    {
+      data: optionsMarkets,
+      name: 'Mercados',
+      value: 'markets',
+    },
+    {
+      data: optionsTechnologies,
+      name: 'Tecnologías',
+      value: 'technologies',
+    },
+    {
+      data: optionsCompanies,
+      name: 'Empresas',
+      value: 'companies',
+    },
+    {
+      data: optionsVerticals,
+      name: 'Verticales de la industria',
+      value: 'verticals',
+    },
+    {
+      data: optionsProgrammingLangs,
+      name: 'Lenguajes de programación',
+      value: 'programming-langs',
+    },
+  ];
 
   return (
     <Container style={{ marginTop: '-1.5rem' }}>
@@ -91,6 +200,33 @@ const SearchFilter = () => {
           </div>
         )}
       </Form>
+      {btnFilter && (
+        <Row
+          className="justify-content-between"
+          style={{ marginTop: '2.25rem' }}
+        >
+          {filtersOptions.map(filter => (
+            <Col key={filter.value} sm={12} md={6} lg={2}>
+              <Select
+                key={filter.value}
+                className="basic-single filter-home-redait"
+                classNamePrefix="select"
+                isClearable={true}
+                isSearchable={true}
+                placeholder={filter.name}
+                name={filter.value}
+                options={filter.data}
+                onChange={e =>
+                  setSelectFilter({
+                    ...selectFilter,
+                    [filter.value]: (e && e.value) || '',
+                  })
+                }
+              />
+            </Col>
+          ))}
+        </Row>
+      )}
     </Container>
   );
 };

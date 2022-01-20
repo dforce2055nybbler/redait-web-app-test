@@ -10,7 +10,7 @@ import AlertClose from '../ui/alertClose';
 import Loader from '../ui/loader';
 import { UserContext } from '../../contexts';
 import { setUser } from '../../contexts/actions/user-actions';
-import { formatSelect } from '../../helpers/formatSelect';
+import { formatDataSelect } from '../../helpers/formatDataSelect';
 
 const RegisterFields = ({ member }) => {
   const [validate, setValidate] = useState(false);
@@ -123,7 +123,11 @@ const RegisterFields = ({ member }) => {
     }
   `);
 
-  const options = formatSelect(data.allStrapiCompanies.edges, 'domain', 'name');
+  const options = formatDataSelect(
+    data.allStrapiCompanies.edges,
+    'domain',
+    'name'
+  );
 
   return (
     <Form noValidate onSubmit={handleSubmit}>
