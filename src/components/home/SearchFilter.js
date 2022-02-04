@@ -15,6 +15,7 @@ import { formatDataSelect } from '../../helpers/formatDataSelect';
 import { graphql, useStaticQuery } from 'gatsby';
 
 const SearchFilter = () => {
+  const [searchText, setSearchText] = useState('');
   const [btnFilter, setBtnFilter] = useState(false);
   const [selectFilter, setSelectFilter] = useState({});
   const [filters, setFilters] = useState({
@@ -153,9 +154,22 @@ const SearchFilter = () => {
     },
   ];
 
+  const search = (e) => {
+    const text = e.target.value
+    if (e.key === 'Enter') {
+      console.log('Enter submited!!!');    
+    } 
+    console.log('searching =>', text);
+  }
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log("submission prevented");
+  };
+
   return (
     <Container style={{ marginTop: '-1.5rem' }}>
-      <Form className="d-flex justify-content-center w-50 m-auto">
+      <Form onSubmit={onSubmit} className="d-flex justify-content-center w-50 m-auto">
         <InputGroup style={{ flexWrap: 'nowrap' }}>
           <InputGroup.Text
             style={{ backgroundColor: '#fff', borderRightColor: 'transparent' }}
@@ -163,6 +177,9 @@ const SearchFilter = () => {
             <FaSearch />{' '}
           </InputGroup.Text>
           <FormControl
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            onKeyPress={(e) => search(e)}
             type="search"
             placeholder="Buscar..."
             className={`me-2 search-redait-home ${
