@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Badge, Card, Col, Image, Row } from 'react-bootstrap';
 import { FaMapMarkerAlt, FaRegHeart } from 'react-icons/fa';
-
 import userIcon from '../../images/icon-user.svg';
 
 const Opportunity = ({ opportunity }) => {
+  const [fav, setFav] = useState(false)
   return (
     <Card className="my-3 p-3 rounded">
-      <FaRegHeart className="opportunity-fav" color="#DEE4EA" />
+      <FaRegHeart
+        onClick={() => setFav(!fav)}
+        className={ fav ? 'opportunity-fav-selected': 'opportunity-fav' }
+      />
       <Card.Body>
         <Row className="align-items-center mb-3">
           <Col sm={4}>

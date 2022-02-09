@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Button,
   Container,
@@ -9,13 +9,26 @@ import {
   Row,
   Col,
 } from 'react-bootstrap';
-import Select from 'react-select';
 import { FaSearch, FaSlidersH } from 'react-icons/fa';
+
+import Autocomplete from '@mui/material/Autocomplete';
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
+import Select from 'react-select';
 import { formatDataSelect } from '../../helpers/formatDataSelect';
 import { graphql, useStaticQuery } from 'gatsby';
 
+import { SearchContext } from '../../contexts/wrappers/SearchContext';
+
 const SearchFilter = () => {
+  const { actions } = useContext(SearchContext)
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [searchText, setSearchText] = useState('');
+  const [opportunitiesTypes, setOpportunitiesTypes] = useState([]);
+  const [opportunityTypeSelect, setOpportunityTypeSelect] = useState('');
   const [btnFilter, setBtnFilter] = useState(false);
   const [selectFilter, setSelectFilter] = useState({});
   const [filters, setFilters] = useState({
@@ -93,8 +106,19 @@ const SearchFilter = () => {
           }
         }
       }
+      allStrapiTypesOpportunites {
+        edges {
+          node {
+            strapiId
+            name
+          }
+        }
+      }
     }
   `);
+  
+
+  console.log(data)
 
   const optionsMarkets = formatDataSelect(
     data.allStrapiMarkets.edges,
@@ -125,6 +149,19 @@ const SearchFilter = () => {
     'strapiId',
     'name'
   );
+
+  const optionsOpportunitiesTypes = formatDataSelect(
+    data.allStrapiTypesOpportunites.edges,
+    'strapiId',
+    'name'
+  );
+
+  useEffect(() => {
+    if (optionsOpportunitiesTypes) {
+      setOpportunitiesTypes(optionsOpportunitiesTypes)
+    }
+  }, [data]);
+  
 
   const filtersOptions = [
     {
@@ -157,7 +194,11 @@ const SearchFilter = () => {
   const search = (e) => {
     const text = e.target.value
     if (e.key === 'Enter') {
-      console.log('Enter submited!!!');    
+      console.log('Enter submited!!!');
+      actions.dispatchSearch({
+        type: 'ADD_SEARCH',
+        text: text
+      })
     } 
     console.log('searching =>', text);
   }
@@ -167,60 +208,217 @@ const SearchFilter = () => {
     console.log("submission prevented");
   };
 
+  const autocompleteHandle = (event, value) => {
+    if (!value)
+      setOpportunitiesTypes(optionsOpportunitiesTypes)
+
+    setOpportunityTypeSelect(value)
+  }
+  const searchTextHandle = (value) => {
+    setSearchText(value)
+    setOpportunityTypeSelect(value);
+    try {
+      if (value.length > 3) {
+        getResults(value)
+      }
+    } catch (error) {
+      console.error(error)
+      setError(error)
+    }
+  }
+
+
+  const getResults = async (searchText) => {
+    try {
+      setLoading(true)
+      // TODO: implementar llamada a la API
+      const resolve = await fetch(`https://pixabay.com/api/?key=25593974-8a25e418a8d006e97c6a76da2&q=${searchText}&image_type=photo`)
+      const json = await resolve.json();
+      const results = json.hits.map(result => (
+        { id: result.id, label: result.user, value: result.user }
+      ))
+
+      setOpportunitiesTypes([
+        ...results
+      ])
+      setLoading(false)
+    } catch (error) {
+      console.error(error)
+      setError(error)
+    }
+  }
+
+  const getKey = (value) => {
+    try {
+      const result = opportunitiesTypes.filter(item => item.value === value)
+      return result.id
+    } catch (error) {
+      return Math.floor(Math.random() * (9999 - 1)) + 1
+    }
+  }
+
   return (
     <Container style={{ marginTop: '-1.5rem' }}>
-      <Form onSubmit={onSubmit} className="d-flex justify-content-center w-50 m-auto">
+      {!btnFilter &&
         <InputGroup style={{ flexWrap: 'nowrap' }}>
-          <InputGroup.Text
-            style={{ backgroundColor: '#fff', borderRightColor: 'transparent' }}
-          >
-            <FaSearch />{' '}
-          </InputGroup.Text>
-          <FormControl
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            onKeyPress={(e) => search(e)}
-            type="search"
-            placeholder="Buscar..."
-            className={`me-2 search-redait-home ${
-              btnFilter ? `search-border-redait` : ''
-            }`}
-            aria-label="Buscar"
-          />
-        </InputGroup>
-        {!btnFilter ? (
-          <Button
-            variant="light"
-            className="btn-filter-redait"
-            aria-label="Filtros"
-            onClick={() => setBtnFilter(true)}
-          >
-            <FaSlidersH
-              style={{ width: '1.313rem', height: '1.313rem', color: '#000' }}
-            />
-            Filtros
-          </Button>
-        ) : (
-          <div className="list-filter-redait">
-            {Object.keys(filters).map(f => (
-              <Badge
-                key={f}
-                pill
-                bg={`${filters[f].active ? 'dark' : 'light'}`}
-                text={`${filters[f].active ? 'light' : 'dark'}`}
-                style={{ cursor: 'pointer' }}
-                onClick={() => filterHandle(filters[f])}
+          <Row className="d-flex justify-content-center w-5 m-auto">
+            <Col md="auto">
+              <Paper
+                elevation={1}
+                onSubmit={(e) => setSearchText(e.preventDefault())}
+                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 630, height: 59, backgroundColor: '#fff', borderRightColor: 'transparent'}}
               >
-                {filters[f].realName}
-              </Badge>
-            ))}
-          </div>
-        )}
-      </Form>
+                <IconButton
+                  onClick={(e) => getResults(opportunityTypeSelect)}
+                  type="submit"
+                  sx={{ p: '10px', height: 59 }}
+                  aria-label="search"
+                >
+                  <SearchIcon sx={{ color: '#212529' }}/>
+                </IconButton>
+                <Autocomplete
+                  id="combo-box-demo"
+                  sx={{ width: 600 }}
+                  disablePortal
+                  loading={loading}
+                  loadingText="Cargando..."
+                  value={opportunityTypeSelect}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
+                  onChange={(e, value) => autocompleteHandle(e, value)}
+                  filterOptions={(x) => x}
+                  options={opportunitiesTypes}
+                  renderInput={(params, option) => {
+                    const { InputLabelProps, InputProps, ...rest } = params;
+                    return (
+                      <InputBase
+                        key={getKey(rest.inputProps.value)}
+                        onChange={(e) => searchTextHandle(e.target.value)}
+                        onKeyPress={(e) => search(e)}
+                        value={searchText} {...params.InputProps} {...rest} 
+                      />
+                    )
+                  }}
+                />
+              </Paper>
+            </Col>
+            <Col xs lg="2">
+              <Button
+                style={{height: 59 }}
+                variant="light"
+                className="btn-filter-redait"
+                aria-label="Filtros"
+                onClick={() => setBtnFilter(true)}
+              >
+                <FaSlidersH
+                  style={{ width: '1.313rem', height: '1.313rem', color: '#000' }}
+                />
+                Filtros
+              </Button>
+            </Col>
+          </Row>
+        </InputGroup>
+      }
+      {/* Filter expanded */}
+      {btnFilter &&
+        <InputGroup>
+          <Row className="d-flex justify-content-center m-auto">
+            <Col
+              lg="7"
+              className="list-filter-left-col"
+            >
+              <Paper
+                elevation={1}
+                onSubmit={(e) => setSearchText(e.preventDefault())}
+                sx={{
+                  p: '2px 4px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  width: 630,
+                  height: 59,
+                  backgroundColor: '#fff',
+                  borderRight: '2px solid #ccc',
+                  borderTopRightRadius: '0px',
+                  borderBottomRightRadius: '0px',
+                  paddingRight: '15px',
+                  marginRight: '10px'
+                }}
+              >
+                <IconButton
+                  onClick={(e) => search(e)}
+                  type="submit"
+                  sx={{ p: '10px' }}
+                  aria-label="search"
+                >
+                  <SearchIcon sx={{ color: '#212529' }} />
+                </IconButton>
+                <Autocomplete
+                  id="combo-box-demo"
+                  sx={{ width: 600 }}
+                  disablePortal
+                  loading={loading}
+                  loadingText="Cargando..."
+                  value={opportunityTypeSelect}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
+                  onChange={(e, value) => autocompleteHandle(e, value)}
+                  filterOptions={(x) => x}
+                  options={opportunitiesTypes}
+                  renderInput={(params, option) => {
+                    const { InputLabelProps, InputProps, ...rest } = params;
+                    return (
+                      <InputBase
+                        key={getKey(rest.inputProps.value)}
+                        onChange={(e) => searchTextHandle(e.target.value)}
+                        onKeyPress={(e) => search(e)}
+                        value={searchText} {...params.InputProps} {...rest} 
+                      />
+                    )
+                  }}
+                />
+              </Paper>
+            </Col>
+            <Col
+              xs lg="5"
+              className="list-filter-right-col"
+            >
+              <Paper
+                elevation={1}
+                sx={{
+                  p: '2px 4px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  width: 440,
+                  height: 59,
+                  backgroundColor: '#fff',
+                  borderColor: 'transparent',
+                  borderLeftColor: 'transparent',
+                  borderTopLeftRadius: 0,
+                  borderBottomLeftRadius: 0,
+                  gap: '1rem',
+                  paddingInline: '1rem'
+                }}
+              >
+                {Object.keys(filters).map(f => (
+                  <Badge
+                    key={f}
+                    pill
+                    bg={`${filters[f].active ? 'dark' : 'light'}`}
+                    text={`${filters[f].active ? 'light' : 'dark'}`}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => filterHandle(filters[f])}
+                  >
+                    {filters[f].realName}
+                  </Badge>
+                ))}
+              </Paper>
+              
+            </Col>
+          </Row>
+        </InputGroup>
+      }
       {btnFilter && (
         <Row
           className="justify-content-between"
-          style={{ marginTop: '2.25rem' }}
+          style={{ marginTop: '5.25rem' }}
         >
           {filtersOptions.map(filter => (
             <Col key={filter.value} sm={12} md={6} lg={2}>

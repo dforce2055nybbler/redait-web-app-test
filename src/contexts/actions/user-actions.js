@@ -6,3 +6,9 @@ export const setUser = user => {
     payload: { user },
   };
 };
+export const setSearchText = text => {
+  return {
+    type: actionTypes.SET_SEARCH_TEXT,
+    payload: text,
+  };
+};

@@ -6,6 +6,7 @@ $theme-colors: (
   'dark': #353542,
   'primary': #0033ff
 );
+$primary: #0033ff;
 
 /* GLOBALS */
 body {
@@ -179,6 +180,36 @@ h1 {
   }
 }
 
+.list-filter-left-col {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  border-right-color: transparent;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-radius: 0;
+}
+.list-filter-right-col {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  border-left-color: transparent;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-radius: 0;
+}
+.list-filter-container {
+  padding: '2px 4px';
+  display: 'flex';
+  align-items: center;
+  width: 456;
+  height: 59;
+  background-color: '#fff';
+  border-color: 'transparent';
+  border-left-color: 'transparent';
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  gap: '1rem';
+}
+
 .list-filter-redait {
   display: flex;
   align-items: center;
@@ -194,7 +225,7 @@ h1 {
 
 /* FILTER HOME */
 .filter-home-redait {
-  width: 14rem;
+  width: 13rem;
   font-size: 0.8rem;
 }
 
@@ -230,6 +261,13 @@ h1 {
 }
 
 .opportunity-fav {
+  color: '#DEE4EA';
+  position: absolute;
+  right: 4%;
+  top: 5%;
+}
+.opportunity-fav-selected {
+  color: $primary;
   position: absolute;
   right: 4%;
   top: 5%;

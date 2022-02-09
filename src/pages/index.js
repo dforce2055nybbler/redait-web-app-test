@@ -9,13 +9,16 @@ import OpportunitiesGrid from '../components/home/OpportunitiesGrid';
 
 import '../components/styles/styles.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import SearchContextProvider from '../contexts/wrappers/SearchContext';
 
 const IndexPage = () => (
   <Layout>
     <Seo title="Inicio" />
     <Hero />
-    <SearchFilter />
-    <OpportunitiesGrid />
+    <SearchContextProvider>
+      <SearchFilter />
+      <OpportunitiesGrid />
+    </SearchContextProvider>
   </Layout>
 );
 
