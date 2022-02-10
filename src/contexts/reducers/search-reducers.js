@@ -3,8 +3,11 @@ const maxSearchs = 20
 export const searchReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_SEARCH':
-      let currentSearchs = state.filter(search => search.text !== action.text)
-      currentSearchs.slice(0, maxSearchs)
+      let currentSearchs =
+        state
+          .filter(search => search.text !== action.text)
+          .slice(0, maxSearchs)
+
       return [
         {
           id: uuid(),

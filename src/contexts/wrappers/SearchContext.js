@@ -1,5 +1,4 @@
 import React, { createContext, useReducer, useEffect } from 'react'
-import { v1 as uuid } from 'uuid'
 import { searchReducer } from '../reducers/search-reducers'
 
 export const SearchContext = createContext()
