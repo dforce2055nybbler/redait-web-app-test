@@ -2,11 +2,11 @@ import { graphql, useStaticQuery } from 'gatsby';
 import React, { useContext } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import Opportunity from './Opportunity';
+import LinearProgress from '@mui/material/LinearProgress';
 import { SearchContext } from '../../contexts/wrappers/SearchContext';
-
 import { useQuery } from '@apollo/client'
 import { BUSINESS_OPPORTUNITIES_EVENTS } from '../../apollo/queries'
-import Loader from '../ui/loader';
+
 
 
 const OpportunitiesGrid = () => {
@@ -53,7 +53,7 @@ const OpportunitiesGrid = () => {
 
   return (
     <Container style={{ marginTop: '3.563rem' }}>
-      {loading && <><p>cargando...</p> <Loader /></>}
+      {loading && <><p>cargando...</p> <LinearProgress /></>}
       {data && 
         <>
           <Row>

@@ -26,6 +26,7 @@ const SearchFilter = () => {
   const { state, actions } = useContext(SearchContext)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [open, setOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [opportunitiesTypes, setOpportunitiesTypes] = useState([]);
   const [opportunityTypeSelect, setOpportunityTypeSelect] = useState('');
@@ -205,14 +206,16 @@ const SearchFilter = () => {
         text: text
       })
       getResults(text)
+      setOpen(false)
     } 
-    // if (e.type === 'click') {
-    //   actions.dispatchSearch({
-    //     type: 'ADD_SEARCH',
-    //     text: searchText
-    //   })
-    //   // getResults(searchText)
-    // } 
+    if (e.type === 'click' && searchText.length >= 3) {
+      actions.dispatchSearch({
+        type: 'ADD_SEARCH',
+        text: searchText
+      })
+      getResults(searchText)
+    }
+
   }
 
   const autocompleteHandle = (event, value) => {
@@ -295,7 +298,7 @@ const SearchFilter = () => {
                 <Autocomplete
                   id="combo-box-demo"
                   sx={{ width: 600 }}
-                  disablePortal
+                  open={open}
                   loading={loading}
                   loadingText="Cargando..."
                   value={opportunityTypeSelect}
@@ -310,6 +313,7 @@ const SearchFilter = () => {
                         key={getKey(rest.inputProps.value)}
                         onChange={(e) => searchTextHandle(e.target.value)}
                         onKeyPress={(e) => search(e)}
+                        onClick={() => setOpen(true)}
                         value={searchText} {...params.InputProps} {...rest} 
                       />
                     )
