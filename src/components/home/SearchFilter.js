@@ -54,6 +54,11 @@ const SearchFilter = () => {
       realName: 'Partnership',
       active: false,
     },
+    eventos: {
+      name: 'eventos',
+      realName: 'Eventos',
+      active: false,
+    },
   });
 
   const filterHandle = filter => {
@@ -351,7 +356,7 @@ const SearchFilter = () => {
         <InputGroup>
           <Row className="d-flex justify-content-center m-auto">
             <Col
-              lg="7"
+              lg="6"
               className="list-filter-left-col"
             >
               <Paper
@@ -361,7 +366,7 @@ const SearchFilter = () => {
                   p: '2px 4px',
                   display: 'flex',
                   alignItems: 'center',
-                  width: 630,
+                  width: 540,
                   height: 59,
                   backgroundColor: '#fff',
                   borderRight: '2px solid #ccc',
@@ -382,7 +387,7 @@ const SearchFilter = () => {
                 <ClickAwayListener onClickAway={handleClickAway}>
                   <Autocomplete
                     id="combo-box-demo"
-                    sx={{ width: 600 }}
+                    sx={{ width: 540 }}
                     open={open}
                     loading={loading}
                     loadingText="Cargando..."
@@ -408,7 +413,7 @@ const SearchFilter = () => {
               </Paper>
             </Col>
             <Col
-              xs lg="5"
+              xs lg="6"
               className="list-filter-right-col"
             >
               <Paper
@@ -417,7 +422,7 @@ const SearchFilter = () => {
                   p: '2px 4px',
                   display: 'flex',
                   alignItems: 'center',
-                  width: 440,
+                  width: 528,
                   height: 59,
                   backgroundColor: '#fff',
                   borderColor: 'transparent',
