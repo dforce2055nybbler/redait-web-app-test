@@ -214,6 +214,7 @@ const SearchFilter = () => {
         text: searchText
       })
       getResults(searchText)
+      setOpen(false)
     }
 
   }
