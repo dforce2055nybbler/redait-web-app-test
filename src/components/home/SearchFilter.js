@@ -16,6 +16,7 @@ import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Select from 'react-select';
 import { formatDataSelect } from '../../helpers/formatDataSelect';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -276,6 +277,10 @@ const SearchFilter = () => {
     }
   }
 
+  const handleClickAway = () => {
+    setOpen(false)
+  }
+
   return (
     <Container style={{ marginTop: '-1.5rem' }}>
       {/* TODO: Refactor para encapsular Buscador con y sin filtros */}
@@ -296,30 +301,32 @@ const SearchFilter = () => {
                 >
                   <SearchIcon sx={{ color: '#212529' }}/>
                 </IconButton>
-                <Autocomplete
-                  id="combo-box-demo"
-                  sx={{ width: 600 }}
-                  open={open}
-                  loading={loading}
-                  loadingText="Cargando..."
-                  value={opportunityTypeSelect}
-                  isOptionEqualToValue={(option, value) => option.id === value.id}
-                  onChange={(e, value) => autocompleteHandle(e, value)}
-                  filterOptions={(x) => x}
-                  options={opportunitiesTypes}
-                  renderInput={(params, option) => {
-                    const { InputLabelProps, InputProps, ...rest } = params;
-                    return (
-                      <InputBase
-                        key={getKey(rest.inputProps.value)}
-                        onChange={(e) => searchTextHandle(e.target.value)}
-                        onKeyPress={(e) => search(e)}
-                        onClick={() => setOpen(true)}
-                        value={searchText} {...params.InputProps} {...rest} 
-                      />
-                    )
-                  }}
-                />
+                <ClickAwayListener onClickAway={handleClickAway}>
+                  <Autocomplete
+                    id="combo-box-demo"
+                    sx={{ width: 600 }}
+                    open={open}
+                    loading={loading}
+                    loadingText="Cargando..."
+                    value={opportunityTypeSelect}
+                    isOptionEqualToValue={(option, value) => option.id === value.id}
+                    onChange={(e, value) => autocompleteHandle(e, value)}
+                    filterOptions={(x) => x}
+                    options={opportunitiesTypes}
+                    renderInput={(params, option) => {
+                      const { InputLabelProps, InputProps, ...rest } = params;
+                      return (
+                        <InputBase
+                          key={getKey(rest.inputProps.value)}
+                          onChange={(e) => searchTextHandle(e.target.value)}
+                          onKeyPress={(e) => search(e)}
+                          onClick={() => setOpen(true)}
+                          value={searchText} {...params.InputProps} {...rest} 
+                        />
+                      )
+                    }}
+                  />
+                </ClickAwayListener>
               </Paper>
             </Col>
             <Col xs lg="2">
@@ -372,29 +379,32 @@ const SearchFilter = () => {
                 >
                   <SearchIcon sx={{ color: '#212529' }} />
                 </IconButton>
-                <Autocomplete
-                  id="combo-box-demo"
-                  sx={{ width: 600 }}
-                  disablePortal
-                  loading={loading}
-                  loadingText="Cargando..."
-                  value={opportunityTypeSelect}
-                  isOptionEqualToValue={(option, value) => option.id === value.id}
-                  onChange={(e, value) => autocompleteHandle(e, value)}
-                  filterOptions={(x) => x}
-                  options={opportunitiesTypes}
-                  renderInput={(params, option) => {
-                    const { InputLabelProps, InputProps, ...rest } = params;
-                    return (
-                      <InputBase
-                        key={getKey(rest.inputProps.value)}
-                        onChange={(e) => searchTextHandle(e.target.value)}
-                        onKeyPress={(e) => search(e)}
-                        value={searchText} {...params.InputProps} {...rest} 
-                      />
-                    )
-                  }}
-                />
+                <ClickAwayListener onClickAway={handleClickAway}>
+                  <Autocomplete
+                    id="combo-box-demo"
+                    sx={{ width: 600 }}
+                    open={open}
+                    loading={loading}
+                    loadingText="Cargando..."
+                    value={opportunityTypeSelect}
+                    isOptionEqualToValue={(option, value) => option.id === value.id}
+                    onChange={(e, value) => autocompleteHandle(e, value)}
+                    filterOptions={(x) => x}
+                    options={opportunitiesTypes}
+                    renderInput={(params, option) => {
+                      const { InputLabelProps, InputProps, ...rest } = params;
+                      return (
+                        <InputBase
+                          key={getKey(rest.inputProps.value)}
+                          onChange={(e) => searchTextHandle(e.target.value)}
+                          onKeyPress={(e) => search(e)}
+                          onClick={() => setOpen(true)}
+                          value={searchText} {...params.InputProps} {...rest} 
+                        />
+                      )
+                    }}
+                  />
+                </ClickAwayListener>
               </Paper>
             </Col>
             <Col
