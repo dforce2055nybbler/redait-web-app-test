@@ -12,7 +12,7 @@ const OpportunitiesGrid = () => {
   const { state } = useContext(SearchContext)
   let lastSearch = ''
   try {
-    lastSearch = state.search[0].text
+    lastSearch = state.searches[0].text
     console.log('OpportunitiesGrid Last Search => ', lastSearch.text);
   } catch (error) {
   }

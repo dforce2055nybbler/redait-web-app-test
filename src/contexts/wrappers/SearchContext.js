@@ -1,17 +1,28 @@
-import React, { createContext, useReducer } from 'react'
+import React, { createContext, useReducer, useEffect } from 'react'
 import { searchReducer } from '../reducers/search-reducers'
 
 export const SearchContext = createContext()
 
 const SearchContextProvider = (props) => {
-  const [search, dispatchSearch] = useReducer(searchReducer, [])
+  const [searches, dispatchSearch] = useReducer(searchReducer, [], () => {
+    // initial value
+    const storedSearch =
+      typeof window !== 'undefined'
+        ? JSON.parse(localStorage.getItem('searches'))
+        : null;
+    return storedSearch ? storedSearch : []
+  })
   const [filters, dispatchFilters] = useReducer(searchReducer, [])
 
+  useEffect(() => {
+    if (typeof window !== 'undefined')
+      localStorage.setItem('searches', JSON.stringify(searches))
+  }, [searches])
 
   return (
     <SearchContext.Provider
       value={{
-        state: { search, filters },
+        state: { searches, filters },
         actions: { dispatchSearch, dispatchFilters }
       }}>
       {props.children}
