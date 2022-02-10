@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import { Badge, Card, Col, Image, Row } from 'react-bootstrap';
-import { FaMapMarkerAlt, FaRegHeart } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaRegHeart, FaBookmark, FaRegBookmark } from 'react-icons/fa';
 import userIcon from '../../images/icon-user.svg';
 
 const Opportunity = ({ opportunity }) => {
   const [fav, setFav] = useState(false)
   return (
     <Card className="my-3 p-3 rounded">
-      <FaRegHeart
-        onClick={() => setFav(!fav)}
-        className={ fav ? 'opportunity-fav-selected': 'opportunity-fav' }
-      />
+      {fav ? (
+        <FaBookmark
+          onClick={() => setFav(!fav)}
+          className={fav ? 'opportunity-fav-selected' : 'opportunity-fav'}
+        />
+      ) : (
+        <FaRegBookmark
+          onClick={() => setFav(!fav)}
+          className={fav ? 'opportunity-fav-selected' : 'opportunity-fav'}
+        />
+      )}
       <Card.Body>
         <Row className="align-items-center mb-3">
           <Col sm={4}>

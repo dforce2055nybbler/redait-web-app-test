@@ -5,9 +5,9 @@ $theme-colors: (
   // 'info': tomato,
   // 'danger': teal,
   'dark': #353542,
-  'primary': #0033ff
+  'primary': #0033ff,
+  'selected': #657C97
 );
-$primary: #0033ff;
 
 /* GLOBALS */
 body {
@@ -246,7 +246,7 @@ h1 {
 .opportunity-location {
   font-size: 0.625rem;
   font-weight: 400;
-  color: #657c97;
+  color: map.get($theme-colors, "selected");
 }
 
 .opportunity-title {
@@ -258,7 +258,7 @@ h1 {
 .opportunity-description {
   font-size: 0.875rem;
   font-weight: 400;
-  color: #657c97;
+  color: map.get($theme-colors, "selected");
 }
 
 .opportunity-fav {
@@ -268,7 +268,7 @@ h1 {
   top: 5%;
 }
 .opportunity-fav-selected {
-  color: map.get($theme-colors, "primary");
+  color: map.get($theme-colors, "selected");
   position: absolute;
   right: 4%;
   top: 5%;
