@@ -232,11 +232,32 @@ h1 {
 
 /* OPPORTUNITY CARD */
 .badge-redait {
-  text-transform: uppercase;
+  
   font-size: 0.625rem !important;
   font-weight: 600;
+  background: #F0F4F8;
 }
-
+.badge-redait > span{
+  color: map.get($theme-colors, "selected");
+}
+.btn-see-more {
+  padding: 0px !important;
+  margin: 0px auto !important;
+  border-radius: 20px !important;
+  align-items: center !important;
+  text-align: center !important;
+  padding-left: 6px !important;
+  background: #DEE4EA !important;
+  
+}
+span.see-more {
+  color: #657c97 !important;
+  background-color: transparent;
+}
+.see-more:hover {
+  /* text-decoration: underline; */
+  cursor: pointer;
+}
 .opportunity-company {
   font-size: 0.875rem;
   font-weight: 500;

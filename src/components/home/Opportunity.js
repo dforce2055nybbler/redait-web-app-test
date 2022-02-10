@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
-import { Badge, Card, Col, Image, Row } from 'react-bootstrap';
+import { Badge, Card, Col, Image, Row, Button } from 'react-bootstrap';
 import { FaMapMarkerAlt, FaRegHeart, FaBookmark, FaRegBookmark } from 'react-icons/fa';
 import userIcon from '../../images/icon-user.svg';
 
 const Opportunity = ({ opportunity }) => {
   const [fav, setFav] = useState(false)
+  const maxDescription = 130
+  const maxSkills = 5
+  const skills = opportunity.skills.slice(0, maxSkills)
+
+  const seeMoreSkills = () => {
+    console.log('more skills')
+  }
+
   return (
     <Card className="my-3 p-3 rounded">
       {fav ? (
@@ -36,14 +44,27 @@ const Opportunity = ({ opportunity }) => {
           {opportunity.title}
         </Card.Title>
         <Card.Text as="div" className="opportunity-description mb-3">
-          {opportunity.description}.
+          {opportunity.description.slice(0, maxDescription)}<em>...</em>
         </Card.Text>
         <Card.Text>
-          {opportunity.skills.map(({ name }) => (
-            <Badge key={name} className="me-2 badge-redait p-2" bg="secondary">
-              {name}
+          {skills.map(({ name }) => (
+            <Badge key={name} className="me-2 badge-redait p-2" pill bg="light" text="dark">
+              <span>{name}</span>
             </Badge>
           ))}
+          {opportunity.skills.length > 5 ?
+            (
+              <Button
+                variant="light"
+                size="sm"
+                className="btn-see-more"
+                onClick={() => seeMoreSkills()}
+              >
+                <span  className="me-2 badge-redait see-more p-2">Ver más</span>
+              </Button>
+            ):
+              ''
+          }
         </Card.Text>
       </Card.Body>
     </Card>

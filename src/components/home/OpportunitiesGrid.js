@@ -6,6 +6,7 @@ import { SearchContext } from '../../contexts/wrappers/SearchContext';
 
 import { useQuery } from '@apollo/client'
 import { BUSINESS_OPPORTUNITIES_EVENTS } from '../../apollo/queries'
+import Loader from '../ui/loader';
 
 
 const OpportunitiesGrid = () => {
@@ -52,27 +53,14 @@ const OpportunitiesGrid = () => {
 
   return (
     <Container style={{ marginTop: '3.563rem' }}>
-      {/*
-      old
-      <p>
-        Todas las oportunidades{' '}
-        <strong>{data2.allStrapiOpportunities.totalCount}</strong> resultados
-      </p>
-      <Row>
-        {data2.allStrapiOpportunities.edges.map(opportunity => (
-          <Col key={opportunity.node.strapiId} sm={12} md={6} lg={4} xl={3}>
-            <Opportunity opportunity={opportunity.node} />
-          </Col>
-        ))}
-      </Row> */}
-      {loading && <p>cargando...</p>}
+      {loading && <><p>cargando...</p> <Loader /></>}
       {data && 
         <>
           <Row>
             <Col>
-              <span>Todas las oportunidades{' '} <strong>{totalOportunities}</strong></span>
+            <span>Todas las oportunidades{' '} <strong>{totalOportunities}</strong> resultado{totalOportunities > 1 ? 's': '' }</span>
             </Col>
-            <Col>
+            {/* <Col>
               <span>Oportunidades: <strong>{data.opportunities.length}</strong></span>
             </Col>
             <Col>
@@ -80,7 +68,7 @@ const OpportunitiesGrid = () => {
             </Col>
             <Col>
               <span>Eventos: <strong>{data.events.length}</strong></span>
-            </Col>
+            </Col> */}
           </Row>
           <Row>
             {data.opportunities.map(opportunity => (
