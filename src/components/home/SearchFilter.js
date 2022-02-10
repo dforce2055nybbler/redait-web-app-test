@@ -23,7 +23,7 @@ import { graphql, useStaticQuery } from 'gatsby';
 import { SearchContext } from '../../contexts/wrappers/SearchContext';
 
 const SearchFilter = () => {
-  const { actions } = useContext(SearchContext)
+  const { state, actions } = useContext(SearchContext)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [searchText, setSearchText] = useState('');
@@ -191,22 +191,29 @@ const SearchFilter = () => {
     },
   ];
 
-  const search = (e) => {
-    const text = e.target.value
-    if (e.key === 'Enter') {
-      console.log('Enter submited!!!');
-      actions.dispatchSearch({
-        type: 'ADD_SEARCH',
-        text: text
-      })
-    } 
-    console.log('searching =>', text);
-  }
-
   const onSubmit = (event) => {
     event.preventDefault();
     console.log("submission prevented");
   };
+
+  const search = (e) => {
+    const text = e.target.value
+    
+    if (e.key === 'Enter' && text) {
+      actions.dispatchSearch({
+        type: 'ADD_SEARCH',
+        text: text
+      })
+      getResults(text)
+    } 
+    // if (e.type === 'click') {
+    //   actions.dispatchSearch({
+    //     type: 'ADD_SEARCH',
+    //     text: searchText
+    //   })
+    //   // getResults(searchText)
+    // } 
+  }
 
   const autocompleteHandle = (event, value) => {
     if (!value)
@@ -215,11 +222,13 @@ const SearchFilter = () => {
     setOpportunityTypeSelect(value)
   }
   const searchTextHandle = (value) => {
-    setSearchText(value)
-    setOpportunityTypeSelect(value);
     try {
-      if (value.length > 3) {
-        getResults(value)
+      const text = value
+      setSearchText(text)
+      setOpportunityTypeSelect(text)
+
+      if (text.length >= 3) {
+        getResults(text)
       }
     } catch (error) {
       console.error(error)
@@ -232,12 +241,17 @@ const SearchFilter = () => {
     try {
       setLoading(true)
       // TODO: implementar llamada a la API
-      const resolve = await fetch(`https://pixabay.com/api/?key=25593974-8a25e418a8d006e97c6a76da2&q=${searchText}&image_type=photo`)
-      const json = await resolve.json();
-      const results = json.hits.map(result => (
-        { id: result.id, label: result.user, value: result.user }
-      ))
+      // const resolve = await fetch(`https://pixabay.com/api/?key=25593974-8a25e418a8d006e97c6a76da2&q=${searchText}&image_type=photo`)
+      // const json = await resolve.json();
+      // const results = json.hits.map(result => (
+      //   { id: result.id, label: result.user, value: result.user }
+      // ))
 
+      const searches = state.searches
+      const results = searches.map(result => (
+        { id: result.id, label: result.text, value: result.text }
+        ))
+        
       setOpportunitiesTypes([
         ...results
       ])
@@ -245,6 +259,7 @@ const SearchFilter = () => {
     } catch (error) {
       console.error(error)
       setError(error)
+      setLoading(false)
     }
   }
 
@@ -259,6 +274,7 @@ const SearchFilter = () => {
 
   return (
     <Container style={{ marginTop: '-1.5rem' }}>
+      {/* TODO: Refactor para encapsular Buscador con y sin filtros */}
       {!btnFilter &&
         <InputGroup style={{ flexWrap: 'nowrap' }}>
           <Row className="d-flex justify-content-center w-5 m-auto">
@@ -269,9 +285,9 @@ const SearchFilter = () => {
                 sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 630, height: 59, backgroundColor: '#fff', borderRightColor: 'transparent'}}
               >
                 <IconButton
-                  onClick={(e) => getResults(opportunityTypeSelect)}
+                  onClick={(e) => search(e)}
                   type="submit"
-                  sx={{ p: '10px', height: 59 }}
+                  sx={{ p: '10px', height: 50 }}
                   aria-label="search"
                 >
                   <SearchIcon sx={{ color: '#212529' }}/>
@@ -344,7 +360,7 @@ const SearchFilter = () => {
                 }}
               >
                 <IconButton
-                  onClick={(e) => search(e)}
+                  onClick={() => getResults(opportunityTypeSelect)}
                   type="submit"
                   sx={{ p: '10px' }}
                   aria-label="search"

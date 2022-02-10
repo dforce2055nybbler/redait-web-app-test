@@ -12,9 +12,11 @@ const OpportunitiesGrid = () => {
   const { state } = useContext(SearchContext)
   let lastSearch = ''
   try {
-    lastSearch = state.searches[0].text
+    lastSearch = state.searches[0]?.text ? state.searches[0].text : ''
     console.log('OpportunitiesGrid Last Search => ', lastSearch.text);
   } catch (error) {
+    lastSearch = ''
+    console.error(error)
   }
   const { loading, error, data } = useQuery(BUSINESS_OPPORTUNITIES_EVENTS, {
     variables: { search: lastSearch }
