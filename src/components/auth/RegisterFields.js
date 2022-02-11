@@ -216,7 +216,7 @@ const RegisterFields = ({ member }) => {
                   onClick={() => setHidePassword(!hidePassword)}
                   className={errors.password && 'input-icon-error-redait'}
                 >
-                  {hidePassword ? <FaEye /> : <FaEyeSlash />}
+                  {hidePassword ? <FaEyeSlash /> : <FaEye />}
                 </InputGroup.Text>
                 {touched.password && errors.password && (
                   <Form.Control.Feedback type="invalid">
@@ -248,7 +248,7 @@ const RegisterFields = ({ member }) => {
                     errors.passwordConfirmation && 'input-icon-error-redait'
                   }
                 >
-                  {hidePassword ? <FaEye /> : <FaEyeSlash />}
+                  {hidePassword ? <FaEyeSlash /> : <FaEye />}
                 </InputGroup.Text>
                 {touched.passwordConfirmation &&
                   errors.passwordConfirmation && (
