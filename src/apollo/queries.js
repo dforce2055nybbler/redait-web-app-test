@@ -132,10 +132,90 @@ const BUSINESS_OPPORTUNITIES_EVENTS = gql `
     }
   }
 `
+const BUSINESS_OPPORTUNITIES_EVENTS_LIMIT = gql `
+  query ($search:String!, , $limit:Int!) {
+    businessOpportunitiesConnection {
+      aggregate {
+        count
+      }
+    }
+    businessOpportunities(where:{ _or:
+    [{title_contains:$search},{description_contains:$search}]}, limit:$limit){
+      id
+      title
+      description
+      country {
+        id
+        name
+      },
+      region {
+        id
+        name
+      }
+      created_at
+      published_at
+      updated_at
+    }
+    eventsConnection(where: { active: true }) {
+      aggregate {
+        count
+      }
+    }
+    events(where:{ _or:
+      [{title_contains:$search},{description_contains:$search}]}, limit:$limit){
+        id  
+        title
+        description
+        created_at
+        published_at
+        updated_at
+    },
+    opportunitiesConnection(where: { active: true }) {
+      aggregate {
+        count
+      }
+    }
+    opportunities(where:{ _or:
+      [{title_contains:$search},{description_contains:$search}]}, limit:$limit) {
+        id
+        title
+        description
+        company {
+          id
+          name
+          location
+        }
+        skills {
+          id
+          name
+        }
+        opportunities_type {
+          id
+          name
+        }
+        programming_langs {
+          id
+          name
+        }
+        technologies {
+          id
+          name
+        }
+        verticals {
+          id
+          name
+        }
+        created_at
+        published_at
+        updated_at
+    }
+  }
+`
 
 export {
   TYPES_OPPORTUNITIES,
   BUSINESS_OPPORTUNITIES,
   BUSINESS_OPPORTUNITIES_EVENTS,
+  BUSINESS_OPPORTUNITIES_EVENTS_LIMIT,
   COMPANIES_DETAILED
 }
