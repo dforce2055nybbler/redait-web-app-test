@@ -14,16 +14,18 @@ const storedUser =
 
 
 const authMiddleware = new ApolloLink((operation, forward) => {
-    // add the authorization to the headers
+  // add the authorization to the headers
+  if (storedUser?.jwt) {
     operation.setContext(({ headers = {} }) => ({
       headers: {
         ...headers,
         authorization: `Bearer ${storedUser?.jwt}`,
       }
-    }));
+    }))
+  }
   
-    return forward(operation);
-  })
+  return forward(operation);
+})
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
