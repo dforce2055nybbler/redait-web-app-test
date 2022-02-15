@@ -6,10 +6,30 @@ $theme-colors: (
   // 'danger': teal,
   'dark': #353542,
   'primary': #0033ff,
-  'selected': #657C97
+  'selected': #657C97,
+  'redit1': #264A75,
+  'redit2': #657C97,
+  'redit3': #DEE4EA,
+  'redit4': #F0F4F8,
+  'redit5': #F8F9FB,
+  'redit6': #BEC6CE,
+  'azulredit': #0033FF,
+  'verderedit': #2EE7BA,
+  'naranjaredit': #FF5C40,
+  'azulcelesteredit': #BDCAFF,
+  'celesteclaroredit': #E3E9FF,
 );
 
 /* GLOBALS */
+.redit1-text {
+  color: map.get($theme-colors, "redit1");
+}
+.redit2-text {
+  color: map.get($theme-colors, "redit2");
+}
+.azulredit-text {
+  color: map.get($theme-colors, "azulredit") !important;
+}
 body {
   font-family: 'Roboto' !important;
 }
@@ -18,10 +38,18 @@ h1 {
   font-weight: 700 !important;
   font-size: 2.25rem !important;
 }
+.header-forms {
+  font-family: "Roboto" !important;
+  font-style: normal;
+  font-weight: 500 !important;
+  line-height: 3rem !important;
+  color: #264A75;
+}
 
 .bg-redait {
   background: #fff !important;
 }
+
 
 .btn-light-main-redait {
   color: #0033ff !important;
@@ -132,7 +160,7 @@ h1 {
 
 /* HERO */
 .hero-redait {
-  background-image: url('../../images/bg-hero.jpg');
+  background-image: linear-gradient(to bottom, rgb(8 71 161 / 98%), rgb(1 35 78 / 75%)), url('../../images/bg-login.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -268,7 +296,7 @@ span.see-more {
 .opportunity-company {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #264a75;
+  color: map.get($theme-colors, "redit1");
 }
 
 .opportunity-location {
@@ -280,7 +308,7 @@ span.see-more {
 .opportunity-title {
   font-size: 1rem;
   font-weight: 500;
-  color: #264a75;
+  color: map.get($theme-colors, "redit1");
 }
 
 .opportunity-description {
@@ -300,6 +328,11 @@ span.see-more {
   position: absolute;
   right: 4%;
   top: 5%;
+}
+
+/* FORMS */
+#select-w100 > div {
+  width: 100% !important;
 }
 
 /* import bootstrap to set changes */
