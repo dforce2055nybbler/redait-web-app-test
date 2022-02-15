@@ -1,15 +1,28 @@
-import * as React from 'react';
-import Seo from '../components/seo';
+import React, { useContext, useEffect } from 'react'
+import { UserContext } from '../contexts'
+import Seo from '../components/seo'
 import { useQuery } from '@apollo/client'
 import { COMPANIES_DETAILED } from '../apollo/queries'
-
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby'
+// import { navigate } from "@reach/router"
 
 
 const TestPage = () => {
   const { loading, error, data } = useQuery(COMPANIES_DETAILED, {
     variables: { search: 'java' }
   })
+  const { user } = useContext(UserContext)
+
+
+  useEffect(() => () => {
+    if (!user || user?.username === 'Guest') {
+      console.log('no hay usuario go to Login!')
+      // navigate('/login/');
+      if (typeof window !== 'undefined') {
+        window.location = '/';
+      }
+    }
+  }, )
 
   console.log('data', data)
 

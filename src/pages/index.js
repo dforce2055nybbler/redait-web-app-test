@@ -14,7 +14,11 @@ import SearchContextProvider from '../contexts/wrappers/SearchContext';
 const IndexPage = () => (
   <Layout>
     <Seo title="Inicio" />
-    <Hero />
+    <Hero
+      title="Oportunidades"
+      message="Descubre todas las opotunidades de proyectos y perfiles que ofrecen
+          las diferentes empresas del sector."
+    />
     <SearchContextProvider>
       <SearchFilter />
       <OpportunitiesGrid />

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'gatsby';
 import { Button, Container, Navbar } from 'react-bootstrap';
 import logo from '../../images/logo-redait-color.svg';
