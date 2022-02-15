@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'gatsby';
 import { Button, Container, Navbar } from 'react-bootstrap';
 import logo from '../../images/logo-redait-color.svg';
@@ -6,6 +6,7 @@ import { UserContext } from '../../contexts';
 import { FaBell, FaCommentDots } from 'react-icons/fa';
 import { setUser } from '../../contexts/actions/user-actions';
 import UserMenu from '../auth/UserMenu';
+import MenuPost from './menuPost';
 
 const Header = () => {
   const { user, dispatchUser, defaultUser } = useContext(UserContext);
@@ -35,15 +36,7 @@ const Header = () => {
           >
             {user.jwt && user.onboarding ? (
               <>
-                <Link to="/publish">
-                  <Button
-                    className="btn-light-main-redait"
-                    aria-label="Publicar"
-                    style={{ paddingInline: '2rem' }}
-                  >
-                    Publicar
-                  </Button>
-                </Link>
+                <MenuPost />
                 <FaBell color="#657C97" size={29} />
                 <FaCommentDots color="#657C97" size={29} />
                 <UserMenu logoutHandler={logoutHandler} user={user} />
