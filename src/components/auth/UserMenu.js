@@ -1,7 +1,8 @@
 import React from 'react';
-import { Col, Dropdown, DropdownButton, Image, Row } from 'react-bootstrap';
+import { Col, Dropdown, DropdownButton, Image, Row, Button } from 'react-bootstrap';
 import { FaUserCircle } from 'react-icons/fa';
 import { roleCoordinador } from '../../constants';
+import { Link } from 'gatsby'
 
 import userIcon from '../../images/icon-user.svg';
 
@@ -41,7 +42,13 @@ const UserMenu = ({ logoutHandler, user }) => {
           </Col>
         </Row>
       </Dropdown.Header>
-      <Dropdown.Item>Perfil</Dropdown.Item>
+      <Dropdown.Item>
+        <Link to="/profile">
+          <Button className="menu-user-item">
+            Perfil
+          </Button>
+        </Link>
+      </Dropdown.Item>
       <Dropdown.Item>Publicaciones</Dropdown.Item>
       <Dropdown.Item>Favoritos</Dropdown.Item>
       <Dropdown.Item>Team</Dropdown.Item>

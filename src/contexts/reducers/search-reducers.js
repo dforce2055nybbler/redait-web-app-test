@@ -31,7 +31,6 @@ export const searchReducer = (state, action) => {
   }
 }
 export const filterReducer = (state, action) => {
-  debugger
   switch (action.type) {
     case 'ADD_FILTER':
       return [

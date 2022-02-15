@@ -1,8 +1,7 @@
 import React from "react";
 // import { Group341 } from "components";
 import * as styles from "./profilepage.module.scss";
-console.log('Styles => ', styles)
-debugger
+
 const ProfilePage = () => {
   return (
     <div className={styles.profilePage}>
