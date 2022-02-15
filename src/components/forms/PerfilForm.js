@@ -27,7 +27,9 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
     },
     onSubmit: values => {
       setLoading(true);
-      handleSubmitForm({ ...values, perfil, tipoVacante });
+      setTimeout(() => {
+        handleSubmitForm({ ...values, perfil, tipoVacante });
+      }, 100);
       setLoading(false);
     },
     validationSchema: Yup.object({
@@ -43,10 +45,12 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
 
   const { value: valueNombre } = getFieldProps('nombre');
   const { value: valueDescripcion } = getFieldProps('descripcion');
-  const { value: valueTipoVacante } = getFieldProps('tipoVacante');
+
+  let mounted = true
 
   useEffect(() => {
     if (
+      mounted &&
       valueNombre.trim() &&
       valueDescripcion.trim() &&
       (tipoVacante !== {}) &&
@@ -56,6 +60,10 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
     } else {
       setValidate(false);
     }
+
+    return () => {
+      mounted = false
+    }
   }, [
     valueNombre,
     valueDescripcion,
@@ -63,6 +71,9 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
     errors,
   ]);
 
+  useEffect(() => () => {
+    mounted = false
+  }, [] );
 
   return (
     <>

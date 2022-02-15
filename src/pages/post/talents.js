@@ -8,7 +8,6 @@ import { Row, Col, Container } from 'react-bootstrap'
 
 const Talents = () => {
   const size = useBreakpoint()
-  console.log(size)
   return (
     <Layout>
       <Container fluid style={{ backgroundColor: '#F9F9F9' }} className="h-100">

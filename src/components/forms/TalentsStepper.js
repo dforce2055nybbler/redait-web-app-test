@@ -81,22 +81,18 @@ export default function TalentsStepper() {
   };
 
   const handleContactForm = (values) => {
-    console.log('Obtuve valores del formulario de contacto', values)
     setContact(values)
     handleNext()
   }
   const handlePerfilForm = (values) => {
-    console.log('Obtuve valores del formulario de perfil', values)
     setPerfil(values)
     handleNext()
   }
   const handleTechnologiesForm = (values) => {
-    console.log('Obtuve valores del formulario de Technologies', values)
     setTechnologies(values)
     handleNext()
   }
   const handleConfirmationForm = (values) => {
-    console.log('confirmado', values)
     window?.scrollTo(0, 0)
     setLoading(true)
     handleNext()

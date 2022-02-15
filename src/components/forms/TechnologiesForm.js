@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form, InputGroup, Row, Col } from 'react-bootstrap';
+import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import Select from 'react-select';
 import * as Yup from 'yup';
 import Loader from '../ui/loader';
-
+import { graphql, useStaticQuery } from 'gatsby';
+import { formatDataSelect } from '../../helpers/formatDataSelect';
 
 const TechnologiesForm = ({
   values,
@@ -17,6 +18,7 @@ const TechnologiesForm = ({
   const [tecnologia, setTecnologia] = useState({
     id: 1, value: 'Javascript', label: 'Javascript'
   });
+  // TODO: Obtener tecnologías desde servicio
   const [tecnologias, setTecnologias] = useState([
     { id: 1, value: 'Javascript', label: 'Javascript' },
     { id: 2, value: 'Git', label: 'Git' },
@@ -24,10 +26,10 @@ const TechnologiesForm = ({
     { id: 4, value: 'React', label: 'React' },
     { id: 5, value: 'Vue', label: 'Vue' },
   ]);
-  const [duracion, setDuracion] = useState({
+  const [experiencia, setExperiencia] = useState({
     id: 1, value: '1-3', label: '1 a 3 años'
   });
-  const [tiemposDeDuracion, setTiemposDeDuracion] = useState([
+  const [tiemposDeExperiencia, setTiemposDeExperiencia] = useState([
     { id: 1, value: '1-3', label: '1 a 3 años' },
     { id: 2, value: '2-4', label: '2 a 4 años' },
     { id: 2, value: '3-5', label: '3 a 5 años' },
@@ -43,13 +45,14 @@ const TechnologiesForm = ({
     },
     onSubmit: values => {
       setLoading(true);
-      handleSubmitForm({ ...values, tecnologia, duracion });
+      setTimeout(() => {
+        handleSubmitForm({ ...values, tecnologia, experiencia });
+      }, 100);
       setLoading(false);
     },
     validationSchema: Yup.object({
-      experiencia: Yup.number()
-        .integer('Experiencia inválida')
-        .positive('Experiencia inválida')
+      duracion: Yup.string()
+        .min(3, 'Debe tener al menos 3 caractéres')
         .required('Requerido'),
       otrasHabilidades: Yup.string()
         .min(3, 'Debe tener al menos 3 caractéres')
@@ -58,14 +61,17 @@ const TechnologiesForm = ({
   });
 
 
-  const { value: valueExperiencia } = getFieldProps('experiencia');
+  const { value: valueDuracion } = getFieldProps('duracion');
   const { value: valueOtrasHabilidades } = getFieldProps('otrasHabilidades');
+
+  let mounted = true
 
   useEffect(() => {
     if (
+      mounted &&
       tecnologia !== null &&
-      duracion !== null &&
-      valueExperiencia !== null &&
+      experiencia !== null &&
+      valueDuracion.trim() !== null &&
       valueOtrasHabilidades.trim() &&
       Object.keys(errors).length === 0
     ) {
@@ -73,12 +79,52 @@ const TechnologiesForm = ({
     } else {
       setValidate(false);
     }
+
+    return () => {
+      mounted = false
+    }
   }, [
-    valueExperiencia,
+    tecnologia,
+    experiencia,
+    valueDuracion,
     valueOtrasHabilidades,
     errors,
   ]);
 
+  useEffect(() => () => {
+    mounted = false
+  }, [] );
+
+  const data = useStaticQuery(graphql`
+    query AllTechnologiesAndProgrammingLangs {
+      allStrapiTechnologies {
+        edges {
+          node {
+            name
+            strapiId
+          }
+        }
+      }
+      allStrapiProgrammingLangs {
+        edges {
+          node {
+            strapiId
+            name
+          }
+        }
+      }
+    }
+  `);
+
+  const allTechnologiesAndProgrammingLangs = [
+    ...data.allStrapiTechnologies.edges,
+    ...data.allStrapiProgrammingLangs.edges
+  ]
+  const optionsTechnologiesAndProgramingLangs = formatDataSelect(
+    allTechnologiesAndProgrammingLangs,
+    'strapiId',
+    'name'
+  )
 
   return (
     <>
@@ -106,7 +152,7 @@ const TechnologiesForm = ({
                 placeholder="Tipo de vacante..."
                 name="tecnologia"
                 value={tecnologia}
-                options={tecnologias}
+                options={optionsTechnologiesAndProgramingLangs}
                   onChange={e => {
                     setTecnologia({ ...e })
                   }
@@ -119,12 +165,21 @@ const TechnologiesForm = ({
               )}
             </InputGroup>
             <Form.Label className="form-label redit1-text mb-1">Experiencia</Form.Label>
-            <InputGroup className="mb-3">
-              <Form.Control
-                isInvalid={!!errors.experiencia && touched.experiencia}
-                type="number"
+              <InputGroup id="select-w100" className="mb-3">
+              <Select
+                style={{ width: '100% !important'}}
+                className="basic-single"
+                classNamePrefix="select"
+                isClearable={true}
+                isSearchable={true}
                 placeholder="Años de experiencia"
-                {...getFieldProps('experiencia')}
+                name="experiencia"
+                value={experiencia}
+                options={tiemposDeExperiencia}
+                  onChange={e => {
+                    setExperiencia({ ...e })
+                  }
+                }
               />
               {touched.experiencia && errors.experiencia && (
                 <Form.Control.Feedback type="invalid">
@@ -132,22 +187,14 @@ const TechnologiesForm = ({
                 </Form.Control.Feedback>
               )}
             </InputGroup>
+            
             <Form.Label className="form-label redit1-text mb-1">Duración</Form.Label>
-            <InputGroup id="select-w100" className="mb-3">
-              <Select
-                style={{ width: '100% !important'}}
-                className="basic-single"
-                classNamePrefix="select"
-                isClearable={true}
-                isSearchable={true}
+            <InputGroup className="mb-3">
+              <Form.Control
+                isInvalid={!!errors.duracion && touched.duracion}
+                type="text"
                 placeholder="Duración del proyecto"
-                name="duracion"
-                value={duracion}
-                options={tiemposDeDuracion}
-                  onChange={e => {
-                    setDuracion({ ...e })
-                  }
-                }
+                {...getFieldProps('duracion')}
               />
               {touched.duracion && errors.duracion && (
                 <Form.Control.Feedback type="invalid">

@@ -77,10 +77,8 @@ const ConfirmationForm = ({ values, handleSubmitForm, handleBack, title='Informa
             <Row>
               <Col>
                 <Form.Label className="form-label redit2-text mb-1">
+                  {/* TODO: loopear sobre array de tecnologías  */}
                   { values.technologies?.tecnologia?.label }
-                  {/* {values.technologies.tecnologias.map(tecnologia => (
-                    tecnologia.value
-                  ))} */}
                 </Form.Label>
               </Col>
             </Row>
@@ -90,8 +88,8 @@ const ConfirmationForm = ({ values, handleSubmitForm, handleBack, title='Informa
               </Col>
             </Row>
             <Row>
-              <Col>
-                <Form.Label className="form-label redit2-text mb-1">{ values.technologies.experiencia }</Form.Label>
+                <Col>
+                <Form.Label className="form-label redit2-text mb-1">{ values.technologies?.experiencia?.label }</Form.Label>
               </Col>
             </Row>
             <Row className="g-0 pb-0 mb-0 pt-2">
@@ -101,7 +99,7 @@ const ConfirmationForm = ({ values, handleSubmitForm, handleBack, title='Informa
             </Row>
             <Row>
               <Col>
-                <Form.Label className="form-label redit2-text mb-1">{ values.technologies?.duracion?.label }</Form.Label>
+                <Form.Label className="form-label redit2-text mb-1">{ values.technologies.duracion }</Form.Label>
               </Col>
             </Row>
             <Row className="g-0 pb-0 mb-0 pt-2">
@@ -111,6 +109,7 @@ const ConfirmationForm = ({ values, handleSubmitForm, handleBack, title='Informa
             </Row>
             <Row>
               <Col>
+                {/* TODO: validar cantidad de caracteres para experiencia .slice(0, maxCharacters)*/}
                 <Form.Label className="form-label redit2-text mb-1">{ values.technologies.otrasHabilidades }</Form.Label>
               </Col>
             </Row>

@@ -17,7 +17,9 @@ const ContactForm = ({ values, handleSubmitForm, title='Información de contacto
     },
     onSubmit: values => {
       setLoading(true);
-      handleSubmitForm(values)
+      setTimeout(() => {
+        handleSubmitForm(values)
+      }, 100);
       setLoading(false);
     },
     validationSchema: Yup.object({
@@ -44,8 +46,11 @@ const ContactForm = ({ values, handleSubmitForm, title='Información de contacto
   const { value: valueEmail } = getFieldProps('email');
   const { value: valueTelefono } = getFieldProps('telefono');
 
+  let mounted = true
+
   useEffect(() => {
     if (
+      mounted &&
       valueEmpresa.trim() &&
       valueContacto.trim() &&
       valueTelefono.trim() &&
@@ -56,6 +61,9 @@ const ContactForm = ({ values, handleSubmitForm, title='Información de contacto
     } else {
       setValidate(false);
     }
+    return () => {
+      mounted = false
+    }
   }, [
     valueEmpresa,
     valueContacto,
@@ -63,6 +71,10 @@ const ContactForm = ({ values, handleSubmitForm, title='Información de contacto
     valueEmail,
     errors,
   ]);
+
+  useEffect(() => () => {
+    mounted = false
+  }, [] );
 
   return (
     <>
