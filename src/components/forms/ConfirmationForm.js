@@ -101,7 +101,7 @@ const ConfirmationForm = ({ values, handleSubmitForm, handleBack, title='Informa
             </Row>
             <Row>
               <Col>
-                <Form.Label className="form-label redit2-text mb-1">{ values.technologies.duracion }</Form.Label>
+                <Form.Label className="form-label redit2-text mb-1">{ values.technologies?.duracion?.label }</Form.Label>
               </Col>
             </Row>
             <Row className="g-0 pb-0 mb-0 pt-2">

@@ -24,6 +24,14 @@ const TechnologiesForm = ({
     { id: 4, value: 'React', label: 'React' },
     { id: 5, value: 'Vue', label: 'Vue' },
   ]);
+  const [duracion, setDuracion] = useState({
+    id: 1, value: '1-3', label: '1 a 3 años'
+  });
+  const [tiemposDeDuracion, setTiemposDeDuracion] = useState([
+    { id: 1, value: '1-3', label: '1 a 3 años' },
+    { id: 2, value: '2-4', label: '2 a 4 años' },
+    { id: 2, value: '3-5', label: '3 a 5 años' },
+  ]);
 
 
   const { handleSubmit, touched, errors, getFieldProps } = useFormik({
@@ -35,17 +43,13 @@ const TechnologiesForm = ({
     },
     onSubmit: values => {
       setLoading(true);
-      handleSubmitForm({ ...values, tecnologia });
+      handleSubmitForm({ ...values, tecnologia, duracion });
       setLoading(false);
     },
     validationSchema: Yup.object({
       experiencia: Yup.number()
         .integer('Experiencia inválida')
         .positive('Experiencia inválida')
-        .required('Requerido'),
-      duracion: Yup.number()
-        .integer('Duración inválida')
-        .positive('Duración inválida')
         .required('Requerido'),
       otrasHabilidades: Yup.string()
         .min(3, 'Debe tener al menos 3 caractéres')
@@ -55,14 +59,13 @@ const TechnologiesForm = ({
 
 
   const { value: valueExperiencia } = getFieldProps('experiencia');
-  const { value: valueDuracion } = getFieldProps('duracion');
   const { value: valueOtrasHabilidades } = getFieldProps('otrasHabilidades');
 
   useEffect(() => {
     if (
-      tecnologias !== {} &&
+      tecnologia !== null &&
+      duracion !== null &&
       valueExperiencia !== null &&
-      valueDuracion !== null &&
       valueOtrasHabilidades.trim() &&
       Object.keys(errors).length === 0
     ) {
@@ -71,7 +74,7 @@ const TechnologiesForm = ({
       setValidate(false);
     }
   }, [
-    valueDuracion,
+    valueExperiencia,
     valueOtrasHabilidades,
     errors,
   ]);
@@ -130,12 +133,21 @@ const TechnologiesForm = ({
               )}
             </InputGroup>
             <Form.Label className="form-label redit1-text mb-1">Duración</Form.Label>
-            <InputGroup className="mb-3">
-              <Form.Control
-                isInvalid={!!errors.duracion && touched.duracion}
-                type="number"
+            <InputGroup id="select-w100" className="mb-3">
+              <Select
+                style={{ width: '100% !important'}}
+                className="basic-single"
+                classNamePrefix="select"
+                isClearable={true}
+                isSearchable={true}
                 placeholder="Duración del proyecto"
-                {...getFieldProps('duracion')}
+                name="duracion"
+                value={duracion}
+                options={tiemposDeDuracion}
+                  onChange={e => {
+                    setDuracion({ ...e })
+                  }
+                }
               />
               {touched.duracion && errors.duracion && (
                 <Form.Control.Feedback type="invalid">
