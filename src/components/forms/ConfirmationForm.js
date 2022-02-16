@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Button, Form, Row, Col} from 'react-bootstrap';
 import Loader from '../ui/loader';
 
 const ConfirmationForm = ({ values, handleSubmitForm, handleBack, title='Información de contacto' }) => {
   const [loading, setLoading] = useState(false);
- 
+  const showBackButton = false
   const handleSubmit = (e) => {
     setLoading(true)
     e.preventDefault()
@@ -116,7 +116,7 @@ const ConfirmationForm = ({ values, handleSubmitForm, handleBack, title='Informa
             
             
             <div className="d-flex justify-content-center">
-              {false && <Button
+              {showBackButton && <Button
                 size="lg"
                 variant="danger"
                 color="inherit"

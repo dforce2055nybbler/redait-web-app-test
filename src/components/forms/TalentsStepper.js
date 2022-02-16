@@ -11,6 +11,7 @@ import Loader from '../ui/loader';
 import Paper from '@mui/material/Paper';
 import { Row, Col } from 'react-bootstrap';
 
+
 const steps = ['Contacto', 'Perfil', 'Tecnologías', 'Confirmación'];
 
 export default function TalentsStepper() {
@@ -101,6 +102,7 @@ export default function TalentsStepper() {
     }, 1500);
   }
 
+  
   return (
     <Box sx={{ width: '100%', height: '100vmax' }}>
       <Stepper activeStep={activeStep} alternativeLabel>

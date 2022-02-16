@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form, InputGroup, Row, Col} from 'react-bootstrap';
+import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Loader from '../ui/loader';
+
 
 const ContactForm = ({ values, handleSubmitForm, title='Información de contacto' }) => {
   const [validate, setValidate] = useState(false);
@@ -74,7 +75,7 @@ const ContactForm = ({ values, handleSubmitForm, title='Información de contacto
 
   useEffect(() => () => {
     mounted = false
-  }, [] );
+  }, []);
 
   return (
     <>

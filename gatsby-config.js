@@ -41,6 +41,8 @@ module.exports = {
           `programming-langs`,
           `opportunities`,
           `types-opportunites`,
+          `experience-years`,
+          `vacancies-types`
         ],
         // singleTypes: [`home-page`, `contact`],
       },

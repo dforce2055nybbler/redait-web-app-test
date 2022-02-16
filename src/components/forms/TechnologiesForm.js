@@ -18,23 +18,12 @@ const TechnologiesForm = ({
   const [tecnologia, setTecnologia] = useState({
     id: 1, value: 'Javascript', label: 'Javascript'
   });
-  // TODO: Obtener tecnologías desde servicio
-  const [tecnologias, setTecnologias] = useState([
-    { id: 1, value: 'Javascript', label: 'Javascript' },
-    { id: 2, value: 'Git', label: 'Git' },
-    { id: 3, value: 'Linux', label: 'Linux' },
-    { id: 4, value: 'React', label: 'React' },
-    { id: 5, value: 'Vue', label: 'Vue' },
-  ]);
+  
   const [experiencia, setExperiencia] = useState({
     id: 1, value: '1-3', label: '1 a 3 años'
   });
-  const [tiemposDeExperiencia, setTiemposDeExperiencia] = useState([
-    { id: 1, value: '1-3', label: '1 a 3 años' },
-    { id: 2, value: '2-4', label: '2 a 4 años' },
-    { id: 2, value: '3-5', label: '3 a 5 años' },
-  ]);
 
+  const showBackButton = false
 
   const { handleSubmit, touched, errors, getFieldProps } = useFormik({
     initialValues: {
@@ -96,7 +85,7 @@ const TechnologiesForm = ({
   }, [] );
 
   const data = useStaticQuery(graphql`
-    query AllTechnologiesAndProgrammingLangs {
+    query TechnologiesFormData {
       allStrapiTechnologies {
         edges {
           node {
@@ -113,17 +102,30 @@ const TechnologiesForm = ({
           }
         }
       }
+      allStrapiExperienceYears(filter: {active: {eq: true}}) {
+        edges {
+          node {
+            strapiId
+            description
+          }
+        }
+      }
     }
   `);
 
-  const allTechnologiesAndProgrammingLangs = [
+  const TechnologiesFormData = [
     ...data.allStrapiTechnologies.edges,
     ...data.allStrapiProgrammingLangs.edges
   ]
   const optionsTechnologiesAndProgramingLangs = formatDataSelect(
-    allTechnologiesAndProgrammingLangs,
+    TechnologiesFormData,
     'strapiId',
     'name'
+  )
+  const optionsExperienceYears = formatDataSelect(
+    data.allStrapiExperienceYears.edges,
+    'strapiId',
+    'description'
   )
 
   return (
@@ -175,7 +177,7 @@ const TechnologiesForm = ({
                 placeholder="Años de experiencia"
                 name="experiencia"
                 value={experiencia}
-                options={tiemposDeExperiencia}
+                options={optionsExperienceYears}
                   onChange={e => {
                     setExperiencia({ ...e })
                   }
@@ -220,7 +222,7 @@ const TechnologiesForm = ({
             </InputGroup>
             
             <div className="d-flex justify-content-center">
-              {false && <Button
+              { showBackButton && <Button
                 size="lg"
                 variant="danger"
                 color="inherit"

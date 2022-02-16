@@ -2,14 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import {
   Button,
   Container,
-  Form,
-  FormControl,
   Badge,
   InputGroup,
   Row,
   Col,
 } from 'react-bootstrap';
-import { FaSearch, FaSlidersH } from 'react-icons/fa';
+import { FaSlidersH } from 'react-icons/fa';
 
 import Autocomplete from '@mui/material/Autocomplete';
 import Paper from '@mui/material/Paper';

@@ -4,7 +4,8 @@ import { useFormik } from 'formik';
 import Select from 'react-select';
 import * as Yup from 'yup';
 import Loader from '../ui/loader';
-
+import { graphql, useStaticQuery } from 'gatsby';
+import { formatDataSelect } from '../../helpers/formatDataSelect';
 
 const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información de perfil' }) => {
   const [validate, setValidate] = useState(false)
@@ -13,11 +14,8 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
   const [tipoVacante, setTipoVacante] = useState({
     id: 1, value: 'Presencial', label: 'Presencial'
   });
-  const [tiposDeVacantes, setTiposDeVacantes] = useState([
-    { id: 1, value: 'Presencial', label: 'Presencial'},
-    { id: 2, value: 'Remoto', label: 'Remoto'},
-  ]);
-
+  const showBackButton = false
+  
   const { handleSubmit, touched, errors, getFieldProps } = useFormik({
     initialValues: {
       perfil: values.perfil,
@@ -74,6 +72,28 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
   useEffect(() => () => {
     mounted = false
   }, [] );
+
+  const data = useStaticQuery(graphql`
+    query PerfilFormData {
+      allStrapiVacanciesTypes(filter: {active: {eq: true}}) {
+        edges {
+          node {
+            strapiId
+            id
+            title
+            description
+          }
+        }
+      }
+    }
+  `);
+
+  const optionsVacanciesType = formatDataSelect(
+    data.allStrapiVacanciesTypes.edges,
+    'strapiId',
+    'title'
+  )
+  // setTiposDeVacantes(optionsVacanciesType)
 
   return (
     <>
@@ -166,7 +186,7 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
                   placeholder="Tipo de vacante..."
                   name="tipoVacante"
                   value={tipoVacante}
-                  options={tiposDeVacantes}
+                  options={optionsVacanciesType}
                     onChange={e => {
                       setTipoVacante({ ...e })
                     }
@@ -182,7 +202,7 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
             
             
             <div className="d-flex justify-content-center">
-              {false && <Button
+              { showBackButton && <Button
                 size="lg"
                 variant="danger"
                 color="inherit"

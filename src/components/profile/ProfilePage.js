@@ -1,5 +1,4 @@
 import React from "react";
-// import { Group341 } from "components";
 import * as styles from "./profilepage.module.scss";
 
 const ProfilePage = () => {
