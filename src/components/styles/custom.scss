@@ -2,11 +2,10 @@
 @use "sass:map";
 
 $theme-colors: (
-  // 'info': tomato,
-  // 'danger': teal,
   'dark': #353542,
   'primary': #0033ff,
   'selected': #657C97,
+  'background': #E5E5E5,
   'redit1': #264A75,
   'redit2': #657C97,
   'redit3': #DEE4EA,
@@ -22,6 +21,9 @@ $theme-colors: (
 );
 
 /* GLOBALS */
+.main-background {
+  background-color: map.get($theme-colors, "redit5");
+}
 .redit1-text {
   color: map.get($theme-colors, "redit1");
 }
@@ -199,6 +201,39 @@ h1 {
   right: 0;
   background-color: rgba(143, 145, 191, 0.3);
 }
+
+.hero-container {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  background-color: transparent;
+}
+.hero-content {
+  padding: 1rem;
+  h1 {
+    font-size: 3.125rem !important;
+    z-index: 999;
+    margin-bottom: 0;
+  }
+
+  h3 {
+    font-size: 1.25rem !important;
+    z-index: 999;
+  }
+}
+.header-bg-image {
+  position: relative;
+  color: white;
+  background-image: linear-gradient(to top, rgb(8 71 161 / 98%), rgb(1 35 78 / 45%)), url('https://static.overlay-tech.com/assets/a4f1d00a-9675-4a65-826a-df01f979ca70.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 172px;
+  border-radius: 0.4rem;
+}
+
 
 /* FORM */
 .search-redait-home {
@@ -414,6 +449,7 @@ span.see-more {
   width: 100% !important;
 }
 
+/* PROFILE PAGE */
 
 /* import bootstrap to set changes */
 @import '~bootstrap/scss/bootstrap';

@@ -4,7 +4,7 @@ import Seo from '../../components/seo'
 import TalentsStepper from '../../components/forms/TalentsStepper'
 import Hero from '../../components/home/Hero'
 import useBreakpoint from '../../hooks/useBreakpoint'
-import { Row, Col, Container } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 import { UserContext } from '../../contexts'
 // import { navigate } from "@reach/router"
 
@@ -26,7 +26,7 @@ const Talents = () => {
   return (
     <Layout>
       {user?.username !== 'Guest' &&
-        <Container fluid style={{ backgroundColor: '#F9F9F9' }} className="h-100">
+        <>
           <Seo title="Talentos" />
           <Hero
             title="Talentos"
@@ -44,7 +44,7 @@ const Talents = () => {
               <TalentsStepper className="overflow-auto" />
             </Col>
           </Row>
-        </Container>
+        </>
       }
     </Layout>
   )

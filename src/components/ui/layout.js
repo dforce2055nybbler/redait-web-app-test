@@ -5,7 +5,10 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      <main>{children}</main>
+      <main className="main-background">
+        <div style={{ marginTop: '1rem' }}>&nbsp;</div>
+        {children}
+      </main>
       {/*Footer  */}
     </>
   );
