@@ -383,7 +383,7 @@ span.see-more {
 }
 
 /* MENUS */
-.menu-items {
+.menu-post-items {
   background-color: rgba(255, 255, 255, 1) !important;
   border-radius: 5px !important;
   padding: 22px 22px 14px 20px !important;
@@ -393,26 +393,26 @@ span.see-more {
   position: relative !important;
   width: 469px !important;
 }
-.menu-item {
+.menu-post-item {
   border-color: transparent !important;
   background-color: map.get($theme-colors, "redit5") !important;
   padding: 1rem !important;
   width: 100% !important;
 }
-.menu-item:hover {
+.menu-post-item:hover {
   background-color: map.get($theme-colors, "celesteclaroredit") !important;
   padding: 1rem !important;
   width: 100% !important;
 }
-.item-left-icon {
+.post-item-left-icon {
   width: 31px;
   height: 31px;
 }
-.item-right-icon {
+.post-item-right-icon {
   width: 30px;
   height: 19px;
 }
-.item-title {
+.post-item-title {
   color: map.get($theme-colors, "azulredit");
   height: 38.89%;
   width: 36.53%;
@@ -422,7 +422,7 @@ span.see-more {
   line-height: 18px;
   margin-bottom: 8px;
 }
-.item-subtitle {
+.post-item-subtitle {
   color: map.get($theme-colors, "redit1");
   height: 100%;
   width: 100%;

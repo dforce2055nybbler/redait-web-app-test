@@ -48,34 +48,34 @@ const MenuPost = () => {
   ]
   const popover = (
     <Popover id="popover-post">
-      <div className="d-grid gap-2 menu-items">
+      <div className="d-grid gap-2 menu-post-items">
         {buttons.map(button => (
           <Link key={ button.id } to={ button.to }>
-            <Button className="menu-item" size="lg">
+            <Button className="menu-post-item" size="lg">
               <Row className="align-items-center">
                 <Col xs={2}>
                   <img
                     alt=""
-                    className="item-left-icon"
+                    className="post-item-left-icon"
                     src={ button.src }
                   />
                 </Col>
                 <Col xs={8} style={{ textAlign: 'start' }}>
                   <Row>
                     <Col style={{ lineHeight: '40px' }}>
-                      <span className='item-title'>{ button.title }</span>
+                      <span className='post-item-title'>{ button.title }</span>
                     </Col>
                   </Row>
                   <Row>
                     <Col style={{ lineHeight: '10px' }}>
-                      <span className='item-subtitle'>{ button.subtitle }</span>
+                      <span className='post-item-subtitle'>{ button.subtitle }</span>
                     </Col>
                   </Row>
                 </Col>
                 <Col xs={2}>
                   <img
                     alt=""
-                    className="item-right-icon"
+                    className="post-item-right-icon"
                     src={rightArrowIcon}
                   />
                 </Col>
