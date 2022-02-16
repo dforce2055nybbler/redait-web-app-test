@@ -10,6 +10,8 @@ import ConfirmationForm from './ConfirmationForm';
 import Loader from '../ui/loader';
 import Paper from '@mui/material/Paper';
 import { Row, Col } from 'react-bootstrap';
+import { useMutation } from '@apollo/client'
+import { REGISTER_TALEN } from '../../apollo/queries'
 
 
 const steps = ['Contacto', 'Perfil', 'Tecnologías', 'Confirmación'];
@@ -31,7 +33,7 @@ export default function TalentsStepper() {
     tipoVacante: '',
   })
   const [technologies, setTechnologies] = useState({
-    tecnologias: [],
+    tecnologia: '', // TODO: array (?)
     experiencia: '',
     duracion: '',
     otrasHabilidades: '',
@@ -93,9 +95,29 @@ export default function TalentsStepper() {
     setTechnologies(values)
     handleNext()
   }
-  const handleConfirmationForm = (values) => {
+
+  const [ registerTalent ] = useMutation(REGISTER_TALEN)
+
+  const handleConfirmationForm = () => {
     window?.scrollTo(0, 0)
     setLoading(true)
+    const variables = {
+      companyId: contact.empresa,
+      contact: contact.contacto,
+      email: contact.email,
+      phone: contact.phone,
+      profile: perfil.perfil,
+      name: perfil.nombre,
+      description: perfil.descripcion,
+      vacancies_type: perfil.tipoVacante.id,
+      technology: technologies.tecnologia.id, // TODO: enviar array de tecnologías
+      experience_year: technologies.experiencia.id,
+      duration: technologies.duracion,
+      skills: technologies.otrasHabilidades
+    }
+    debugger
+    registerTalent({variables })
+
     handleNext()
     setTimeout(() => {
       setLoading(false)

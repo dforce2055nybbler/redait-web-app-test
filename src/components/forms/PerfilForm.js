@@ -15,7 +15,7 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
     id: 1, value: 'Presencial', label: 'Presencial'
   });
   const showBackButton = false
-  
+
   const { handleSubmit, touched, errors, getFieldProps } = useFormik({
     initialValues: {
       perfil: values.perfil,
@@ -93,7 +93,6 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
     'strapiId',
     'title'
   )
-  // setTiposDeVacantes(optionsVacanciesType)
 
   return (
     <>

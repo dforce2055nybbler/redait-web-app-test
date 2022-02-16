@@ -211,11 +211,72 @@ const BUSINESS_OPPORTUNITIES_EVENTS_LIMIT = gql `
     }
   }
 `
+const REGISTER_TALEN = gql `
+  mutation registerTalent(
+    $companyId:ID!, 
+    $contact:String!, 
+    $email:String!,
+    $phone:String!,
+    $profile: ENUM_TALENT_PROFILE!,
+    $name:String!,
+    $description:String!,
+    $vacancies_type:ID!,
+    $technology:ID!,
+    $experience_year:ID!,
+    $duration:String!,
+    $skills:String!,
+  ){
+    createTalent (
+      input:{
+        data:{
+          company: $companyId
+          contact: $contact
+          email: $email
+          phone: $phone
+          profile: $profile
+          name: $name
+          description: $description
+          vacancies_type: $vacancies_type
+          technology: $technology
+          experience_year: $experience_year
+          duration: $duration
+          skills: $skills
+          }
+        }
+      )
+      {
+      talent{
+        name
+        description
+        active
+        company{
+          name
+        }
+        contact
+        email
+        phone
+        duration
+        skills
+        technology{
+          name
+        }
+        experience_year{
+          description
+        }
+        vacancies_type{
+          title
+          description
+        }
+      }
+    }
+  }
+`
 
 export {
   TYPES_OPPORTUNITIES,
   BUSINESS_OPPORTUNITIES,
   BUSINESS_OPPORTUNITIES_EVENTS,
   BUSINESS_OPPORTUNITIES_EVENTS_LIMIT,
-  COMPANIES_DETAILED
+  COMPANIES_DETAILED,
+  REGISTER_TALEN
 }
