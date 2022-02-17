@@ -1,18 +1,19 @@
 import React, { useContext } from 'react';
-import { Link } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 import { Button, Container, Navbar } from 'react-bootstrap';
-import logo from '../../images/logo-redait-color.svg';
+import logo from '../../images/logo-redait-color.png';
 import { UserContext } from '../../contexts';
 import { FaBell, FaCommentDots } from 'react-icons/fa';
 import { setUser } from '../../contexts/actions/user-actions';
-import UserMenu from '../auth/UserMenu';
-import MenuPost from './menuPost';
+import UserMenu from '../menus/UserMenu';
+import PostMenu from '../menus/PostMenu';
 
 const Header = () => {
   const { user, dispatchUser, defaultUser } = useContext(UserContext);
 
   const logoutHandler = () => {
     dispatchUser(setUser(defaultUser));
+    navigate('/');
   };
 
   return (
@@ -36,7 +37,7 @@ const Header = () => {
           >
             {user.jwt && user.onboarding ? (
               <>
-                <MenuPost />
+                <PostMenu />
                 <FaBell color="#657C97" size={29} />
                 <FaCommentDots color="#657C97" size={29} />
                 <UserMenu logoutHandler={logoutHandler} user={user} />

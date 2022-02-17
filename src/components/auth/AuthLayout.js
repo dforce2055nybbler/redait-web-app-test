@@ -2,7 +2,7 @@ import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import useBreakpoint from '../../hooks/useBreakpoint';
 
-import logoLogin from '../../images/redait-login.svg';
+import logoLogin from '../../images/redait-login.png';
 
 const AuthLayout = ({ children }) => {
   const size = useBreakpoint();

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Badge, Card, Col, Image, Row, Button } from 'react-bootstrap';
 import { FaMapMarkerAlt, FaRegHeart, FaBookmark, FaRegBookmark } from 'react-icons/fa';
-import userIcon from '../../images/icon-user.svg';
+import UserIcon from '../../images/icon-user.svg';
 
 const Opportunity = ({ opportunity }) => {
   const [fav, setFav] = useState(false)
@@ -29,7 +29,8 @@ const Opportunity = ({ opportunity }) => {
       <Card.Body>
         <Row className="align-items-center mb-3">
           <Col sm={4}>
-            <Image src={userIcon} alt="Company Avatar" roundedCircle fluid />
+            {/* <Image src={userIcon} alt="Company Avatar" roundedCircle fluid /> */}
+            <UserIcon />
           </Col>
           <Col sm={8}>
             <Card.Title as="div" className="opportunity-company mb-0">

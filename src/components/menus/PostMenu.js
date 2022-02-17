@@ -2,12 +2,12 @@
 import React from 'react'
 import { Popover, OverlayTrigger, Button, Row, Col } from 'react-bootstrap';
 import { Link } from 'gatsby'
-import talentIcon from '../../images/talent-icon.svg'
-import rightArrowIcon from '../../images/right-arrow-icon.svg'
-import eventIcon from '../../images/event-icon.svg'
-import businessOportunityIcon from '../../images/business-oportunity-icon.svg'
-import partnershipIcon from '../../images/partnership-icon.svg'
-const MenuPost = () => {
+import talentIcon from '../../images/talent-icon.png'
+import rightArrowIcon from '../../images/right-arrow-icon.png'
+import eventIcon from '../../images/event-icon.png'
+import businessOportunityIcon from '../../images/business-oportunity-icon.png'
+import partnershipIcon from '../../images/partnership-icon.png'
+const PostMenu = () => {
   // TODO: Obtener botones y detalles de cada uno
   const buttons = [
     {
@@ -37,14 +37,7 @@ const MenuPost = () => {
       subtitle: 'Alguna bajada sobre este item',
       src: eventIcon,
       to:'/'
-    },
-    {
-      id: 5,
-      title: 'Talento',
-      subtitle: 'Alguna bajada sobre este item',
-      src: talentIcon,
-      to:'/'
-    },
+    }
   ]
   const popover = (
     <Popover id="popover-post">
@@ -104,4 +97,4 @@ const MenuPost = () => {
   );
 }
 
-export default MenuPost;
+export default PostMenu;
