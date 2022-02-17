@@ -1,5 +1,6 @@
 import React, { createContext, useReducer, useEffect } from 'react'
 import { searchReducer } from '../reducers/search-reducers'
+import { filterReducer } from '../reducers/search-reducers'
 
 export const SearchContext = createContext()
 
@@ -12,7 +13,7 @@ const SearchContextProvider = (props) => {
         : null;
     return storedSearch ? storedSearch : []
   })
-  const [filters, dispatchFilters] = useReducer(searchReducer, [])
+  const [filters, dispatchFilters] = useReducer(filterReducer, {})
 
   useEffect(() => {
     if (typeof window !== 'undefined')

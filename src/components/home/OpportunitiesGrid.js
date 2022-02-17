@@ -15,6 +15,8 @@ const OpportunitiesGrid = () => {
   try {
     lastSearch = state.searches[0]?.text ? state.searches[0].text : ''
     console.log('OpportunitiesGrid Last Search => ', lastSearch.text);
+    const filters = state.filters
+    console.log('Filters => ', filters);
   } catch (error) {
     lastSearch = ''
     console.error(error)

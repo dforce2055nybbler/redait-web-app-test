@@ -32,14 +32,16 @@ export const searchReducer = (state, action) => {
 }
 export const filterReducer = (state, action) => {
   switch (action.type) {
-    case 'ADD_FILTER':
-      return [
+    case 'SET_MAIN_FILTER':
+      return {
         ...state,
-        {
-          id: uuid(),
-          text: action.text,
-        },
-      ]
+        mainFilter: action.filter,
+      }
+    case 'SET_AUX_FILTERS':
+      return {
+        ...state,
+        auxFilters: action.auxFilters,
+    }
     case 'CLEAN_FILTER':
       return []
     default:

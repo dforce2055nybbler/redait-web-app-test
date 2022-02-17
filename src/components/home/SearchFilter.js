@@ -30,16 +30,11 @@ const SearchFilter = () => {
   const [opportunitiesTypes, setOpportunitiesTypes] = useState([]);
   const [opportunityTypeSelect, setOpportunityTypeSelect] = useState('');
   const [btnFilter, setBtnFilter] = useState(false);
-  const [selectFilter, setSelectFilter] = useState({});
+  const [auxFilters, setAuxFilters] = useState({});
   const [filters, setFilters] = useState({
-    services: {
-      name: 'services',
-      realName: 'Servicios',
-      active: false,
-    },
-    products: {
-      name: 'products',
-      realName: 'Productos',
+    productsandservices: {
+      name: 'productsandservices',
+      realName: 'Producto/Servicio',
       active: false,
     },
     talent: {
@@ -60,6 +55,11 @@ const SearchFilter = () => {
   });
 
   const filterHandle = filter => {
+
+    for (const filter in filters) {
+      filters[filter].active = false
+      console.log(filters[filter])
+    }
     setFilters({
       ...filters,
       [filter.name]: {
@@ -67,7 +67,25 @@ const SearchFilter = () => {
         active: !filter.active,
       },
     });
+    actions.dispatchFilters({
+      type: 'SET_MAIN_FILTER',
+      filter: filters[filter.name]
+    })
   };
+
+  const auxFiltersHandle = (filterSelected, filter) => {
+    const newFilter = { [filter.value]: filterSelected }
+    setAuxFilters({ ...auxFilters, ...newFilter })
+
+    actions.dispatchFilters({
+      type: 'SET_AUX_FILTERS',
+      auxFilters: { ...auxFilters, ...newFilter }
+    })
+    // setSelectFilter({
+    //   ...e,
+    //   [filter.value]: (e && e.value) || '',
+    // })
+  }
 
   const data = useStaticQuery(graphql`
     query FiltersQuery {
@@ -457,6 +475,7 @@ const SearchFilter = () => {
           {filtersOptions.map(filter => (
             <Col key={filter.value} sm={12} md={6} lg={2}>
               <Select
+                isMulti
                 key={filter.value}
                 className="basic-single filter-home-redait"
                 classNamePrefix="select"
@@ -466,10 +485,7 @@ const SearchFilter = () => {
                 name={filter.value}
                 options={filter.data}
                 onChange={e =>
-                  setSelectFilter({
-                    ...selectFilter,
-                    [filter.value]: (e && e.value) || '',
-                  })
+                  auxFiltersHandle(e, filter)
                 }
               />
             </Col>
