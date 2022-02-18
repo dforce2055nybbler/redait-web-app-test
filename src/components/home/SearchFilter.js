@@ -34,31 +34,50 @@ const SearchFilter = () => {
   const [filters, setFilters] = useState({
     productsandservices: {
       name: 'productsandservices',
-      realName: 'Producto/Servicio',
+      realName: 'Productos/Servicios',
       active: false,
     },
-    talent: {
-      name: 'talent',
-      realName: 'Talento',
+    opportunities: {
+      name: 'opportunities',
+      realName: 'Oportunidades',
       active: false,
     },
-    partnership: {
-      name: 'partnership',
-      realName: 'Partnership',
+    talents: {
+      name: 'talents',
+      realName: 'Talentos',
       active: false,
     },
-    eventos: {
-      name: 'eventos',
+    partnerships: {
+      name: 'partnerships',
+      realName: 'Partnerships',
+      active: false,
+    },
+    events: {
+      name: 'events',
       realName: 'Eventos',
       active: false,
     },
   });
 
-  const filterHandle = filter => {
+  const getFilterByRealName = (name) => {
+    if (name) {
+      let result = null
 
-    for (const filter in filters) {
-      filters[filter].active = false
-      console.log(filters[filter])
+      if (name.toLocaleLowerCase().includes('producto') || name.toLocaleLowerCase().includes('servicio'))
+        return filters['productsandservices']
+
+      for (const filter in filters) {
+        if (filters[filter].realName === name)
+          result = filters[filter]
+      }
+
+      return result
+    }
+    return null
+  }
+  const filterHandle = filter => {
+    for (const filtro in filters) {
+      filters[filtro].active = false
     }
     setFilters({
       ...filters,
@@ -244,7 +263,12 @@ const SearchFilter = () => {
   const autocompleteHandle = (event, value) => {
     if (!value)
       setOpportunitiesTypes(optionsOpportunitiesTypes)
-
+    
+    const filter = getFilterByRealName(value?.label)
+    if (filter) {
+      filterHandle(filter)
+    }
+      
     setOpportunityTypeSelect(value)
   }
   const searchTextHandle = (value) => {
@@ -382,7 +406,7 @@ const SearchFilter = () => {
                   p: '2px 4px',
                   display: 'flex',
                   alignItems: 'center',
-                  width: 540,
+                  width: 646,
                   height: 59,
                   backgroundColor: '#fff',
                   borderRight: '2px solid #ccc',
@@ -403,7 +427,7 @@ const SearchFilter = () => {
                 <ClickAwayListener onClickAway={handleClickAway}>
                   <Autocomplete
                     id="combo-box-demo"
-                    sx={{ width: 540 }}
+                    sx={{ width: 646 }}
                     open={open}
                     loading={loading}
                     loadingText="Cargando..."
@@ -438,7 +462,7 @@ const SearchFilter = () => {
                   p: '2px 4px',
                   display: 'flex',
                   alignItems: 'center',
-                  width: 528,
+                  width: 650,
                   height: 59,
                   backgroundColor: '#fff',
                   borderColor: 'transparent',
