@@ -13,7 +13,7 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
   const [perfil, setPerfil] = useState(values.perfil)
   const [tipoVacante, setTipoVacante] = useState(null);
   const showBackButton = false
-
+  const characterLimit = 254
   const { handleSubmit, touched, errors, getFieldProps } = useFormik({
     initialValues: {
       perfil: values.perfil,
@@ -155,7 +155,7 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
               )}
             </InputGroup>
             <Form.Label className="form-label redit1-text mb-1">Descripción</Form.Label>
-            <InputGroup className="mb-3">
+            <InputGroup>
               <Form.Control
                 rows={6}
                 isInvalid={!!errors.descripcion && touched.descripcion}
@@ -163,14 +163,18 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
                 as="textarea"
                 placeholder="Añadir descripción general de la vacante"
                 {...getFieldProps('descripcion')}
-              />
+                />
               {touched.descripcion && errors.descripcion && (
                 <Form.Control.Feedback type="invalid">
                   {errors.descripcion}
                 </Form.Control.Feedback>
               )}
-            </InputGroup>
-            
+              </InputGroup>
+            <Row className="justify-content-end mb-3 character-limit">
+              <Col sm={1}>
+                <em>{( characterLimit - valueDescripcion.length )}</em>
+              </Col>
+            </Row>
             <Form.Label className="form-label redit1-text mb-1">Tipo de vacante</Form.Label>
             <InputGroup id="select-w100" className="mb-3">
                 <Select
