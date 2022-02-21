@@ -50,7 +50,6 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
       mounted &&
       valueNombre.trim() &&
       valueDescripcion.trim() &&
-      valueDescripcion.length < characterLimit &&
       tipoVacante !== null &&
       Object.keys(errors).length === 0
     ) {
