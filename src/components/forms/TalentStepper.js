@@ -121,7 +121,7 @@ export default function TalentsStepper() {
     window?.scrollTo(0, 0)
     setLoading(true)
 
-    const talent = {
+    const item = {
       company: contact.empresa.value,
       contact: contact.contacto,
       email: contact.email,
@@ -139,7 +139,7 @@ export default function TalentsStepper() {
     }
 
     try {
-      const { data, error } = await registerTalent({ variables: { talent } })
+      const { data, error } = await registerTalent({ variables: { item } })
       if (!error) {
         handleNewItem(data)
       }

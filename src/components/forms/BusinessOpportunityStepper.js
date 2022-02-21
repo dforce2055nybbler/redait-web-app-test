@@ -5,18 +5,17 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import ContactForm from './ContactForm'
 import PerfilForm from './PerfilForm'
-import TechnologiesForm from './TechnologiesForm';
-import ConfirmationForm from './ConfirmationForm';
+import ConfirmationForm from './ConfirmationForm'
 import Loader from '../ui/loader';
 import Paper from '@mui/material/Paper';
 import { Row, Col } from 'react-bootstrap';
 import Button from '@mui/material/Button';
 import { useMutation } from '@apollo/client'
-import { REGISTER_PARTNETSHIP } from '../../apollo/queries'
+import { REGISTER_BUSINESS_OPPORTUNITY } from '../../apollo/queries'
 import { Link } from 'gatsby';
 
 
-const steps = ['Contacto', 'Perfil', 'Tecnologías', 'Confirmación'];
+const steps = ['Contacto', 'Perfil', 'Confirmación'];
 
 export default function PartnershipStepper() {
   const [loading, setLoading] = useState(false)
@@ -104,8 +103,8 @@ export default function PartnershipStepper() {
   const handleNewItem = async (data) => {
     try {
       const newItem = await data.result.newItem
-      console.log('Partnership added', newItem)
-      setFinalMessage('Gracias, se agrego un nuevo Partnership a nuestra base.')
+      console.log('Business Opportunity added', newItem)
+      setFinalMessage('Gracias, se agrego un nuevo Business Opportunity a nuestra base.')
       const result = await setNewItem(newItem)
       console.log(result)
       setNavigation(`/?type=${newItem.__typename}&id=${newItem.id}`)
@@ -115,7 +114,7 @@ export default function PartnershipStepper() {
       throw new Error(error)
     }
   }
-  const [ registerTalent ] = useMutation(REGISTER_PARTNETSHIP)
+  const [ registerTalent ] = useMutation(REGISTER_BUSINESS_OPPORTUNITY)
 
   const handleConfirmationForm = async () => {
     window?.scrollTo(0, 0)
@@ -197,23 +196,13 @@ export default function PartnershipStepper() {
 
       { activeStep === 2 ? (
         <React.Fragment>
-          <TechnologiesForm
-            values={technologies}
-            handleSubmitForm={handleTechnologiesForm}
-            handleBack={handleBack}
-          />
-        </React.Fragment>
-      ) : null}
-
-      { activeStep === 3 ? (
-        <React.Fragment>
           <ConfirmationForm
             values={{ contact, perfil, technologies }}
             handleSubmitForm={handleConfirmationForm}
             handleBack={handleBack}
           />
         </React.Fragment>
-      ) : null }
+      ) : null}
 
       {activeStep === steps.length ? (
         <React.Fragment>

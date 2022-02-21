@@ -29,7 +29,7 @@ const PostMenu = () => {
       title: 'Oportunidades de negocio',
       subtitle: 'Alguna bajada sobre este item',
       src: businessOportunityIcon,
-      to:'/'
+      to:'/post/business-opportunity'
     },
     {
       id: 4,
