@@ -400,10 +400,21 @@ const EVENTS = gql `
 
 const REGISTER_TALEN = gql `
   mutation registerTalent($talent: TalentInput){
-    createTalent (input: { data: $talent }) {
+    result: createTalent (input: { data: $talent }) {
       newItem: talent {
         id
         name
+        description
+      }
+    }
+  }
+`
+const REGISTER_PARTNETSHIP = gql `
+  mutation registerPartnership($partnership: PartnershipInput){
+    result: createPartnership (input: { data: $partnership }) {
+      newItem: partnership {
+        id
+        title
         description
       }
     }
@@ -422,4 +433,5 @@ export {
   BUSINESS_OPPORTUNITIES,
   EVENTS,
   REGISTER_TALEN,
+  REGISTER_PARTNETSHIP
 }

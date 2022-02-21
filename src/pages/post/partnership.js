@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import Layout from '../../components/ui/layout'
 import Seo from '../../components/seo'
-import TalentsStepper from '../../components/forms/TalentsStepper'
+import PartnershipStepper from '../../components/forms/PartnershipStepper'
 import Hero from '../../components/home/Hero'
 import useBreakpoint from '../../hooks/useBreakpoint'
 import { Row, Col } from 'react-bootstrap'
@@ -9,7 +9,7 @@ import { UserContext } from '../../contexts'
 // import { navigate } from "@reach/router"
 
 
-const Talents = () => {
+const Partnership = () => {
   const size = useBreakpoint()
   const { user } = useContext(UserContext)
   
@@ -27,10 +27,10 @@ const Talents = () => {
     <Layout>
       {user?.username !== 'Guest' &&
         <>
-          <Seo title="Talentos" />
+          <Seo title="Partnership" />
           <Hero
-            title="Talentos"
-            message="Vacante que necesita un talento o un talento disponible para trabajar."
+            title="Partnership"
+            message="Colocar alguna bajada de este item"
           />
           <Row
             className="justify-content-md-center mt-4 pt-4 h-100"
@@ -41,7 +41,7 @@ const Talents = () => {
               className="h-100"
               style={{ height: '100vh' }}
             >
-              <TalentsStepper className="overflow-auto" />
+              <PartnershipStepper className="overflow-auto" />
             </Col>
           </Row>
         </>
@@ -50,5 +50,5 @@ const Talents = () => {
   )
 }
 
-export default Talents
+export default Partnership
 

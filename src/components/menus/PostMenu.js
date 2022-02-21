@@ -15,14 +15,14 @@ const PostMenu = () => {
       title: 'Talento',
       subtitle: 'Alguna bajada sobre este item',
       src: talentIcon,
-      to:'/post/talents'
+      to:'/post/talent'
     },
     {
       id: 2,
       title: 'Partnership',
       subtitle: 'Alguna bajada sobre este item',
       src: partnershipIcon,
-      to:'/'
+      to:'/post/partnership'
     },
     {
       id: 3,

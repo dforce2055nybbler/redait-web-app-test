@@ -26,10 +26,10 @@ const OpportunitiesGrid = ({ id }) => {
   let totalResults = 0
 
   const handleFilters = (filters) => {
-    console.log('Filters => ', filters)
+    // console.log('Filters => ', filters)
     const { mainFilter, auxFilters } = filters
-    console.log('Main Filter => ', mainFilter)
-    console.log('Aux Filters => ', auxFilters)
+    // console.log('Main Filter => ', mainFilter)
+    // console.log('Aux Filters => ', auxFilters)
     
     if (mainFilter?.name === 'productsandservices') {
       QUERY = PRODUCTS_SERVICES
@@ -57,7 +57,7 @@ const OpportunitiesGrid = ({ id }) => {
   }
 
   const handleResults = (results) => {
-    console.log('Resultados => ', results)
+    // console.log('Resultados => ', results)
 
     try {
       totalResults = 0
@@ -76,7 +76,7 @@ const OpportunitiesGrid = ({ id }) => {
 
   try {
     lastSearch = state.searches[0]?.text ? state.searches[0].text : ''
-    console.log('OpportunitiesGrid Last Search => ', lastSearch.text);
+    // console.log('OpportunitiesGrid Last Search => ', lastSearch.text);
     const filters = state.filters
     if (filters)
       handleFilters(filters)

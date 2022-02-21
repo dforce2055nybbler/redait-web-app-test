@@ -275,10 +275,14 @@ h1 {
   }
 }
 
-/* FORM */
 /* FORMS */
 #select-w100 > div {
   width: 100% !important;
+}
+
+.character-limit em {
+  font-size: .8rem;
+  color: map.get($theme-colors, "redit1")
 }
 
 .search-redait-home {
