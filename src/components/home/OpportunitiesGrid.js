@@ -1,4 +1,3 @@
-import { graphql, useStaticQuery } from 'gatsby';
 import React, { useContext } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import Opportunity from './Opportunity';
@@ -17,12 +16,11 @@ import {
 
 
 
-const OpportunitiesGrid = () => {
+const OpportunitiesGrid = ({ id }) => {
   const { state } = useContext(SearchContext)
   const limit = 100
   let lastSearch = ''
   let QUERY = OPPORTUNITIES
-  let entity = 'opportunities'
   let totalResults = 0
 
   const handleFilters = (filters) => {
@@ -33,32 +31,26 @@ const OpportunitiesGrid = () => {
     
     if (mainFilter?.name === 'productsandservices') {
       QUERY = PRODUCTS_SERVICES
-      entity = 'products' // TODO: implementar entity para productos y servicios
     }
     
     if (mainFilter?.name === 'talents') {
       QUERY = TALENTS
-      entity = 'talents'
     }
     
     if (mainFilter?.name === 'partnerships') {
       QUERY = PARTNERSHIPS
-      entity = 'partnerships'
     }
     
     if (mainFilter?.name === 'businessopportunities') {
       QUERY = BUSINESS_OPPORTUNITIES
-      entity = 'businessopportunities'
     }
     
     if (mainFilter?.name === 'opportunities') {
       QUERY = OPPORTUNITIES
-      entity = 'opportunities'
     }
     
     if (mainFilter?.name === 'events') {
       QUERY = EVENTS
-      entity = 'events'
     }
   }
 
@@ -92,38 +84,22 @@ const OpportunitiesGrid = () => {
     console.error(error)
   }
 
+  const variables = {
+    search: lastSearch,
+    limit: limit 
+  }
+  if (id) {
+    variables.id = Number(id)
+    variables.search = ""
+  }
+
   // Ejecuta la query
   const { loading, error, data } = useQuery(QUERY, {
-    variables: {
-      search: lastSearch,
-      limit: limit
-    }
+    variables: variables
   })
 
   handleResults(data)
    // data?.opportunities.length + data?.businessOpportunities.length + data?.events.length
-
-  const data2 = useStaticQuery(graphql`
-    query OpportunitiesQuery {
-      allStrapiOpportunities {
-        edges {
-          node {
-            title
-            description
-            strapiId
-            company {
-              name
-              location
-            }
-            skills {
-              name
-            }
-          }
-        }
-        totalCount
-      }
-    }
-  `);
 
 
   return (

@@ -202,13 +202,13 @@ const BUSINESS_OPPORTUNITIES_EVENTS_LIMIT = gql `
   }
 `
 const PRODUCTS_SERVICES = gql `
-  query ($search:String!, $limit:Int!) {
+  query ($search:String!, $limit:Int!, $id:Int) {
     productsConnection (where: { active: true }) {
       aggregate { count }
     }
     products (where: {  
       _or: [{title_contains:$search},{description_contains:$search}], 
-      active: true}, limit: $limit) {
+      active: true, id: $id }, limit: $limit) {
       id
       title
       description
@@ -232,13 +232,13 @@ const PRODUCTS_SERVICES = gql `
   }
 `
 const TALENTS = gql `
-  query ($search:String!, $limit:Int!) {
+  query ($search:String!, $limit:Int!, $id:Int) {
     talentsConnection (where: { active: true }) {
       aggregate { count }
     }
     talents (where: {  
       _or: [{name_contains:$search},{description_contains:$search}], 
-      active: true}, limit: $limit) {
+      active: true, id: $id }, limit: $limit) {
       id
       name
       description
@@ -273,13 +273,13 @@ const TALENTS = gql `
 
 `
 const PARTNERSHIPS = gql `
-  query ($search:String!, $limit:Int!) {
+  query ($search:String!, $limit:Int!, $id:Int) {
     partnershipsConnection (where: { active: true }) {
       aggregate { count }
     }
     partnerships (where: {  
       _or: [{title_contains:$search},{description_contains:$search}], 
-      active: true}, limit: $limit) {
+      active: true, id: $id }, limit: $limit) {
       id
       title
       description
@@ -290,13 +290,13 @@ const PARTNERSHIPS = gql `
   }
 `
 const OPPORTUNITIES = gql `
-  query ($search:String!, $limit:Int!) {
+  query ($search:String!, $limit:Int!, $id:Int) {
     opportunitiesConnection (where: { active: true }) {
       aggregate { count }
     }
     opportunities (where: {  
       _or: [{title_contains:$search},{description_contains:$search}], 
-      active: true}, limit: $limit) {
+      active: true, id: $id }, limit: $limit) {
       id
       title
       description
@@ -343,13 +343,13 @@ const OPPORTUNITIES = gql `
   }
 `
 const BUSINESS_OPPORTUNITIES = gql `
-  query ($search:String!, $limit:Int!) {
+  query ($search:String!, $limit:Int!, $id:Int) {
     businessOpportunitiesConnection (where: { active: true }) {
       aggregate { count }
     }
     businessOpportunities (where: {  
       _or: [{title_contains:$search},{description_contains:$search}], 
-      active: true}, limit: $limit) {
+      active: true, id: $id}, limit: $limit) {
       id
       title
       description
@@ -368,13 +368,13 @@ const BUSINESS_OPPORTUNITIES = gql `
   }
 `
 const EVENTS = gql `
-  query ($search:String!, $limit:Int!) {
+  query ($search:String!, $limit:Int!, $id:Int) {
     eventsConnection (where: { active: true }) {
       aggregate { count }
     }
     events (where: {  
       _or: [{title_contains:$search},{description_contains:$search}], 
-      active: true}, limit: $limit) {
+      active: true, id: $id }, limit: $limit) {
       id
       title
       description
@@ -397,7 +397,7 @@ const EVENTS = gql `
 const REGISTER_TALEN = gql `
   mutation registerTalent($talent: TalentInput){
     createTalent (input: { data: $talent }) {
-      talent {
+      newItem: talent {
         id
         name
         description

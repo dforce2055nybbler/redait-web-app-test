@@ -1,4 +1,4 @@
-import  React, { useState } from 'react';
+import  React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -12,12 +12,16 @@ import Paper from '@mui/material/Paper';
 import { Row, Col } from 'react-bootstrap';
 import { useMutation } from '@apollo/client'
 import { REGISTER_TALEN } from '../../apollo/queries'
+import { Link } from 'gatsby';
 
 
 const steps = ['Contacto', 'Perfil', 'Tecnologías', 'Confirmación'];
 
 export default function TalentsStepper() {
   const [loading, setLoading] = useState(false)
+  const [finalMessage, setFinalMessage] = useState('')
+  const [newItem, setNewItem] = useState(null)
+  const [navigation, setNavigation] = useState(null)
   const [activeStep, setActiveStep] = useState(0)
   const [skipped, setSkipped] = useState(new Set())
   const [contact, setContact] = useState({
@@ -39,7 +43,7 @@ export default function TalentsStepper() {
     otrasHabilidades: '',
   })
 
-  const finalMessage = 'Gracias'
+  
 
   const isStepOptional = (step) => {
     return step === 99999;
@@ -96,6 +100,20 @@ export default function TalentsStepper() {
     handleNext()
   }
 
+  const handleNewItem = async (data) => {
+    try {
+      const newItem = await data.createTalent.newItem
+      console.log('Talent added', newItem)
+      setFinalMessage('Gracias, se agrego un nuevo talento a nuestra base.')
+      const result = await setNewItem(newItem)
+      console.log(result)
+      setNavigation(`/?type=${newItem.__typename}&id=${newItem.id}`)
+      handleNext()
+      setLoading(false)
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
   const [ registerTalent ] = useMutation(REGISTER_TALEN)
 
   const handleConfirmationForm = async () => {
@@ -121,18 +139,23 @@ export default function TalentsStepper() {
 
     try {
       const { data, error } = await registerTalent({ variables: { talent } })
-      debugger
       if (!error) {
-        console.log('Talent added', data)
-        handleNext()
-        setLoading(false)
+        handleNewItem(data)
       }
     } catch (error) {
       console.error('Error adding talent', error)
+      setFinalMessage('Error al intentar agregar un nuevo talento, intentelo de nuevo más tarde.')
       setLoading(false)
     }
   }
 
+  useEffect(() => {
+    if (newItem) {
+      setNavigation(`/?type=${newItem.__typename}&id=${newItem.id}`)
+    }
+    else
+      setNavigation('/')
+  }, [newItem]);
   
   return (
     <Box sx={{ width: '100%', height: '100vmax' }}>
@@ -195,9 +218,14 @@ export default function TalentsStepper() {
         <React.Fragment>
           <Row className="align-items-center mt-4 pt-4">
             <Col className="align-items-center text-center">
-              <Paper style={{ height: '350px', paddingTop: '125px', borderRadius: '20px' }} elevation={6} square>
-                { loading ? (<Loader />) : (<h1>{ finalMessage }</h1>) }
-              </Paper>
+              <Link
+                to={navigation}
+                style={{ textDecoration: 'none' }}
+              >
+                <Paper style={{ height: '350px', paddingTop: '125px', borderRadius: '20px' }} elevation={6} square>
+                  { loading ? (<Loader />) : (<h1>{ finalMessage }</h1>) }
+                </Paper>
+              </Link>
             </Col>
           </Row>
         </React.Fragment>
