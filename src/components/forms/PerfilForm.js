@@ -34,6 +34,7 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
         .required('Requerido'),
       descripcion: Yup.string()
         .min(3, 'Debe tener al menos 3 caractéres')
+        .max(characterLimit, `Debe tener menos de ${characterLimit} caractéres`)
         .required('Requerido'),
     }),
   });
@@ -49,6 +50,7 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
       mounted &&
       valueNombre.trim() &&
       valueDescripcion.trim() &&
+      valueDescripcion.length < characterLimit &&
       tipoVacante !== null &&
       Object.keys(errors).length === 0
     ) {
