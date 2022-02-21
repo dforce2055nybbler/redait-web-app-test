@@ -260,6 +260,10 @@ const TALENTS = gql `
         id
         name
       }
+      programming_langs {
+        id
+        name
+      }
       company {
         id
         name

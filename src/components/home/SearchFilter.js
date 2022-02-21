@@ -21,7 +21,7 @@ import { graphql, useStaticQuery } from 'gatsby';
 
 import { SearchContext } from '../../contexts/wrappers/SearchContext';
 
-const SearchFilter = ({ mainFilterParameter }) => {
+const SearchFilter = ({ mainFilterParameter, cleanParams }) => {
   const { state, actions } = useContext(SearchContext)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -204,7 +204,6 @@ const SearchFilter = ({ mainFilterParameter }) => {
       setOpportunitiesTypes(optionsOpportunitiesTypes)
     }
     if (mainFilterParameter) {
-      console.log("filtro pasado por parámetro del tipo => ", mainFilterParameter)
       const filter = getFilterByRealName(mainFilterParameter)
       if (filter) {
         filterHandle(filter)
@@ -250,6 +249,7 @@ const SearchFilter = ({ mainFilterParameter }) => {
     const text = e.target.value
     
     if (e.key === 'Enter' && text) {
+      cleanParams()
       actions.dispatchSearch({
         type: 'ADD_SEARCH',
         text: text
@@ -258,6 +258,7 @@ const SearchFilter = ({ mainFilterParameter }) => {
       setOpen(false)
     } 
     if (e.type === 'click' && searchText.length >= 3) {
+      cleanParams()
       actions.dispatchSearch({
         type: 'ADD_SEARCH',
         text: searchText

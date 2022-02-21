@@ -10,6 +10,7 @@ import OpportunitiesGrid from '../components/home/OpportunitiesGrid';
 import '../components/styles/styles.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchContextProvider from '../contexts/wrappers/SearchContext';
+import { navigate } from 'gatsby';
 
 const IndexPage = () => {
   const params = new URLSearchParams(
@@ -17,6 +18,12 @@ const IndexPage = () => {
   )
   const type = params.get('type')
   const id = params.get('id')
+
+  const cleanParams = () => {
+    params.delete('type')
+    params.delete('id')
+    navigate('/')
+  }
 
   return (
     <Layout>
@@ -27,7 +34,7 @@ const IndexPage = () => {
             las diferentes empresas del sector."
       />
       <SearchContextProvider>
-        <SearchFilter mainFilterParameter={type}/>
+        <SearchFilter mainFilterParameter={type} cleanParams={cleanParams}/>
         <OpportunitiesGrid id={id} />
       </SearchContextProvider>
     </Layout>
