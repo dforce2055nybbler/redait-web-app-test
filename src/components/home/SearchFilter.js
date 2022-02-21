@@ -44,7 +44,7 @@ const SearchFilter = () => {
     },
     talents: {
       name: 'talents',
-      realName: 'Talentos',
+      realName: 'Talento',
       active: false,
     },
     partnerships: {

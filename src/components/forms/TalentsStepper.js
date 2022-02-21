@@ -98,30 +98,39 @@ export default function TalentsStepper() {
 
   const [ registerTalent ] = useMutation(REGISTER_TALEN)
 
-  const handleConfirmationForm = () => {
+  const handleConfirmationForm = async () => {
     window?.scrollTo(0, 0)
     setLoading(true)
-    const variables = {
-      companyId: contact.empresa,
+
+    const talent = {
+      company: contact.empresa.value,
       contact: contact.contacto,
       email: contact.email,
-      phone: contact.phone,
+      phone: contact.telefono,
       profile: perfil.perfil,
       name: perfil.nombre,
+      active: true,
       description: perfil.descripcion,
-      vacancies_type: perfil.tipoVacante.id,
-      technology: technologies.tecnologia.id, // TODO: enviar array de tecnologías
-      experience_year: technologies.experiencia.id,
+      vacancies_type: perfil.tipoVacante.value,
+      technologies: technologies.tecnologias.map(item => item.value), // ARRAY ID
+      programming_langs: technologies.lenguajes.map(item => item.value), // ARRAY ID
+      experience_year: technologies.experiencia.value,
       duration: technologies.duracion,
       skills: technologies.otrasHabilidades
     }
-    debugger
-    registerTalent({variables })
 
-    handleNext()
-    setTimeout(() => {
+    try {
+      const { data, error } = await registerTalent({ variables: { talent } })
+      debugger
+      if (!error) {
+        console.log('Talent added', data)
+        handleNext()
+        setLoading(false)
+      }
+    } catch (error) {
+      console.error('Error adding talent', error)
       setLoading(false)
-    }, 1500);
+    }
   }
 
   

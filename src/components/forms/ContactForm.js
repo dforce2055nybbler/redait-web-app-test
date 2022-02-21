@@ -3,12 +3,15 @@ import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Loader from '../ui/loader';
-
+import { graphql, useStaticQuery } from 'gatsby';
+import { formatDataSelect } from '../../helpers/formatDataSelect';
+import Select from 'react-select';
 
 const ContactForm = ({ values, handleSubmitForm, title='Información de contacto' }) => {
   const [validate, setValidate] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [empresa, setEmpresa] = useState(null);
+  
   const { handleSubmit, touched, errors, getFieldProps } = useFormik({
     initialValues: {
       empresa: values.empresa,
@@ -19,14 +22,11 @@ const ContactForm = ({ values, handleSubmitForm, title='Información de contacto
     onSubmit: values => {
       setLoading(true);
       setTimeout(() => {
-        handleSubmitForm(values)
+        handleSubmitForm({ ...values, empresa })
       }, 100);
       setLoading(false);
     },
     validationSchema: Yup.object({
-      empresa: Yup.string()
-        .min(3, 'Debe tener al menos 3 caractéres')
-        .required('Requerido'),
       contacto: Yup.string()
         .min(3, 'Debe tener al menos 3 caractéres')
         .required('Requerido'),
@@ -42,7 +42,6 @@ const ContactForm = ({ values, handleSubmitForm, title='Información de contacto
     }),
   });
 
-  const { value: valueEmpresa } = getFieldProps('empresa');
   const { value: valueContacto } = getFieldProps('contacto');
   const { value: valueEmail } = getFieldProps('email');
   const { value: valueTelefono } = getFieldProps('telefono');
@@ -52,7 +51,7 @@ const ContactForm = ({ values, handleSubmitForm, title='Información de contacto
   useEffect(() => {
     if (
       mounted &&
-      valueEmpresa.trim() &&
+      empresa !== {} &&
       valueContacto.trim() &&
       valueTelefono.trim() &&
       valueEmail.trim() &&
@@ -66,7 +65,7 @@ const ContactForm = ({ values, handleSubmitForm, title='Información de contacto
       mounted = false
     }
   }, [
-    valueEmpresa,
+    empresa,
     valueContacto,
     valueTelefono,
     valueEmail,
@@ -76,6 +75,27 @@ const ContactForm = ({ values, handleSubmitForm, title='Información de contacto
   useEffect(() => () => {
     mounted = false
   }, []);
+
+
+  const data = useStaticQuery(graphql`
+    query allStrapiCompanies {
+      allStrapiCompanies(filter: {active: {eq: true}}) {
+        edges {
+          node {
+            name
+            strapiId
+          }
+        }
+        totalCount
+      }
+    }
+  `);
+
+  const optionsCompanies = formatDataSelect(
+    data.allStrapiCompanies.edges,
+    'strapiId',
+    'name'
+  );
 
   return (
     <>
@@ -93,12 +113,21 @@ const ContactForm = ({ values, handleSubmitForm, title='Información de contacto
         ) : (
           <>
             <Form.Label className="form-label redit1-text mb-1">Empresa</Form.Label>
-            <InputGroup className="mb-3">
-              <Form.Control
-                isInvalid={!!errors.empresa && touched.empresa}
-                type="text"
-                placeholder="Nombre de empresa"
-                {...getFieldProps('empresa')}
+              <InputGroup id="select-w100" className="mb-3">
+              <Select
+                style={{ width: '100% !important'}}
+                className="basic-single"
+                classNamePrefix="select"
+                isClearable={true}
+                isSearchable={true}
+                placeholder="Nombre de la empresa"
+                name="empresa"
+                value={empresa}
+                options={optionsCompanies}
+                  onChange={e => {
+                    setEmpresa({ ...e })
+                  }
+                }
               />
               {touched.empresa && errors.empresa && (
                 <Form.Control.Feedback type="invalid">

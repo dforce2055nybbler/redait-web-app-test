@@ -11,9 +11,7 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
   const [validate, setValidate] = useState(false)
   const [loading, setLoading] = useState(false)
   const [perfil, setPerfil] = useState(values.perfil)
-  const [tipoVacante, setTipoVacante] = useState({
-    id: 1, value: 'Presencial', label: 'Presencial'
-  });
+  const [tipoVacante, setTipoVacante] = useState(null);
   const showBackButton = false
 
   const { handleSubmit, touched, errors, getFieldProps } = useFormik({
@@ -51,7 +49,7 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
       mounted &&
       valueNombre.trim() &&
       valueDescripcion.trim() &&
-      (tipoVacante !== {}) &&
+      tipoVacante !== null &&
       Object.keys(errors).length === 0
     ) {
       setValidate(true);
@@ -79,7 +77,6 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
         edges {
           node {
             strapiId
-            id
             title
             description
           }

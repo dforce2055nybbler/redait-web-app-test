@@ -15,19 +15,16 @@ const TechnologiesForm = ({
 }) => {
   const [validate, setValidate] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [tecnologia, setTecnologia] = useState({
-    id: 1, value: 'Javascript', label: 'Javascript'
-  });
-  
-  const [experiencia, setExperiencia] = useState({
-    id: 1, value: '1-3', label: '1 a 3 años'
-  });
+  const [tecnologias, setTecnologias] = useState([]);
+  const [lenguajes, setLenguajes] = useState([]);
+  const [experiencia, setExperiencia] = useState(null);
 
   const showBackButton = false
 
   const { handleSubmit, touched, errors, getFieldProps } = useFormik({
     initialValues: {
-      tecnologia: values.tecnologia,
+      tecnologias: values.tecnologias,
+      lenguajes: values.lenguajes,
       experiencia: values.experiencia,
       duracion: values.duracion,
       otrasHabilidades: values.otrasHabilidades,
@@ -35,17 +32,19 @@ const TechnologiesForm = ({
     onSubmit: values => {
       setLoading(true);
       setTimeout(() => {
-        handleSubmitForm({ ...values, tecnologia, experiencia });
+        handleSubmitForm({
+          ...values,
+          tecnologias: Object.values(tecnologias), // retorno array de objectos
+          lenguajes: Object.values(lenguajes), // retorno array de objectos
+          experiencia
+        });
       }, 100);
       setLoading(false);
     },
     validationSchema: Yup.object({
       duracion: Yup.string()
         .min(3, 'Debe tener al menos 3 caractéres')
-        .required('Requerido'),
-      otrasHabilidades: Yup.string()
-        .min(3, 'Debe tener al menos 3 caractéres')
-        .required('Requerido'),
+        .required('Requerido')
     }),
   });
 
@@ -58,10 +57,9 @@ const TechnologiesForm = ({
   useEffect(() => {
     if (
       mounted &&
-      tecnologia !== null &&
+      (tecnologias !== null || lenguajes !== null) &&
       experiencia !== null &&
       valueDuracion.trim() !== null &&
-      valueOtrasHabilidades.trim() &&
       Object.keys(errors).length === 0
     ) {
       setValidate(true);
@@ -73,7 +71,8 @@ const TechnologiesForm = ({
       mounted = false
     }
   }, [
-    tecnologia,
+    tecnologias,
+    lenguajes,
     experiencia,
     valueDuracion,
     valueOtrasHabilidades,
@@ -113,20 +112,39 @@ const TechnologiesForm = ({
     }
   `);
 
-  const TechnologiesFormData = [
-    ...data.allStrapiTechnologies.edges,
-    ...data.allStrapiProgrammingLangs.edges
-  ]
-  const optionsTechnologiesAndProgramingLangs = formatDataSelect(
-    TechnologiesFormData,
+  
+
+  const optionsTechnologies = formatDataSelect(
+    data.allStrapiTechnologies.edges,
     'strapiId',
     'name'
   )
+  const optionsProgrammingLangs = formatDataSelect(
+    data.allStrapiProgrammingLangs.edges,
+    'strapiId',
+    'name'
+  )
+  
+  const optionsTechnologiesAndProgramingLans = [
+    {
+      label: "Tecnologías",
+      options: [ ...optionsTechnologies ]
+    },
+    {
+      label: "Lenguaje",
+      options: [ ...optionsProgrammingLangs ]
+    }
+  ]
+
+
   const optionsExperienceYears = formatDataSelect(
     data.allStrapiExperienceYears.edges,
     'strapiId',
     'description'
   )
+  
+  // ordeno años de experiencia por id
+  const optionsExperienceYearsSorted = optionsExperienceYears.sort((a, b) => a.value - b.value);
 
   return (
     <>
@@ -143,26 +161,51 @@ const TechnologiesForm = ({
           <Loader />
         ) : (
           <>
-            <Form.Label className="form-label redit1-text mb-1">Tecnología o lenguaje</Form.Label>
+            <Form.Label className="form-label redit1-text mb-1">Tecnologías</Form.Label>
             <InputGroup id="select-w100" className="mb-3">
               <Select
+                isMulti
                 style={{ width: '100% !important'}}
                 className="basic-single"
                 classNamePrefix="select"
                 isClearable={true}
                 isSearchable={true}
-                placeholder="Tipo de vacante..."
-                name="tecnologia"
-                value={tecnologia}
-                options={optionsTechnologiesAndProgramingLangs}
+                placeholder="Tecnología/Lenguaje"
+                name="tecnologias"
+                value={tecnologias.value}
+                options={optionsTechnologies}
                   onChange={e => {
-                    setTecnologia({ ...e })
+                    setTecnologias({ ...e })
                   }
                 }
               />
-              {touched.tecnologia && errors.tecnologia && (
+              {touched.tecnologias && errors.tecnologias && (
                 <Form.Control.Feedback type="invalid">
-                  {errors.tecnologia}
+                  {errors.tecnologias}
+                </Form.Control.Feedback>
+              )}
+            </InputGroup>
+            <Form.Label className="form-label redit1-text mb-1">Lenguajes</Form.Label>
+            <InputGroup id="select-w100" className="mb-3">
+              <Select
+                isMulti
+                style={{ width: '100% !important'}}
+                className="basic-single"
+                classNamePrefix="select"
+                isClearable={true}
+                isSearchable={true}
+                placeholder="Lenguajes"
+                name="lenguajes"
+                value={lenguajes.value}
+                options={optionsProgrammingLangs}
+                  onChange={e => {
+                    setLenguajes({ ...e })
+                  }
+                }
+              />
+              {touched.lenguajes && errors.lenguajes && (
+                <Form.Control.Feedback type="invalid">
+                  {errors.lenguajes}
                 </Form.Control.Feedback>
               )}
             </InputGroup>
@@ -177,7 +220,7 @@ const TechnologiesForm = ({
                 placeholder="Años de experiencia"
                 name="experiencia"
                 value={experiencia}
-                options={optionsExperienceYears}
+                options={optionsExperienceYearsSorted}
                   onChange={e => {
                     setExperiencia({ ...e })
                   }

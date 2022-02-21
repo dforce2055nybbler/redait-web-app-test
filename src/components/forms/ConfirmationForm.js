@@ -33,7 +33,7 @@ const ConfirmationForm = ({ values, handleSubmitForm, handleBack, title='Informa
             </Row>
             <Row className="g-0 pt-0 mt-0">
               <Col>
-                <Form.Label className="form-label redit2-text mb-1">{ values.contact.empresa }</Form.Label>
+                <Form.Label className="form-label redit2-text mb-1">{ values.contact.empresa.label }</Form.Label>
               </Col>
             </Row>
             <Row className="g-0 pb-0 mb-0 pt-2">
@@ -71,14 +71,33 @@ const ConfirmationForm = ({ values, handleSubmitForm, handleBack, title='Informa
             </h5>
             <Row className="g-0 pb-0 mb-0 pt-2">
               <Col>
-                <Form.Label className="form-label redit1-text mb-1">Tecnología o lenguaje</Form.Label>
+                <Form.Label className="form-label redit1-text mb-1">Tecnologías</Form.Label>
               </Col>
             </Row>
             <Row>
               <Col>
                 <Form.Label className="form-label redit2-text mb-1">
-                  {/* TODO: loopear sobre array de tecnologías  */}
-                  { values.technologies?.tecnologia?.label }
+                    {values.technologies?.tecnologias?.map(tecnologia => (
+                      <span key={tecnologia.value} style={{ padding: '0 .5rem 0 0' }}>
+                        {tecnologia.label}
+                      </span>
+                    )) }
+                </Form.Label>
+              </Col>
+            </Row>
+            <Row className="g-0 pb-0 mb-0 pt-2">
+              <Col>
+                <Form.Label className="form-label redit1-text mb-1">Lenguajes</Form.Label>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Label className="form-label redit2-text mb-1">
+                  { values.technologies?.lenguajes?.map(lenguaje => (
+                    <span key={lenguaje.value} style={{ padding: '0 .5rem 0 0' }}>
+                      {lenguaje.label}
+                    </span>
+                    )) }
                 </Form.Label>
               </Col>
             </Row>
