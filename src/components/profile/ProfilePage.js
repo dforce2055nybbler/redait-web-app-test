@@ -1,8 +1,9 @@
 import React from "react";
-import * as styles from "./profilepage.module.scss";
-import { Row, Col, Container, InputGroup } from 'react-bootstrap'
-import Paper from '@mui/material/Paper';
-import Avatar from '@mui/material/Avatar';
+import * as styles from "./profilepage.module.scss"
+import { Row, Col, Container } from 'react-bootstrap'
+import Paper from '@mui/material/Paper'
+import Avatar from '@mui/material/Avatar'
+import logo from '../../images/logo-infosis-light.png'
 import EMailIcon from '../../images/email-icon.svg'
 import PhoneIcon from '../../images/phone-icon.svg'
 import WebIcon from '../../images/web-icon.svg'
@@ -36,7 +37,7 @@ const ProfilePage = () => {
                     <img
                       alt=""
                       className="avatar-image"
-                      src="https://static.overlay-tech.com/assets/42502583-9629-42c4-b50d-0f8aef65bea1.png"
+                      src={logo}
                     />
                   </Avatar>
                 </Col>

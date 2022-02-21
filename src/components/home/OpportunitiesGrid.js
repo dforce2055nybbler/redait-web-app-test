@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import Opportunity from './Opportunity';
 import Talent from './Talent';
+import Product from './Product';
 import LinearProgress from '@mui/material/LinearProgress';
 import { SearchContext } from '../../contexts/wrappers/SearchContext';
 import { useQuery } from '@apollo/client'
@@ -112,15 +113,6 @@ const OpportunitiesGrid = ({ id }) => {
             <Col>
             <span>Todas las oportunidades{' '} <strong>{totalResults}</strong> resultado{totalResults > 1 ? 's': '' }</span>
             </Col>
-            {/* <Col>
-              <span>Oportunidades: <strong>{data.opportunities.length}</strong></span>
-            </Col>
-            <Col>
-              <span>Oportunidades de Negocio: <strong>{data.businessOpportunities.length}</strong></span>
-            </Col>
-            <Col>
-              <span>Eventos: <strong>{data.events.length}</strong></span>
-            </Col> */}
           </Row>
           {data.opportunities &&
             <Row>
@@ -136,6 +128,24 @@ const OpportunitiesGrid = ({ id }) => {
               {data.talents.map(talent => (
                 <Col key={talent.id} sm={12} md={6} lg={4} xl={3}>
                   <Talent talent={talent} />
+                </Col>
+              ))}
+            </Row>
+          }
+          {data.products &&
+            <Row>
+              {data.products.map(product => (
+                <Col key={product.id} sm={12} md={6} lg={4} xl={3}>
+                  <Product opportunity={product} />
+                </Col>
+              ))}
+            </Row>
+          }
+          {data.services &&
+            <Row>
+              {data.services.map(service => (
+                <Col key={service.id} sm={12} md={6} lg={4} xl={3}>
+                  <Product opportunity={service} />
                 </Col>
               ))}
             </Row>

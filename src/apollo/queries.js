@@ -221,7 +221,7 @@ const PRODUCTS_SERVICES = gql `
     }
     services (where: {  
       _or: [{title_contains:$search},{description_contains:$search}], 
-      active: true}, limit: $limit) {
+      active: true, id: $id }, limit: $limit) {
       id
       title
       description
