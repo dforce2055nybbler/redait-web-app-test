@@ -137,7 +137,7 @@ export default function PartnershipStepper() {
       duration: technologies.duracion,
       skills: technologies.otrasHabilidades
     }
-
+    debugger
     try {
       const { data, error } = await registerTalent({ variables: { item } })
       if (!error) {

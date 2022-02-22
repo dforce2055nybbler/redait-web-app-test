@@ -3,6 +3,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import Opportunity from './Opportunity';
 import Talent from './Talent';
 import Product from './Product';
+import Partnership from './Partnership';
 import LinearProgress from '@mui/material/LinearProgress';
 import { SearchContext } from '../../contexts/wrappers/SearchContext';
 import { useQuery } from '@apollo/client'
@@ -146,6 +147,15 @@ const OpportunitiesGrid = ({ id }) => {
               {data.services.map(service => (
                 <Col key={service.id} sm={12} md={6} lg={4} xl={3}>
                   <Product opportunity={service} />
+                </Col>
+              ))}
+            </Row>
+          }
+          {data.partnerships &&
+            <Row>
+              {data.partnerships.map(partnership => (
+                <Col key={partnership.id} sm={12} md={6} lg={4} xl={3}>
+                  <Partnership opportunity={partnership} />
                 </Col>
               ))}
             </Row>

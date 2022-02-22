@@ -69,6 +69,9 @@ const SearchFilter = ({ mainFilterParameter, cleanParams }) => {
       if (name.toLocaleLowerCase().includes('talent'))
         return filters['talents']
 
+      if (name.toLocaleLowerCase().includes('partnership'))
+        return filters['partnerships']
+
       for (const filter in filters) {
         if (filters[filter].realName === name)
           result = filters[filter]

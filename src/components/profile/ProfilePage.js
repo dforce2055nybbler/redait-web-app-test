@@ -19,7 +19,7 @@ import Chip from '@mui/material/Chip'
 import PostList from "./PostList"
 import TeamList from "./TeamList";
 
-const ProfilePage = ({ companyDetails }) => {
+const ProfilePage = ({ companyDetails }) => { 
   console.log('companyDetails', companyDetails)
   const company = {
     name: 'Infosis',

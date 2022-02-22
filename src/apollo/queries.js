@@ -282,10 +282,10 @@ const PARTNERSHIPS = gql `
       aggregate { count }
     }
     partnerships (where: {  
-      _or: [{title_contains:$search},{description_contains:$search}], 
+      _or: [{name_contains:$search},{description_contains:$search}], 
       active: true, id: $id }, limit: $limit) {
       id
-      title
+      name
       description
       created_at
       published_at
@@ -414,7 +414,7 @@ const REGISTER_PARTNETSHIP = gql `
     result: createPartnership (input: { data: $item }) {
       newItem: partnership {
         id
-        title
+        name
         description
       }
     }
@@ -425,7 +425,7 @@ const REGISTER_BUSINESS_OPPORTUNITY = gql `
     result: createBusinessOpportunity (input: { data: $item }) {
       newItem: businessOpportunity {
         id
-        title
+        name
         description
       }
     }

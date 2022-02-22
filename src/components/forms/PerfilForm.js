@@ -13,7 +13,7 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
   const [perfil, setPerfil] = useState(values.perfil)
   const [tipoVacante, setTipoVacante] = useState(null);
   const showBackButton = false
-  const characterLimit = 254
+  const characterLimit = 1000
   const { handleSubmit, touched, errors, getFieldProps } = useFormik({
     initialValues: {
       perfil: values.perfil,
