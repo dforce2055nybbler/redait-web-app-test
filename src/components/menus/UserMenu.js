@@ -33,7 +33,7 @@ const UserMenu = ({ logoutHandler, user }) => {
             </Col>
         </Row>
 
-        <Link to="/profile">
+        <Link to="/profile?name=infosis">
           <Button className="menu-user-item" size="lg">
             <Row className="align-items-center">
               <Col xs={2} className="g-0" style={{ textAlign: 'center' }}>
