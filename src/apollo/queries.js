@@ -220,10 +220,10 @@ const PRODUCTS_SERVICES = gql `
       aggregate { count }
     }
     services (where: {  
-      _or: [{title_contains:$search},{description_contains:$search}], 
+      _or: [{name_contains:$search},{description_contains:$search}], 
       active: true, id: $id }, limit: $limit) {
       id
-      title
+      name
       description
       created_at
       published_at
