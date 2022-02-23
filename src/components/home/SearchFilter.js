@@ -408,7 +408,10 @@ const SearchFilter = ({ mainFilterParameter, cleanParams }) => {
         <InputGroup>
           <Row className="d-flex justify-content-center m-auto">
             <Col
-              lg="6"
+              xs="auto"
+              md="3"
+              lg="4"
+              xl="4"
               className="list-filter-left-col"
             >
               <Paper
@@ -418,7 +421,7 @@ const SearchFilter = ({ mainFilterParameter, cleanParams }) => {
                   p: '2px 4px',
                   display: 'flex',
                   alignItems: 'center',
-                  width: 646,
+                  width: '100%',
                   height: 59,
                   backgroundColor: '#fff',
                   borderRight: '2px solid #ccc',
@@ -465,7 +468,10 @@ const SearchFilter = ({ mainFilterParameter, cleanParams }) => {
               </Paper>
             </Col>
             <Col
-              xs lg="6"
+              xs="12"
+              md="9"
+              lg="8"
+              xl="6"
               className="list-filter-right-col"
             >
               <Paper
@@ -474,15 +480,16 @@ const SearchFilter = ({ mainFilterParameter, cleanParams }) => {
                   p: '2px 4px',
                   display: 'flex',
                   alignItems: 'center',
-                  width: 650,
-                  height: 59,
+                  width: '100%',
+                  minHeight: 59,
                   backgroundColor: '#fff',
                   borderColor: 'transparent',
                   borderLeftColor: 'transparent',
                   borderTopLeftRadius: 0,
                   borderBottomLeftRadius: 0,
-                  gap: '1rem',
-                  paddingInline: '1rem'
+                  gap: '.3rem',
+                  paddingInline: '1rem',
+                  overflow: 'hidden'
                 }}
               >
                 {Object.keys(filters).map(f => (
@@ -498,7 +505,6 @@ const SearchFilter = ({ mainFilterParameter, cleanParams }) => {
                   </Badge>
                 ))}
               </Paper>
-              
             </Col>
           </Row>
         </InputGroup>
