@@ -20,57 +20,22 @@ import PostList from "./PostList"
 import TeamList from "./TeamList";
 
 const ProfilePage = ({ companyDetails }) => { 
-  console.log('companyDetails', companyDetails)
-  const company = {
-    name: 'Infosis',
-    subtitle: 'Tu socio tecnológico',
-    email: 'contacto@infosis.com.ar',
-    phone: '+54 9 11 4834 8383',
-    domain: 'www.infosis.com.ar',
-    description: 'Somos una empresa Argentina con 20 años de trayectoria en el sector IT, especialistas en soluciones tecnológicas para la gestión y administración de puntos de venta. Incorporamos estándares internacionales que garantizan la excelencia en nuestros productos y servicios. Acercamos tecnología de avanzada para la gestión comercial en un entorno integrable con soluciones complementarias. Construimos la mejor experiencia para clientes y usuarios.',
-    employees: 100,
-    languages: 'Español | Inglés',
-    socials: {
-      linkedin: {
-        url: '/profile',
-      },
-      instagram: {
-        url: '/profile',
-      },
-      facebook: {
-        url: '/profile',
-      },
-      twitter: {
-        url: '/profile',
-      }
+  const socials = {
+    linkedin: {
+      url: companyDetails.linkedin_url,
     },
-    services: [
-      { id: 1, name: 'Desarrollo de Software a medida' },
-      { id: 2, name: 'Diseño y desarrollo UX UI de software' },
-      { id: 3, name: 'Testing QA' },
-      { id: 4, name: 'Gestión de marketing' },
-      { id: 5, name: 'Gestión de punto de ventas, distribuidores y proveedores' },
-      { id: 6, name: 'Gestión de punto de ventas, distribuidores y proveedoresGestión logística' }
-    ],
-    posts: [
-      { id: 1, title: 'Desarrollo Javascript', description: 'Buscamos Desarrollador Java full time. Home Office.', location: 'Buenos Aires, Argentina', type: 'Talento', status: 'Publicada' },
-      { id: 2, title: 'Desarrollo Java', description: 'Buscamos Desarrollador Java full time. Home Office.', location: 'Buenos Aires, Argentina', type: 'Partnership', status: 'Pausada' },
-      { id: 3, title: 'Desarrollo Java', description: 'Buscamos Desarrollador Java full time. Home Office.', location: 'Buenos Aires, Argentina', type: 'Oportunidad de negocio', status: 'Publicada' },
-    ],
-    team: [
-      { id: 1, name: 'Mariana Castillo', job: 'Diseñadora UX UI', img: 'https://static.overlay-tech.com/assets/b4e5a37a-0710-405a-a7e6-d30850414d01.png' },
-      { id: 2, name: 'Claudia Sousa', job: 'Diseñadora UX UI', img: 'https://static.overlay-tech.com/assets/20e1210b-54b5-417f-8c6b-51aeb5f05387.png' },
-      { id: 3, name: 'Luis Carlos Campos', job: 'Diseñadora UX UI', img: 'https://static.overlay-tech.com/assets/396ad9b8-d35c-429c-932c-e1a3e3805f38.png' },
-      { id: 4, name: 'Victor Andrade', job: 'Diseñadora UX UI', img: 'https://static.overlay-tech.com/assets/8bcd1fe0-b9c8-492f-a17c-84a5c19735f4.png' },
-      { id: 5, name: 'Karina Silva', job: 'Diseñadora UX UI', img: 'https://static.overlay-tech.com/assets/ecee0d93-03e4-4f72-b374-dd39cfd89efb.png' },
-    ],
-    software: [
-      { id: 1, name: 'Zeus Gestión', img: 'https://static.overlay-tech.com/assets/0b46ab52-5fbb-4e4f-863e-f86a5a18f8d7.png', url: '#' },
-      { id: 2, name: 'BillApp', img: 'https://static.overlay-tech.com/assets/4e6369e1-3ae7-448c-a04c-c4b9ebd88455.png', url: '#' },
-      { id: 3, name: 'YAX', img: 'https://static.overlay-tech.com/assets/969e0001-7667-481e-bd94-84b10d208de3.png', url: '#' },
-      { id: 4, name: 'Pergo', img: 'https://static.overlay-tech.com/assets/bae06f9f-b8f0-437c-ba62-a8e40ac7fc07.svg', url: '#' },
-    ]
+    instagram: {
+      url: companyDetails.instagram_url,
+    },
+    facebook: {
+      url: companyDetails.facebook_url,
+    },
+    twitter: {
+      url: companyDetails.twitter_url,
+    }
   }
+  const company = { ...companyDetails, socials }
+
   const sendEmail = () => {
     console.log('sending email...')
   }
@@ -175,7 +140,15 @@ const ProfilePage = ({ companyDetails }) => {
                       </Col>
                       <Col xs="auto">
                         <span className="employees">
-                          <WorldIcon /> {company.languages}
+                          <WorldIcon /> {
+                            company.languages.map((language, index) => {
+                              if (index + 1 !== company.languages.length) {
+                                return language.name + ' | '
+                              } else {
+                                return language.name
+                              }
+                            })
+                          }
                         </span>
                       </Col>
                     </Row>
@@ -232,28 +205,28 @@ const ProfilePage = ({ companyDetails }) => {
                       {company.socials &&
                         <Col xs="auto">
                           {company.socials.linkedin &&
-                            <Link to={company.socials.linkedin.url}>
+                            <Link to={company.socials.linkedin.url + '?referer=redit'} target="_blank" rel="redit">
                               <span className="social-medias">
                                 <LinkedinIcon />
                               </span>
                             </Link>
                           }
                           {company.socials.instagram &&
-                            <Link to={company.socials.instagram.url}>
+                            <Link to={company.socials.instagram.url} target="_blank" rel="redit">
                               <span className="social-medias">
                                 <InstagramIcon />
                               </span>
                             </Link>
                           }
                           {company.socials.twitter &&
-                            <Link to={company.socials.twitter.url}>
+                            <Link to={company.socials.twitter.url} target="_blank" rel="redit">
                               <span className="social-medias slim-icon">
                                 <TwitterIcon />
                               </span>
                             </Link>
                           }
                           {company.socials.facebook &&
-                            <Link to={company.socials.facebook.url}>
+                            <Link to={company.socials.facebook.url} target="_blank" rel="redit">
                               <span className="social-medias slim-icon">
                                 <FacebookIcon />
                               </span>

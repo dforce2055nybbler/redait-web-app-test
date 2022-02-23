@@ -32,8 +32,8 @@ const UserMenu = ({ logoutHandler, user }) => {
               </p>
             </Col>
         </Row>
-
-        <Link to="/profile?name=infosis">
+        
+        <Link to="/company/infosis"> {/* TODO: Obtener la empesa del usuario logueado (?) */}
           <Button className="menu-user-item" size="lg">
             <Row className="align-items-center">
               <Col xs={2} className="g-0" style={{ textAlign: 'center' }}>
