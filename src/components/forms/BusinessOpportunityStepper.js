@@ -4,7 +4,7 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import ContactForm from './ContactForm'
-import PerfilForm from './PerfilForm'
+import PerfilForm from './PerfilBusinessOpportunityForm'
 import ConfirmationForm from './ConfirmationForm'
 import Loader from '../ui/loader';
 import Paper from '@mui/material/Paper';
@@ -31,19 +31,11 @@ export default function PartnershipStepper() {
     telefono: ''
   })
   const [perfil, setPerfil] = useState({
-    perfil: 'busco',
     nombre: '',
     descripcion: '',
-    tipoVacante: '',
+    verticales: '',
+    mercados: ''
   })
-  const [technologies, setTechnologies] = useState({
-    tecnologia: '', // TODO: array (?)
-    experiencia: '',
-    duracion: '',
-    otrasHabilidades: '',
-  })
-
-  
 
   const isStepOptional = (step) => {
     return step === 99999;
@@ -92,11 +84,8 @@ export default function PartnershipStepper() {
     handleNext()
   }
   const handlePerfilForm = (values) => {
+    debugger
     setPerfil(values)
-    handleNext()
-  }
-  const handleTechnologiesForm = (values) => {
-    setTechnologies(values)
     handleNext()
   }
 
@@ -125,16 +114,14 @@ export default function PartnershipStepper() {
       contact: contact.contacto,
       email: contact.email,
       phone: contact.telefono,
-      profile: perfil.perfil,
-      name: perfil.nombre,
       active: true,
+      name: perfil.nombre,
       description: perfil.descripcion,
-      vacancies_type: perfil.tipoVacante.value,
-      technologies: technologies.tecnologias.map(item => item.value), // ARRAY ID
-      programming_langs: technologies.lenguajes.map(item => item.value), // ARRAY ID
-      experience_year: technologies.experiencia.value,
-      duration: technologies.duracion,
-      skills: technologies.otrasHabilidades
+      verticals: perfil.verticales.map(item => item.value), // ARRAY ID
+      markets: perfil.mercados.map(item => item.value), // ARRAY ID
+      // TODO: Verificar si es necesario definir un país y una región
+      // country: null,
+      // region: null,
     }
 
     try {
@@ -197,7 +184,7 @@ export default function PartnershipStepper() {
       { activeStep === 2 ? (
         <React.Fragment>
           <ConfirmationForm
-            values={{ contact, perfil, technologies }}
+            values={{ contact, perfil }}
             handleSubmitForm={handleConfirmationForm}
             handleBack={handleBack}
           />
