@@ -494,6 +494,7 @@ const SearchFilter = ({ mainFilterParameter, cleanParams }) => {
               >
                 {Object.keys(filters).map(f => (
                   <Badge
+                    className={filters[f].active ? 'badge-filter-active' : ''}
                     key={f}
                     pill
                     bg={`${filters[f].active ? 'dark' : 'light'}`}

@@ -263,6 +263,9 @@ h1 {
 
 
 /* SEARCH */
+span.badge-filter-active {
+  background-color: map.get($theme-colors, "redit1") !important;
+}
 .opportunity {
   .opportunity-company {
     font-size: 0.7rem !important;
