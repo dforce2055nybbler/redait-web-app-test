@@ -29,7 +29,7 @@ const MessagesMenu = () => {
       src: logoInfosis,
       bgcolor: 'dark-background',
       lastUpdate: '15 de Diciembre de 2021',
-      to:'/'
+      to:'/messages'
     },
     {
       id: 2,
@@ -39,7 +39,7 @@ const MessagesMenu = () => {
       src: logoBlimop,
       bgcolor: 'none',
       lastUpdate: '15 de Diciembre de 2021',
-      to:'/'
+      to:'/messages'
     },
     {
       id: 3,
@@ -49,7 +49,7 @@ const MessagesMenu = () => {
       src: logoCloudSpace,
       bgcolor: 'none',
       lastUpdate: '15 de Diciembre de 2021',
-      to:'/'
+      to:'/messages'
     },
     {
       id: 4,
@@ -59,7 +59,7 @@ const MessagesMenu = () => {
       src: logoGLGroup,
       bgcolor: 'blue-gl-background',
       lastUpdate: '15 de Diciembre de 2021',
-      to:'/'
+      to:'/messages'
     },
     {
       id: 5,
@@ -69,7 +69,7 @@ const MessagesMenu = () => {
       src: logoGlobant,
       bgcolor: 'none',
       lastUpdate: '15 de Diciembre de 2021',
-      to:'/'
+      to:'/messages'
     },
     {
       id: 6,
@@ -79,7 +79,7 @@ const MessagesMenu = () => {
       src: '',
       bgcolor: 'blue-redit1-background',
       lastUpdate: '15 de Diciembre de 2021',
-      to:'/'
+      to:'/messages'
     },
     {
       id: 7,
@@ -89,7 +89,7 @@ const MessagesMenu = () => {
       src: logoClarika,
       bgcolor: '',
       lastUpdate: '15 de Diciembre de 2021',
-      to:'/'
+      to:'/messages'
     },
   ]
   const popover = (
@@ -177,7 +177,7 @@ const MessagesMenu = () => {
     <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
       <Button
         className="button-transparent"
-        aria-label="Menú de usuario"
+        aria-label="Menú de mensajes"
         size="sm"
       >
         <Badge badgeContent={notifications} className="notification-badge">

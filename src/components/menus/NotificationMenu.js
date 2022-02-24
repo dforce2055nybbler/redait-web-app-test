@@ -160,7 +160,7 @@ const NotificationMenu = () => {
     <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
       <Button
         className="button-transparent"
-        aria-label="Menú de usuario"
+        aria-label="Menú de notificaciones"
         size="sm"
       >
         <Badge badgeContent={notifications} className="notification-badge">
