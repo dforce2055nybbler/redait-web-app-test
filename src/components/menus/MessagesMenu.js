@@ -99,7 +99,7 @@ const MessagesMenu = () => {
           <h5 className="subheader">Mensajes</h5>
         </Col>
         <Col xs="auto">
-          <Link to="/" className="actions left">
+          <Link to="/messages?action=new-message" className="actions left">
             <h6>Nuevo Mensaje</h6>
           </Link>
         </Col>
@@ -109,7 +109,7 @@ const MessagesMenu = () => {
           </div>
         </Col>
         <Col xs="auto">
-          <Link to="/" className="actions">
+          <Link to="/messages" className="actions">
             <h6>Ver todos</h6>
           </Link>
         </Col>
@@ -117,7 +117,7 @@ const MessagesMenu = () => {
       <hr className="menu-user-hr"/>
       <div className="d-grid gap-0 items">
         {buttons.map(button => (
-          <Link key={button.id} to={button.to} style={{ borderBottom: '1px solid #E5E5E5'}}>
+          <Link key={button.id} to={`/messages?message-id=${button.id}`} style={{ borderBottom: '1px solid #E5E5E5'}}>
             <Button className="item" size="lg">
               <Row className="justify-content-md-end">
                 <Col xs={6} className="d-flex flex-column justify-content-end ">
