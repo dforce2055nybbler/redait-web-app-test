@@ -7,6 +7,7 @@ import { FaBell, FaCommentDots } from 'react-icons/fa';
 import { setUser } from '../../contexts/actions/user-actions';
 import UserMenu from '../menus/UserMenu';
 import PostMenu from '../menus/PostMenu';
+import NotificationMenu from '../menus/NotificationMenu';
 
 const Header = () => {
   const { user, dispatchUser, defaultUser } = useContext(UserContext);
@@ -38,7 +39,7 @@ const Header = () => {
             {user.jwt && user.onboarding ? (
               <>
                 <PostMenu />
-                <FaBell color="#657C97" size={29} />
+                <NotificationMenu />
                 <FaCommentDots color="#657C97" size={29} />
                 <UserMenu logoutHandler={logoutHandler} user={user} />
               </>

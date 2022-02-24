@@ -1,4 +1,5 @@
 /* make the customizations */
+/* VARIABLES */
 @use "sass:map";
 
 $theme-colors: (
@@ -19,7 +20,11 @@ $theme-colors: (
   'naranjalightredit': #ff5c4014,
   'azulcelesteredit': #BDCAFF,
   'celesteclaroredit': #E3E9FF,
+  'grisclaroredit': #8692A6,
+  'blueglgroup': #006DA4,
 );
+
+$font-family: "Roboto";
 
 /* GLOBALS */
 .main-background {
@@ -35,7 +40,7 @@ $theme-colors: (
   color: map.get($theme-colors, "azulredit") !important;
 }
 body {
-  font-family: 'Roboto' !important;
+  font-family: $font-family !important;
   background-color: map.get($theme-colors, "redit5") !important;
 }
 
@@ -44,7 +49,7 @@ h1 {
   font-size: 2.25rem !important;
 }
 .header-forms {
-  font-family: "Roboto" !important;
+  font-family: $font-family !important;
   font-style: normal;
   font-weight: 500 !important;
   line-height: 3rem !important;
@@ -439,6 +444,111 @@ span.see-more {
 
 
 /* MENUS */
+.notification-badge > span {
+  background-color: map.get($theme-colors, "naranjaredit");
+  font-size: .7rem;
+}
+
+div#popover-notifications {
+  max-width: 100%;
+}
+.menu-notifications {
+  font-family: $font-family !important;
+  .title {
+    padding: 1.3rem 1.5rem .7rem 1.5rem;
+  }
+  .subheader {
+    color: map.get($theme-colors, "redit1") !important;
+    font-family: $font-family !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 1rem !important;
+    line-height: 1.1rem !important;
+  }
+  .items {
+    background-color: rgba(255, 255, 255, 1) !important;
+    border-radius: 5px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    position: relative !important;
+    width: 100% !important;
+  }
+  .item {
+    border-color: transparent !important;
+    background-color: rgba(255, 255, 255, 1) !important;
+    padding: 1rem .5rem !important;
+    width: 546px !important;
+  }
+  .item:hover {
+    background-color: map.get($theme-colors, "redit5") !important;
+    padding: 1rem .5rem !important;
+    width: 546px !important;
+  }
+  .item-left-icon {
+    width: 100%;
+  }
+  .dark-background {
+    background-color: map.get($theme-colors, "dark")
+  }
+  .blue-gl-background {
+    background-color: map.get($theme-colors, "blueglgroup")
+  }
+  .blue-redit1-background {
+    background-color: map.get($theme-colors, "redit1")
+  }
+  .item-right-icon {
+    width: 30px;
+    height: 19px;
+  }
+  .item-company {
+    color: map.get($theme-colors, "redit1");
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 14px;
+  }
+  .item-title {
+    color: map.get($theme-colors, "redit1");
+    height: 38.89%;
+    width: 36.53%;
+    font-family: $font-family;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 18px;
+    margin-bottom: 8px;
+  }
+  .item-subtitle {
+    color: map.get($theme-colors, "redit2");
+    height: 100%;
+    width: 100%;
+    font-family: $font-family;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+  }
+  .avatar-container {
+    background-color: map.get($theme-colors, "redit5");
+    border: 1px solid map.get($theme-colors, "redit3");
+    width: 50px;
+    height: 50px;
+    color: map.get($theme-colors, "redit1");
+  }
+  .dot {
+    height: 7px;
+    width: 7px;
+    border-radius: 100%;
+    background:  map.get($theme-colors, "redit1");
+    position: absolute;
+  }
+  .date {
+    color: map.get($theme-colors, "grisclaroredit");
+    font-size: 11px;
+    text-align: right;
+    padding-right: 0.7rem;
+  }
+}
+
+
 /* POST MENU */
 div#popover-post {
   max-width: 100%;
@@ -476,7 +586,7 @@ div#popover-post {
   color: map.get($theme-colors, "azulredit");
   height: 38.89%;
   width: 36.53%;
-  font-family: "Roboto";
+  font-family: $font-family;
   font-size: 20px;
   font-weight: 500;
   line-height: 18px;
@@ -486,7 +596,7 @@ div#popover-post {
   color: map.get($theme-colors, "redit1");
   height: 100%;
   width: 100%;
-  font-family: "Roboto";
+  font-family: $font-family;
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
@@ -528,7 +638,7 @@ div#popover-post {
   color: map.get($theme-colors, "redit1");
   height: 38.89%;
   width: 36.53%;
-  font-family: "Roboto";
+  font-family: $font-family;
   font-size: 20px;
   font-weight: 500;
   line-height: 18px;
@@ -538,7 +648,7 @@ div#popover-post {
   color: map.get($theme-colors, "redit1");
   height: 100%;
   width: 100%;
-  font-family: "Roboto";
+  font-family: $font-family;
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
@@ -656,7 +766,7 @@ div#popover-post {
     position: relative;
 
     h6.title {
-      font-family: "Roboto";
+      font-family: $font-family;
       font-size: 18px;
       font-weight: 500;
       line-height: 18px;
@@ -694,7 +804,7 @@ div#popover-post {
     }
     .posts {
       h6.title {
-        font-family: "Roboto";
+        font-family: $font-family;
         font-size: 16px;
         font-weight: 500;
         line-height: 18px;
