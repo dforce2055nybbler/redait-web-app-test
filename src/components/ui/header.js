@@ -8,6 +8,7 @@ import { setUser } from '../../contexts/actions/user-actions';
 import UserMenu from '../menus/UserMenu';
 import PostMenu from '../menus/PostMenu';
 import NotificationMenu from '../menus/NotificationMenu';
+import MessagesMenu from '../menus/MessagesMenu';
 
 const Header = () => {
   const { user, dispatchUser, defaultUser } = useContext(UserContext);
@@ -40,7 +41,7 @@ const Header = () => {
               <>
                 <PostMenu />
                 <NotificationMenu />
-                <FaCommentDots color="#657C97" size={29} />
+                <MessagesMenu />
                 <UserMenu logoutHandler={logoutHandler} user={user} />
               </>
             ) : (

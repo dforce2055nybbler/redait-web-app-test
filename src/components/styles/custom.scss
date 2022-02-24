@@ -454,6 +454,18 @@ div#popover-notifications {
 }
 .menu-notifications {
   font-family: $font-family !important;
+  a.actions {
+    text-decoration: none;
+  }
+  a.actions h6 {
+    font-size: 16px;
+    color: map.get($theme-colors, "azulredit");
+    font-weight: 500;
+    padding-top: 0.3rem;
+  }
+  a.actions.left h6 {
+    text-align: right;
+  }
   .title {
     padding: 1.3rem 1.5rem .7rem 1.5rem;
   }

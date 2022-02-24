@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Popover, OverlayTrigger, Button, Row, Col } from 'react-bootstrap';
 import { Link } from 'gatsby'
-import { FaBell } from 'react-icons/fa';
+import { FaCommentDots } from 'react-icons/fa';
 import Badge from '@mui/material/Badge';
 import logoIcon from '../../images/logo-infosis-light.png'
 import logoInfosis from '../../images/logo-infosis-light.png'
@@ -15,8 +15,8 @@ import rightArrowIcon from '../../images/right-arrow-icon.png'
 import Avatar from '@mui/material/Avatar';
 
 
-const NotificationMenu = () => {
-  const [notifications, setNotifications] = useState(4)
+const MessagesMenu = () => {
+  const [notifications, setNotifications] = useState(3)
   const maxTitle = 30
   const maxSubtitle = 46
   // TODO: Obtener botones y detalles de cada uno
@@ -28,7 +28,7 @@ const NotificationMenu = () => {
       subtitle: 'Buscamos Desarrollador Java full time. Home Office para importante empresa multinacional',
       src: logoInfosis,
       bgcolor: 'dark-background',
-      lastUpdate: '2 horas',
+      lastUpdate: '15 de Diciembre de 2021',
       to:'/'
     },
     {
@@ -38,7 +38,7 @@ const NotificationMenu = () => {
       subtitle: 'Buscamos Desarrollador Java full time. Home Office para importante empresa multinacional',
       src: logoBlimop,
       bgcolor: 'none',
-      lastUpdate: '12 horas',
+      lastUpdate: '15 de Diciembre de 2021',
       to:'/'
     },
     {
@@ -48,7 +48,7 @@ const NotificationMenu = () => {
       subtitle: 'Buscamos Desarrollador Java full time. Home Office para importante empresa multinacional',
       src: logoCloudSpace,
       bgcolor: 'none',
-      lastUpdate: '2 semanas',
+      lastUpdate: '15 de Diciembre de 2021',
       to:'/'
     },
     {
@@ -58,7 +58,7 @@ const NotificationMenu = () => {
       subtitle: 'Buscamos Desarrollador Java full time. Home Office para importante empresa multinacional',
       src: logoGLGroup,
       bgcolor: 'blue-gl-background',
-      lastUpdate: '2 horas',
+      lastUpdate: '15 de Diciembre de 2021',
       to:'/'
     },
     {
@@ -68,7 +68,7 @@ const NotificationMenu = () => {
       subtitle: 'Buscamos Desarrollador Java full time. Home Office para importante empresa multinacional',
       src: logoGlobant,
       bgcolor: 'none',
-      lastUpdate: '12 horas',
+      lastUpdate: '15 de Diciembre de 2021',
       to:'/'
     },
     {
@@ -78,7 +78,7 @@ const NotificationMenu = () => {
       subtitle: 'Buscamos Desarrollador Java full time. Home Office para importante empresa multinacional',
       src: '',
       bgcolor: 'blue-redit1-background',
-      lastUpdate: '2 semanas',
+      lastUpdate: '15 de Diciembre de 2021',
       to:'/'
     },
     {
@@ -87,16 +87,33 @@ const NotificationMenu = () => {
       title: 'Desarrolador Java',
       subtitle: 'Buscamos Desarrollador Java full time. Home Office para importante empresa multinacional',
       src: logoClarika,
-      bgcolor: 'none',
-      lastUpdate: '12 horas',
+      bgcolor: '',
+      lastUpdate: '15 de Diciembre de 2021',
       to:'/'
     },
   ]
   const popover = (
     <Popover id="popover-notifications" className="menu-notifications">
-      <div className="title">
-        <h5 className="subheader">Notificaciones</h5>
-      </div>
+      <Row className="title">
+        <Col xs="6">
+          <h5 className="subheader">Mensajes</h5>
+        </Col>
+        <Col xs="auto">
+          <Link to="/" className="actions left">
+            <h6>Nuevo Mensaje</h6>
+          </Link>
+        </Col>
+        <Col xs="auto" style={{ padding: 0 }}>
+          <div className="d-flex" style={{ height: '35px' }}>
+            <div className="vr"></div>
+          </div>
+        </Col>
+        <Col xs="auto">
+          <Link to="/" className="actions">
+            <h6>Ver todos</h6>
+          </Link>
+        </Col>
+      </Row>
       <hr className="menu-user-hr"/>
       <div className="d-grid gap-0 items">
         {buttons.map(button => (
@@ -164,7 +181,7 @@ const NotificationMenu = () => {
         size="sm"
       >
         <Badge badgeContent={notifications} className="notification-badge">
-          <FaBell color="#657C97" size={29} />
+          <FaCommentDots color="#657C97" size={29} />
         </Badge>
       </Button>
     </OverlayTrigger>
@@ -175,4 +192,4 @@ const NotificationMenu = () => {
   );
 }
 
-export default NotificationMenu;
+export default MessagesMenu;
