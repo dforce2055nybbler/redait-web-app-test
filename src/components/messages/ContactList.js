@@ -12,13 +12,13 @@ const ContactList = ({ conversations, handleConversationActive }) => {
     <div className="contact-list">
       <div className="d-grid gap-0 items">
         {conversations.map(conversation => (
-          <Link
-            key={conversation.contact.id}
-            to={conversation.contact.to}
-            onClick={() => handleConversationActive(conversation.contact.id)}
-            style={{ borderBottom: '1px solid #E5E5E5' }}
-          >
-            <Button className="item" size="lg" style={{ minWidth: '387px' }}>
+          <React.Fragment key={conversation.contact.id}>
+            <Button
+              className="item"
+              size="lg"
+              style={{ minWidth: '387px', borderBottom: '1px solid #E5E5E5' }}
+              onClick={() => handleConversationActive(conversation.contact.id)}
+            >
               <Row className="justify-content-md-end">
                 <Col xs={6} className="d-flex flex-column justify-content-end ">
                   <span className="date">{conversation.contact.lastUpdate}</span>
@@ -69,7 +69,8 @@ const ContactList = ({ conversations, handleConversationActive }) => {
                 </Col>
               </Row>
             </Button>
-          </Link>
+            <hr className="divider"/>
+          </React.Fragment>
         ))}
       </div>
     </div>

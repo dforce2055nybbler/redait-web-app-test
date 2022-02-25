@@ -243,7 +243,7 @@ const MessagePage = () => {
   const [conversationActive, setConversationActive] = useState(null)
   const [contacts, setContacts] = useState(null)
   const [messageFilter, setMessageFilter] = useState(null)
-  const [inputMessage, setInputMessage] = useState(null)
+  const [inputMessage, setInputMessage] = useState('')
 
   
   
