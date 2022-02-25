@@ -33,9 +33,43 @@ const MessagePage = () => {
       messages: [
         {
           id: 1,
+          from: 1,
+          value: 'Hola Marcelo, cómo estás? Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual antes de insertar.',
+          read: true,
+          delivered: {
+            date: '15 de Diciembre de 2021',
+            time: '8.30 am'
+          } 
+        },
+        {
+          id: 2,
+          from: 2055,
+          value: 'Hola Marcelo, cómo estás? Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual antes de insertar.',
+          read: true,
+          delivered: {
+            date: '15 de Diciembre de 2021',
+            time: '8.30 am'
+          } 
+        },
+        {
+          id: 3,
+          from: 1,
+          value: 'Hola Marcelo, cómo estás? Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual antes de insertar.',
+          read: true,
+          delivered: {
+            date: '15 de Diciembre de 2021',
+            time: '8.30 am'
+          } 
+        },
+        {
+          id: 4,
+          from: 2055,
           value: 'Hola Marcelo, cómo estás? Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual antes de insertar.',
           read: false,
-          delivered: '15 de Diciembre de 2021'
+          delivered: {
+            date: '15 de Diciembre de 2021',
+            time: '8.30 am'
+          } 
         },
       ]
     },
@@ -56,9 +90,13 @@ const MessagePage = () => {
       messages: [
         {
           id: 1,
+          from: 1,
           value: 'Buscamos Desarrollador Java full time. Home Office para importante empresa multinacional. Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual antes de insertar.',
           read: false,
-          delivered: '15 de Diciembre de 2021'
+          delivered: {
+            date: '15 de Diciembre de 2021',
+            time: '8.30 am'
+          } 
         },
       ]
     },
@@ -79,9 +117,13 @@ const MessagePage = () => {
       messages: [
         {
           id: 1,
+          from: 1,
           value: '¿Estas por ahí? Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual antes de insertar.',
           read: false,
-          delivered: '15 de Diciembre de 2021'
+          delivered: {
+            date: '15 de Diciembre de 2021',
+            time: '8.30 am'
+          } 
         },
       ]
     },
@@ -102,9 +144,13 @@ const MessagePage = () => {
       messages: [
         {
           id: 1,
+          from: 1,
           value: 'Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual antes de insertar.',
           read: false,
-          delivered: '15 de Diciembre de 2021'
+          delivered: {
+            date: '15 de Diciembre de 2021',
+            time: '8.30 am'
+          } 
         },
       ]
     },
@@ -125,9 +171,13 @@ const MessagePage = () => {
       messages: [
         {
           id: 1,
+          from: 1,
           value: 'Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual antes de insertar.',
           read: false,
-          delivered: '15 de Diciembre de 2021'
+          delivered: {
+            date: '15 de Diciembre de 2021',
+            time: '8.30 am'
+          } 
         },
       ]
     },
@@ -148,9 +198,13 @@ const MessagePage = () => {
       messages: [
         {
           id: 1,
+          from: 1,
           value: 'Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual antes de insertar.',
           read: false,
-          delivered: '15 de Diciembre de 2021'
+          delivered: {
+            date: '15 de Diciembre de 2021',
+            time: '8.30 am'
+          } 
         },
       ]
     },
@@ -171,9 +225,13 @@ const MessagePage = () => {
       messages: [
         {
           id: 1,
+          from: 1,
           value: 'Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual antes de insertar.',
           read: false,
-          delivered: '15 de Diciembre de 2021'
+          delivered: {
+            date: '15 de Diciembre de 2021',
+            time: '8.30 am'
+          } 
         },
       ]
     },
