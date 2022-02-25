@@ -12,7 +12,10 @@ import logoCloudSpace from '../../images/logo-grupo-cloudspace.png'
 import logoGLGroup from '../../images/logo-gl-group.png'
 import logoGlobant from '../../images/logo-globant.png'
 import logoClarika from '../../images/logo-clarika.png'
-import MessageList from './MessageList';
+import MessageList from './MessageList'
+import Button from '@mui/material/Button'
+import SendIcon from '@mui/icons-material/Send'
+import TextareaAutosize from '@mui/material/TextareaAutosize';
 
 const MessagePage = () => {
   const [conversations, setConversations] = useState([
@@ -239,8 +242,9 @@ const MessagePage = () => {
   const [conversationsFiltered, setConversationsFiltered] = useState(conversations)
   const [conversationActive, setConversationActive] = useState(null)
   const [contacts, setContacts] = useState(null)
-
   const [messageFilter, setMessageFilter] = useState(null)
+  const [inputMessage, setInputMessage] = useState(null)
+
   
   
   const setFilter = message => {
@@ -262,6 +266,10 @@ const MessagePage = () => {
 
   const writeMessage = () => {
     console.log("Writing new message...")
+  }
+  const sendMessage = () => {
+    console.log("Writing new message...", inputMessage)
+    setInputMessage('')
   }
 
   useEffect(() => {
@@ -323,12 +331,35 @@ const MessagePage = () => {
             />
           </Col>
           <Col lg={9} className="right-col">
-            <div
-              className="paper-container pt-1"
-              style={{ height: '772px'}}
-            >
-              {conversationActive && <MessageList conversationActive={conversationActive} />}
-            </div>
+            <Row className="messages-container">
+              <Col>
+                {conversationActive && <MessageList conversationActive={conversationActive} />}
+              </Col>
+            </Row>
+            
+            <Row className="input-message-container">
+              <Col xs={10} className="pt-3 pb-1 mr-1">
+                <TextareaAutosize
+                  maxRows={4}
+                  aria-label="Escribe un mensaje"
+                  placeholder="Escribe un mensaje"
+                  className="input-message"
+                  value={inputMessage}
+                  onChange={(e) => setInputMessage(e.target.value)}
+                />
+                {/* Estoy interesada, quiero enviarte un perfil que se adapta perfectamente a esta vacante */}
+              </Col>
+              <Col xs={2} className="pt-3 pb-1 text-center">
+                <Button
+                  className="btn-send active"
+                  variant="contained"
+                  endIcon={<SendIcon />}
+                  onClick={sendMessage}
+                >
+                  Enviar
+                </Button>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>

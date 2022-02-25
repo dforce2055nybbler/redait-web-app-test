@@ -15,6 +15,7 @@ $theme-colors: (
   'redit5': #F8F9FB,
   'redit6': #BEC6CE,
   'azulredit': #0033FF,
+  'azulreditlighter-1': #325bff,
   'verderedit': #2EE7BA,
   'naranjaredit': #FF5C40,
   'naranjalightredit': #ff5c4014,
@@ -947,6 +948,40 @@ div#popover-post {
   .right-col {
     padding-left: 1rem;
     padding-top: .4rem;
+    overflow: hidden;
+    .messages-container {
+      min-height: 700px;
+    }
+    .input-message-container {
+      min-height: 72px;
+      max-width: 103%;
+      background-color: map.get($theme-colors, "redit4");
+      margin-left: -20px;
+      overflow: hidden;
+    }
+    .input-message {
+      width: 100%;
+      margin: 0 1rem;
+      font-size: 14px;
+      padding: 0.5rem;
+      color: map.get($theme-colors, "redit1") !important;
+      border: map.get($theme-colors, "background") !important;
+      border-radius: 5px;
+    }
+    textarea.input-message:focus-visible {
+      outline: none !important;
+      border: map.get($theme-colors, "background") !important;
+      box-shadow: 0 0 10px #719ece;
+    }
+    .btn-send.active {
+      background-color: map.get($theme-colors, "azulreditlighter-1") !important;
+    }
+    .btn-send.active:hover {
+      background-color: map.get($theme-colors, "azulredit") !important;
+    }
+    .btn-send.inactive {
+      background-color: map.get($theme-colors, "redit3") !important;
+    }
   }
   .contact-list {
     font-family: $font-family !important;
@@ -1067,7 +1102,7 @@ div#popover-post {
   }
 
   .messages {
-
+    font-family: $font-family !important;
     .avatar-container.me {
       background-color: #EF5DA8;
       color: white;
@@ -1144,9 +1179,6 @@ div#popover-post {
       color: map.get($theme-colors, "redit2");
     }
 
-
-
-    font-family: $font-family !important;
     a.actions {
       text-decoration: none;
     }
