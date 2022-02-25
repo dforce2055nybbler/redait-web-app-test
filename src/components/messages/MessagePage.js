@@ -15,7 +15,8 @@ import logoClarika from '../../images/logo-clarika.png'
 import MessageList from './MessageList'
 import Button from '@mui/material/Button'
 import SendIcon from '@mui/icons-material/Send'
-import TextareaAutosize from '@mui/material/TextareaAutosize';
+import TextareaAutosize from '@mui/material/TextareaAutosize'
+import NewMessage from './NewMessage'
 
 const MessagePage = () => {
   const [conversations, setConversations] = useState([
@@ -244,6 +245,8 @@ const MessagePage = () => {
   const [contacts, setContacts] = useState(null)
   const [messageFilter, setMessageFilter] = useState(null)
   const [inputMessage, setInputMessage] = useState('')
+  const [sendNewMessage, setSendNewMessage] = useState(false)
+  const [title, setTitle] = useState('Seleccione una conversación para empezar')
 
   
   
@@ -262,13 +265,23 @@ const MessagePage = () => {
   const handleConversationActive = contactId => {
     const active = conversations.find(conversation => conversation.contact.id === contactId)
     setConversationActive(active)
+    setTitle('Seleccione una conversación para empezar')
+    setSendNewMessage(false)
   }
 
   const writeMessage = () => {
     console.log("Writing new message...")
+    setSendNewMessage(true)
+    setConversationActive(null)
+    setTitle('Nuevo mensaje')
   }
+  const cancelMessage = () => {
+    setSendNewMessage(false)
+    setTitle('Seleccione una conversación para empezar')
+  }
+
   const sendMessage = () => {
-    console.log("Writing new message...", inputMessage)
+    console.log("Sending new message...", inputMessage)
     setInputMessage('')
   }
 
@@ -290,7 +303,7 @@ const MessagePage = () => {
   return (
     <>
       <Container style={{ marginTop: '-1.5rem' }} className="message-page">
-        <Row className="justify-content-md-center mt-n4 pr-3 pl-3 mb-4 g-0">
+        <Row className="justify-content-md-center mt-n4 pr-3 pl-3 g-0">
           <Col lg={12}>
             <h1 className="title">Mensajes</h1>
           </Col>
@@ -317,7 +330,7 @@ const MessagePage = () => {
                 {conversationActive ?
                   <h3 className="title">Conversación con {conversationActive?.contact?.name}</h3>
                   :
-                  <h3 className="title">Seleccione una conversación para empezar</h3>
+                  <h3 className="title">{title}</h3>
                 }
               </Col>
             </Row>
@@ -331,35 +344,47 @@ const MessagePage = () => {
             />
           </Col>
           <Col lg={9} className="right-col">
-            <Row className="messages-container">
-              <Col>
-                {conversationActive && <MessageList conversationActive={conversationActive} />}
-              </Col>
-            </Row>
+            {sendNewMessage ?
+              <NewMessage
+                contacts={contacts}
+                inputMessage={inputMessage}
+                setInputMessage={setInputMessage}
+                sendMessage={sendMessage}
+                cancelMessage={cancelMessage}
+              />
+              : 
+              <>
+                <Row className="messages-container">
+                  <Col>
+                    {conversationActive && <MessageList conversationActive={conversationActive} />}
+                  </Col>
+                </Row>
+                
+                <Row className="input-message-container">
+                  <Col xs={10} className="pt-3 pb-1 mr-1">
+                    <TextareaAutosize
+                      maxRows={4}
+                      aria-label="Escribe un mensaje"
+                      placeholder="Escribe un mensaje"
+                      className="input-message"
+                      value={inputMessage}
+                      onChange={(e) => setInputMessage(e.target.value)}
+                    />
+                  </Col>
+                  <Col xs={2} className="pt-3 pb-1 text-center">
+                    <Button
+                      className="btn-send active"
+                      variant="contained"
+                      endIcon={<SendIcon />}
+                      onClick={sendMessage}
+                    >
+                      Enviar
+                    </Button>
+                  </Col>
+                </Row>
+              </>
+            }
             
-            <Row className="input-message-container">
-              <Col xs={10} className="pt-3 pb-1 mr-1">
-                <TextareaAutosize
-                  maxRows={4}
-                  aria-label="Escribe un mensaje"
-                  placeholder="Escribe un mensaje"
-                  className="input-message"
-                  value={inputMessage}
-                  onChange={(e) => setInputMessage(e.target.value)}
-                />
-                {/* Estoy interesada, quiero enviarte un perfil que se adapta perfectamente a esta vacante */}
-              </Col>
-              <Col xs={2} className="pt-3 pb-1 text-center">
-                <Button
-                  className="btn-send active"
-                  variant="contained"
-                  endIcon={<SendIcon />}
-                  onClick={sendMessage}
-                >
-                  Enviar
-                </Button>
-              </Col>
-            </Row>
           </Col>
         </Row>
       </Container>

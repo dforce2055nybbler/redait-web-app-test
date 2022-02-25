@@ -1285,7 +1285,51 @@ div#popover-post {
       position: absolute;
       margin-top: 1rem;
     }
+  }
+  .new-message {
+    padding: 1.5rem 2.5rem;
+    h5 {
+      font-size: 14px !important;
+      color: map.get($theme-colors, "redit1");
+      line-height: 16px;
+      padding-top: .5rem;
+    }
+    .input-message-container {
+      min-height: 450px;
+    }
+    .input-search-receiver {
+      width: 100%;
+      font-size: 14px;
+      color: map.get($theme-colors, "redit1") !important;
+    }
+    input.input-search-receiver:focus-visible {
+      outline: none !important;
+      border: map.get($theme-colors, "background") !important;
+      box-shadow: 0 0 10px #719ece;
+    }
+    .input-new-message {
+      width: 100%;
+      font-size: 14px;
+      padding: 0.5rem;
+      color: map.get($theme-colors, "redit1") !important;
+      border: 1px solid map.get($theme-colors, "background") !important;
+      border-radius: 5px;
+    }
+    textarea.input-new-message:focus-visible {
+      outline: none !important;
+      border: map.get($theme-colors, "background") !important;
+      box-shadow: 0 0 10px #719ece;
+    }
     
+    .btn-send.active {
+      background-color: map.get($theme-colors, "azulreditlighter-1") !important;
+    }
+    .btn-send.active:hover {
+      background-color: map.get($theme-colors, "azulredit") !important;
+    }
+    .btn-send.inactive {
+      background-color: map.get($theme-colors, "redit3") !important;
+    }
   }
 }
 
