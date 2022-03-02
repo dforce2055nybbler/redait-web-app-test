@@ -204,29 +204,29 @@ const ProfilePage = ({ companyDetails }) => {
                     <Row style={{ height: '60px' }} className="pt-3 mb-3 justify-content-start">
                       {company.socials &&
                         <Col xs="auto">
-                          {company.socials.linkedin &&
+                          {company.socials.linkedin.url &&
                             <Link to={company.socials.linkedin.url + '?referer=redit'} target="_blank" rel="redit">
                               <span className="social-medias">
                                 <LinkedinIcon />
                               </span>
                             </Link>
                           }
-                          {company.socials.instagram &&
-                            <Link to={company.socials.instagram.url} target="_blank" rel="redit">
+                          {company.socials.instagram.url &&
+                            <Link to={company.socials.instagram.url + '?referer=redit'} target="_blank" rel="redit">
                               <span className="social-medias">
                                 <InstagramIcon />
                               </span>
                             </Link>
                           }
-                          {company.socials.twitter &&
-                            <Link to={company.socials.twitter.url} target="_blank" rel="redit">
+                          {company.socials.twitter.url &&
+                            <Link to={company.socials.twitter.url + '?referer=redit'} target="_blank" rel="redit">
                               <span className="social-medias slim-icon">
                                 <TwitterIcon />
                               </span>
                             </Link>
                           }
-                          {company.socials.facebook &&
-                            <Link to={company.socials.facebook.url} target="_blank" rel="redit">
+                          {company.socials.facebook.url &&
+                            <Link to={company.socials.facebook.url + '?referer=redit'} target="_blank" rel="redit">
                               <span className="social-medias slim-icon">
                                 <FacebookIcon />
                               </span>
