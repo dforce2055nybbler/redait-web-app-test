@@ -4,7 +4,8 @@ module.exports = {
   siteMetadata: {
     title: `RedAIT APP`,
     description: `App de la RedAIT.`,
-    author: `@pmpeloc`,
+    author: `REDIT`,
+    dev: `Diego Pérez <dperez2055@gmail.com>`,
     siteUrl: `http://redargentinait.com/`,
   },
   plugins: [

@@ -1,9 +1,10 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "readit-app",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "App de la RedAIT",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "REDIT",
+  "dev": "Diego Pérez <dperez2055@gmail.com>",
   "dependencies": {
     "@apollo/client": "^3.5.8",
     "@emotion/react": "^11.7.1",
