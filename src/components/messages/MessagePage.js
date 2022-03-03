@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Container } from 'react-bootstrap'
+import { Row, Col, Container, Form, Button } from 'react-bootstrap'
 import { FaRegEdit } from 'react-icons/fa'
 import Search from './Search';
-import IconButton from '@mui/material/IconButton';
 import ContactList from './ContactList';
-import Badge from '@mui/material/Badge';
-import logoIcon from '../../images/logo-infosis-light.png'
 import logoInfosis from '../../images/logo-infosis-light.png'
 import logoBlimop from '../../images/logo-blimop.png'
 import logoCloudSpace from '../../images/logo-grupo-cloudspace.png'
@@ -13,9 +10,6 @@ import logoGLGroup from '../../images/logo-gl-group.png'
 import logoGlobant from '../../images/logo-globant.png'
 import logoClarika from '../../images/logo-clarika.png'
 import MessageList from './MessageList'
-import Button from '@mui/material/Button'
-import SendIcon from '@mui/icons-material/Send'
-import TextareaAutosize from '@mui/material/TextareaAutosize'
 import NewMessage from './NewMessage'
 
 const MessagePage = () => {
@@ -247,7 +241,7 @@ const MessagePage = () => {
   const [inputMessage, setInputMessage] = useState('')
   const [sendNewMessage, setSendNewMessage] = useState(false)
   const [title, setTitle] = useState('Seleccione una conversación para empezar')
-
+  const [ready, setReady] = useState(false)
   
   
   const setFilter = message => {
@@ -300,6 +294,17 @@ const MessagePage = () => {
     }
   }, [messageFilter] )
 
+  useEffect(() => { 
+    try {
+      if (conversationActive && inputMessage.length > 1)
+        setReady(true)
+      else
+        setReady(false)
+    } catch (error) {
+      setReady(false)
+    }
+  }, [conversationActive, inputMessage])
+
   return (
     <>
       <Container style={{ marginTop: '-1.5rem' }} className="message-page">
@@ -317,10 +322,15 @@ const MessagePage = () => {
                   setFilter={setFilter}
                 />
               </Col>
-              <Col xs="auto" className="edit">
-                <IconButton aria-label="delete" size="large" onClick={writeMessage}>
+              <Col xs="auto" lg="2" className="edit my-auto text-center">
+                <Button
+                  className="button-transparent ml-2"
+                  aria-label="Nuevo mensaje"
+                  size="sm"
+                  onClick={writeMessage}
+                >
                   <FaRegEdit size={29} fontSize="inherit" />
-                </IconButton>
+                </Button>
               </Col>
             </Row>
           </Col>
@@ -361,21 +371,21 @@ const MessagePage = () => {
                 </Row>
                 
                 <Row className="input-message-container">
-                  <Col xs={10} className="pt-3 pb-1 mr-1">
-                    <TextareaAutosize
-                      maxRows={4}
+                  <Col xs={10} className="text-center my-auto mr-1">
+                    <Form.Control
+                      as="textarea"
                       aria-label="Escribe un mensaje"
                       placeholder="Escribe un mensaje"
                       className="input-message"
+                      rows={1}
                       value={inputMessage}
                       onChange={(e) => setInputMessage(e.target.value)}
                     />
                   </Col>
-                  <Col xs={2} className="pt-3 pb-1 text-center">
+                  <Col xs={2} className="text-center my-auto">
                     <Button
-                      className="btn-send active"
-                      variant="contained"
-                      endIcon={<SendIcon />}
+                      disabled={!ready}
+                      className={ ready ? 'btn-send active' : '' }
                       onClick={sendMessage}
                     >
                       Enviar

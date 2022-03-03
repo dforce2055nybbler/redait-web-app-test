@@ -1,10 +1,8 @@
 
 import React, { useState } from 'react';
-import { Popover, OverlayTrigger, Button, Row, Col } from 'react-bootstrap';
+import { Popover, OverlayTrigger, Button, Row, Col, Badge } from 'react-bootstrap';
 import { Link } from 'gatsby'
 import { FaBell } from 'react-icons/fa';
-import Badge from '@mui/material/Badge';
-import logoIcon from '../../images/logo-infosis-light.png'
 import logoInfosis from '../../images/logo-infosis-light.png'
 import logoBlimop from '../../images/logo-blimop.png'
 import logoCloudSpace from '../../images/logo-grupo-cloudspace.png'
@@ -12,7 +10,6 @@ import logoGLGroup from '../../images/logo-gl-group.png'
 import logoGlobant from '../../images/logo-globant.png'
 import logoClarika from '../../images/logo-clarika.png'
 import rightArrowIcon from '../../images/right-arrow-icon.png'
-import Avatar from '@mui/material/Avatar';
 
 
 const NotificationMenu = () => {
@@ -112,17 +109,19 @@ const NotificationMenu = () => {
                   <span className="dot">&nbsp;</span>
                 </Col>
                 <Col xs="auto" style={{ paddingLeft: '.6rem', paddingRight: '0' }}>
-                  <Avatar className="avatar-container">
+                  <div className="avatar-container">
                     {button.src ? 
                       <img
-                        alt=""
+                        alt={button.company}
                         className={ 'item-left-icon ' + button.bgcolor }
                         src={ button.src }
                       />
                     :
-                      button.company[0]
+                      <div>
+                        {button.company[0]}
+                      </div>
                     }
-                  </Avatar>
+                  </div>
                 </Col>
                 <Col xs={8} style={{ textAlign: 'start' }}>
                   <Row>
@@ -159,13 +158,12 @@ const NotificationMenu = () => {
   const Menu = () => (
     <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
       <Button
-        className="button-transparent"
+        className="button-transparent notifications"
         aria-label="Menú de notificaciones"
         size="sm"
       >
-        <Badge badgeContent={notifications} className="notification-badge">
-          <FaBell color="#657C97" size={29} />
-        </Badge>
+        <FaBell color="#657C97" size={29} />
+        <Badge className="notification-badge">{notifications}</Badge>
       </Button>
     </OverlayTrigger>
   );

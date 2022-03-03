@@ -29,58 +29,58 @@ export default function CompanyDetails({ pageContext, data }) {
 }
 
 export const query = graphql`
-    query CompanyDetails($slug: String) {
-      companyDetails: strapiCompanies(slug: {eq: $slug}, active: {eq: true}) {
-        strapiId
+  query CompanyDetails($slug: String) {
+    companyDetails: strapiCompanies(slug: {eq: $slug}, active: {eq: true}) {
+      strapiId
+      name
+      subtitle
+      email
+      phone
+      domain
+      description
+      employees
+      languages {
+        id
         name
-        subtitle
-        email
-        phone
-        domain
+      }
+      facebook_url
+      instagram_url
+      twitter_url
+      linkedin_url
+      services {
+        id
+        name
+        title
+      }
+      posts {
+        id
+        title
         description
-        employees
-        languages {
-          id
-          name
-        }
-        facebook_url
-        instagram_url
-        twitter_url
-        linkedin_url
-        services {
-          id
-          name
-          title
-        }
-        posts {
-          id
-          title
-          description
-          location
-          status
-          type
-        }
-        team {
-          id
-          name
-          job
-        }
-        software {
-          id
-          name
-          url
-        }
-        slug
         location
-        markets {
-          id
-          name
-        }
-        partnerships {
-          id
-          name
-          title
-        }
+        status
+        type
+      }
+      team {
+        id
+        name
+        job
+      }
+      software {
+        id
+        name
+        url
+      }
+      slug
+      location
+      markets {
+        id
+        name
+      }
+      partnerships {
+        id
+        name
+        title
       }
     }
-  `
+  }
+`

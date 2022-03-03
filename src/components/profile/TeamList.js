@@ -1,30 +1,30 @@
 import * as React from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import ImageIcon from '@mui/icons-material/Image';
-import WorkIcon from '@mui/icons-material/Work';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import { ListGroup, Image } from 'react-bootstrap';
+
 
 export default function TeamList({ team }) {
   return (
-    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      {team.map(member => (
-        <ListItem key={member.id}>
-          <ListItemAvatar>
-            <Avatar>
-              <img
-                alt={member.name}
-                src={member.img} 
+    <ListGroup as="ol" numbered className="team">
+      {team.map((member, index) => (
+        <ListGroup.Item
+          className="item"
+          key={member.id}
+          as="li"
+          className="d-flex justify-content-between align-items-start"
+        >
+          <div className="avatar">
+            <Image
+              thumbnail
+              alt={member.name}
+              src={member.src ? member.src : `https://picsum.photos/300/300?random=${index}` }
               />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText className="team-member" primary={member.name} secondary={member.job} />
-        </ListItem>
+          </div>
+          <div className="ms-2 me-auto">
+            <div className="fw-bold">{member.job}</div>
+            {member.name}
+          </div>
+        </ListGroup.Item>
       ))}
-      
-    </List>
+    </ListGroup>
   );
 }

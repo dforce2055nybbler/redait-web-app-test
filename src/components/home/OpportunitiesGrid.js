@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row, ProgressBar } from 'react-bootstrap';
 import Opportunity from './Opportunity';
 import Talent from './Talent';
 import Product from './Product';
 import Partnership from './Partnership';
-import LinearProgress from '@mui/material/LinearProgress';
 import { SearchContext } from '../../contexts/wrappers/SearchContext';
 import { useQuery } from '@apollo/client'
 import {
@@ -107,7 +106,7 @@ const OpportunitiesGrid = ({ id }) => {
 
   return (
     <Container style={{ marginTop: '3.563rem' }}>
-      {loading && <><p>cargando...</p> <LinearProgress /></>}
+      {loading && <><p>cargando...</p> <ProgressBar animated now={100} /></>}
       {data && 
         <>
           <Row>

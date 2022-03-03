@@ -1,7 +1,5 @@
 import React from "react";
-import { Row, Col, Container } from 'react-bootstrap'
-import Paper from '@mui/material/Paper'
-import Avatar from '@mui/material/Avatar'
+import { Row, Col, Container, Card, Image, Badge } from 'react-bootstrap'
 import logo from '../../images/logo-infosis-light.png'
 import EMailIcon from '../../images/email-icon.svg'
 import PhoneIcon from '../../images/phone-icon.svg'
@@ -15,7 +13,6 @@ import TwitterIcon from '../../images/twitter-icon.svg'
 import FacebookIcon from '../../images/facebook-icon.svg'
 import CardSection from './CardSection'
 import { Link } from 'gatsby'
-import Chip from '@mui/material/Chip'
 import PostList from "./PostList"
 import TeamList from "./TeamList";
 
@@ -51,72 +48,78 @@ const ProfilePage = ({ companyDetails }) => {
   const edit = () => {
     console.log('editing ...')
   }
-  const editPost = () => {
-    console.log('editing post ...')
+  const editPost = (post) => {
+    console.log('editing post ...', post)
+  }
+  const handleService = (service) => {
+    console.log('service ...', service)
   }
   return (
     <>
       <Container style={{ marginTop: '-1.5rem' }} className="profile-page">
         <Row className="justify-content-md-center mt-n4 pr-3 pl-3 mb-4">
           <Col style={{ position: 'relative' }}>
-            <Paper className="profile-hero-resume" elevation={2} square>
+            <Card className="profile-hero-resume">
               <Row className="justify-content g-0">
                 <Col xs={1}>
-                  <Avatar className="avatar-container">
-                    <img
-                      alt=""
+                  <div
+                    className="avatar-container"
+                  >
+                    <Image
+                      alt={ company.name }
                       className="avatar-image"
                       src={logo}
                     />
-                  </Avatar>
+                  </div>
                 </Col>
                 <Col xs={4}>
                   <p className="title">{ company.name }</p>
                   <p className="subtitle">{ company.subtitle }</p>
                 </Col>
                 <Col xs="auto" className="contact-media g-0">
-                  <Avatar
+                  <div
                     onClick={() => sendEmail()}
                     className="avatar-info"
                   >
                     <EMailIcon />
-                  </Avatar>
+                  </div>
                 </Col>
                 <Col className="contact-media g-0">
                   <span className="email">{ company.email }</span>
                 </Col>
                 <Col xs="auto" className="contact-media g-0">
-                  <Avatar
+                  <div
                     onClick={() => whatsAppMe()}
                     className="avatar-info"
+                    style={{ paddingLeft: '.6rem', paddingRight: '.6rem'}}
                   >
                     <PhoneIcon />
-                  </Avatar>
+                  </div>
                 </Col>
                 <Col className="contact-media g-0">
                   <span className="email">{ company.phone }</span>
                 </Col>
                 <Col xs="auto" className="contact-media g-0">
-                  <Avatar
+                  <div
                     onClick={() => goWebSite()}
                     className="avatar-info"
                   >
                     <WebIcon />
-                  </Avatar>
+                  </div>
                 </Col>
                 <Col className="contact-media g-0">
                   <span className="web">{ company.domain }</span>
                 </Col>
                 <Col xs="auto" className="edit g-0">
-                  <Avatar
+                  <div
                     onClick={() => goWebSite()}
                     className="avatar-edit"
                   >
                     <EditIcon />
-                  </Avatar>
+                  </div>
                 </Col>
               </Row>
-            </Paper>
+            </Card>
           </Col>
         </Row>
       </Container>
@@ -170,7 +173,14 @@ const ProfilePage = ({ companyDetails }) => {
                     <Row className="pt-3 mb-3 justify-content-start">
                       {company.services.map(service => (
                         <Col key={service.id} xs="auto">
-                          <Chip className="chip" label={service.name} />
+                          <Badge
+                            className="chip"
+                            bg="light"
+                            text="dark"
+                            onClick={() => handleService(service)}
+                          >
+                            {service.name}
+                          </Badge>
                         </Col>
                       ))}
                     </Row>
@@ -259,12 +269,13 @@ const ProfilePage = ({ companyDetails }) => {
                     css="software"
                   >
                     <Row className="pt-3 mb-3 justify-content-center">
-                      {company.software.map(software => (
+                      {company.software.map((software, index) => (
                         <Col key={software.id} lg={5} className="pt-3 mb-3 justify-content-center">
                           <Link to={software.url}>
-                            <img
+                            <Image
+                              thumbnail
                               alt={software.name}
-                              src={software.img}
+                              src={software.img ? software.img : `https://picsum.photos/300/300?random=${index}` }
                               className="software-logo"
                             />
                           </Link>

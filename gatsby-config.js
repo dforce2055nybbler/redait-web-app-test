@@ -58,7 +58,7 @@ module.exports = {
           `opportunities`,
           `business-opportunities`,
           `events`,
-
+          `types-opportunites`,
         ],
         // singleTypes: [`home-page`, `contact`],
       },

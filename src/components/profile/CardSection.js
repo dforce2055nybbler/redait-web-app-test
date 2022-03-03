@@ -1,16 +1,12 @@
 import React from "react";
-import { Row, Col } from 'react-bootstrap'
-import Paper from '@mui/material/Paper'
-import Avatar from '@mui/material/Avatar'
+import { Row, Col, Card, Button } from 'react-bootstrap'
 import EditIcon from '../../images/edit-icon.svg'
 import AddIcon from '../../images/add-icon.svg'
 
 const CardSection = ({ title, add, edit, css, children }) => {
 
   return (
-    <Paper
-      elevation={2}
-      square
+    <Card
       className={'paper-container mt-4 ' + css}
     >
       <Row>
@@ -18,24 +14,28 @@ const CardSection = ({ title, add, edit, css, children }) => {
           <h6 className="title">{title}</h6>
         </Col>
         <Col xs="auto" className="edit g-0">
-          <Avatar
+          <Button
+            className="avatar-edit-new button-transparent"
+            aria-label="Menú de usuario"
+            size="sm"
             onClick={() => add()}
-            className="avatar-edit"
           >
             <AddIcon />
-          </Avatar>
+          </Button>
         </Col>
         <Col xs="auto" className="edit g-0">
-          <Avatar
+          <Button
+            className="avatar-edit-new button-transparent"
+            aria-label="Menú de usuario"
+            size="sm"
             onClick={() => edit()}
-            className="avatar-edit"
           >
             <EditIcon />
-          </Avatar>
+          </Button>
         </Col>
       </Row>
       { children }
-    </Paper>
+    </Card>
   );
 };
 

@@ -16,6 +16,7 @@ $theme-colors: (
   'redit6': #BEC6CE,
   'azulredit': #0033FF,
   'azulreditlighter-1': #325bff,
+  'azulreditdarken-1': #0027c4,
   'verderedit': #2EE7BA,
   'naranjaredit': #FF5C40,
   'naranjalightredit': #ff5c4014,
@@ -264,9 +265,39 @@ h1 {
 
 
 /* SEARCH */
+.search-autocomplete {
+  width: 630px;
+}
+.search-autocomplete > div:nth-child(3) {
+  height: 59px;
+}
+.search-autocomplete.colapse {
+  min-width: 300px;
+  width: 100%;
+}
+.search-autocomplete.colapse > div:nth-child(3) {
+  border-top-right-radius: unset;
+  border-bottom-right-radius: unset;
+  height: 59px;
+}
+.list-filters-card-containers {
+  min-width: 600px !important;
+  width: 100%;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  min-height: 59px;
+  border-top-left-radius: unset !important;
+  border-bottom-left-radius: unset !important;
+  gap: 0.3rem;
+  padding-inline: 1rem;
+  overflow: hidden;
+}
+
 span.badge-filter-active {
   background-color: map.get($theme-colors, "redit1") !important;
 }
+
 .opportunity {
   .opportunity-company {
     font-size: 0.7rem !important;
@@ -283,12 +314,11 @@ span.badge-filter-active {
 }
 .product {
   .avatar-container {
-    width: 63px;
-    height: 63px;
+    width: 100px;
+    height: 100%;
     background-color: map.get($theme-colors, "redit5");
     border-radius: 8px;
     box-shadow: 0 5px 10px 0 rgb(0 0 0 / 12%);
-    border: 1px solid map.get($theme-colors, "redit3");;
   }
   .avatar-image {
     width: 100%;
@@ -347,6 +377,7 @@ span.badge-filter-active {
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
   border-radius: 0;
+  margin-left: -2px;
 }
 .list-filter-container {
   padding: '2px 4px';
@@ -383,7 +414,6 @@ span.badge-filter-active {
 
 /* OPPORTUNITY CARD */
 .badge-redait {
-  
   font-size: 0.625rem !important;
   font-weight: 600;
   background: #F0F4F8;
@@ -452,7 +482,25 @@ span.see-more {
   background-color: map.get($theme-colors, "naranjaredit");
   font-size: .7rem;
 }
-
+.notifications {
+  background-color: map.get($theme-colors, "naranjaredit");
+  font-size: .7rem;
+  color: white;
+  text-decoration: none;
+  padding: 15px 26px;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px;
+  
+  span.notification-badge {
+    position: absolute;
+    right: -12px;
+    font-size: .6rem;
+    border-radius: 50%;
+    background-color: map.get($theme-colors, "naranjaredit") !important;
+    color: white;
+  }
+}
 div#popover-notifications {
   max-width: 100%;
 }
@@ -548,6 +596,18 @@ div#popover-notifications {
     width: 50px;
     height: 50px;
     color: map.get($theme-colors, "redit1");
+    border-radius: 50%;
+    text-align: center;
+  }
+  .avatar-container > img {
+    border: none !important;
+    border-radius: 50%;
+  }
+  .avatar-container > div {
+    height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    padding-top: 0.4rem;
   }
   .dot {
     height: 7px;
@@ -694,8 +754,10 @@ div#popover-post {
 .profile-hero-resume {
   height: 142px;
   width: 100%;
-  border-radius: 10px;
+  border: none !important;
+  border-radius: 10px !important;
   padding: 1rem;
+  box-shadow: -2px 2px 6px 0 rgb(38 74 117 / 9%);
 
   .avatar-container {
     width: 74px;
@@ -726,12 +788,14 @@ div#popover-post {
   }
   .contact-media {
     padding-top: 1rem;
-  }
-  .avatar-info {
-    background-color: map.get($theme-colors, "redit4")
-  }
-  .avatar-info:hover {
-    background-color: map.get($theme-colors, "redit3")
+    .avatar-info {
+      border-radius: 50%;
+      padding: 0.15rem 0.5rem;
+      background-color: map.get($theme-colors, "redit4")
+    }
+    .avatar-info:hover {
+      background-color: map.get($theme-colors, "redit3")
+    }
   }
   
   .email, .phone, .web {
@@ -744,17 +808,45 @@ div#popover-post {
 }
 
 .profile-page {
+  .chip {
+    color: map.get($theme-colors, "redit1") !important;
+    background-color: map.get($theme-colors, "redit5") !important;
+    font-size: .7rem !important;
+  }
+  .chip:hover {
+    background-color: map.get($theme-colors, "redit4") !important;
+  }
   .left-col {
 
   }
   .right-col {
 
   }
+  .team {
+    .list-group-item {
+      border: none !important;
+    }
+    .avatar > img {
+      max-width: 80px;
+      border-radius: 50%;
+    }
+  }
+  
   .avatar-edit {
     background-color: transparent;
   }
   .avatar-edit:hover {
-    background-color: map.get($theme-colors, "light")
+    background-color: map.get($theme-colors, "light") !important;
+  }
+  .avatar-edit-new {
+    background-color: transparent;
+    border-radius: 50% !important;
+    padding: .5rem .7rem !important;
+  }
+  .avatar-edit-new:hover {
+    background-color: map.get($theme-colors, "light") !important;
+    border-radius: 50% !important;
+    padding: .5rem .7rem !important;
   }
   .edit {
     margin-top: -.9rem;
@@ -780,6 +872,7 @@ div#popover-post {
     padding: 26px 26px 30px 28px;
     box-shadow: -2px 2px 6px 0 rgb(38 74 117 / 9%);
     position: relative;
+    border: none;
 
     h6.title {
       font-family: $font-family;
@@ -853,16 +946,32 @@ div#popover-post {
       width: 100%;
     }
     .post-status-chip {
-      font-size: 14px;
-      color: map.get($theme-colors, "redit5");
-      background-color: map.get($theme-colors, "primary");
-      width: 140px;
-      padding: 0 1rem;
+      color: map.get($theme-colors, "redit5") !important;
+      background-color: map.get($theme-colors, "redit1") !important;
+      font-size: 14px !important;
+      width: 140px !important;
+      padding: 0.4rem 1rem !important;
+      border-radius: 1rem;
+    }
+    .post-status-chip:hover {
+      background-color: map.get($theme-colors, "azulreditdarken-1") !important;
+    }
+    .post-status-chip.disabled {
+      color: white !important;
+      background-color: map.get($theme-colors, "azulcelesteredit") !important;
+      font-size: 14px !important;
+      width: 140px !important;
+      padding: 0.4rem 1rem !important;
+      border-radius: 1rem;
+    }
+    .post-status-chip.disabled:hover {
+      background-color: map.get($theme-colors, "azulcelesteredit") !important;
     }
      // .about {}
     // .socials {
     // }
     // .services {
+      
     // }
     // .team {}
     // .sowftware {}
@@ -967,6 +1076,9 @@ div#popover-post {
       color: map.get($theme-colors, "redit1") !important;
       border: map.get($theme-colors, "background") !important;
       border-radius: 5px;
+    }
+    textarea.input-message {
+      max-height: 100px;
     }
     textarea.input-message:focus-visible {
       outline: none !important;
@@ -1078,8 +1190,19 @@ div#popover-post {
       background-color: map.get($theme-colors, "redit5");
       border: 1px solid map.get($theme-colors, "redit3");
       width: 50px;
-      height: 50px;
       color: map.get($theme-colors, "redit1");
+      border-radius: 50%;
+      text-align: center;
+    }
+    .avatar-container > img {
+      border: none !important;
+      border-radius: 50%;
+    }
+    .avatar-container > div {
+      height: 50px;
+      border-radius: 50%;
+      text-align: center;
+      padding-top: 0.4rem;
     }
     .dot {
       height: 7px;
@@ -1110,6 +1233,9 @@ div#popover-post {
     .avatar-container.me {
       background-color: #EF5DA8;
       color: white;
+      border-radius: 50%;
+      text-align: center;
+      padding: 0.4rem;
     }
     .from-them {
       background-color: map.get($theme-colors, "redit5") !important;
@@ -1122,6 +1248,7 @@ div#popover-post {
       line-height: 21px;
       padding: .8rem;
       position: relative;
+      border-radius: 1rem 1rem 1rem 0;
     }
     .from-them:after {
       content: '';
@@ -1136,8 +1263,11 @@ div#popover-post {
       left: -20px;
       margin-top: -10px;
     }
-    .from-them:hover {
+    .message-container:hover .from-them {
       background-color: map.get($theme-colors, "redit4") !important;
+    }
+    .message-container:hover .from-them:after {
+      opacity: .2;
     }
     .from-me-container {
       display: flex;
@@ -1154,6 +1284,7 @@ div#popover-post {
       line-height: 21px;
       padding: .8rem;
       position: relative;
+      border-radius: 1rem 1rem 0 1rem;
     }
     .from-me:after {
       content: '';
@@ -1168,8 +1299,11 @@ div#popover-post {
       right: -20px;
       margin-top: -10px;
     }
-    .from-me:hover {
+    .message-container:hover .from-me {
       background-color: map.get($theme-colors, "redit1") !important;
+    }
+    .message-container:hover .from-me:after {
+      opacity: .2;
     }
 
     .date {
@@ -1268,6 +1402,12 @@ div#popover-post {
       width: 50px;
       height: 50px;
       color: map.get($theme-colors, "redit1");
+      border-radius: 50%;
+      text-align: center;
+    }
+    .avatar-container > img {
+      border: none !important;
+      border-radius: 50%;
     }
     .dot {
       height: 7px;

@@ -6,15 +6,10 @@ import {
   InputGroup,
   Row,
   Col,
+  Card
 } from 'react-bootstrap';
 import { FaSlidersH } from 'react-icons/fa';
-
-import Autocomplete from '@mui/material/Autocomplete';
-import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
-import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
+import SearchAutocomplete from './SearchAutocomplete'
 import Select from 'react-select';
 import { formatDataSelect } from '../../helpers/formatDataSelect';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -96,6 +91,7 @@ const SearchFilter = ({ mainFilterParameter, cleanParams }) => {
       type: 'SET_MAIN_FILTER',
       filter: filters[filter.name]
     })
+    setBtnFilter(true)
   };
 
   const auxFiltersHandle = (filterSelected, filter) => {
@@ -248,7 +244,7 @@ const SearchFilter = ({ mainFilterParameter, cleanParams }) => {
     console.log("submission prevented");
   };
 
-  const search = (e) => {
+  const search = (e, paramText) => {
     const text = e.target.value
     
     if (e.key === 'Enter' && text) {
@@ -268,6 +264,15 @@ const SearchFilter = ({ mainFilterParameter, cleanParams }) => {
       })
       getResults(searchText)
       setOpen(false)
+    }
+    if (paramText && paramText.length >= 3) {
+      console.log('anda a buscar esto => ', paramText)
+      cleanParams()
+      actions.dispatchSearch({
+        type: 'ADD_SEARCH',
+        text: paramText
+      })
+      getResults(paramText)
     }
 
   }
@@ -345,48 +350,15 @@ const SearchFilter = ({ mainFilterParameter, cleanParams }) => {
         <InputGroup style={{ flexWrap: 'nowrap' }}>
           <Row className="d-flex justify-content-center w-5 m-auto">
             <Col md="auto">
-              <Paper
-                elevation={1}
-                onSubmit={(e) => setSearchText(e.preventDefault())}
-                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 630, height: 59, backgroundColor: '#fff', borderRightColor: 'transparent'}}
-              >
-                <IconButton
-                  onClick={(e) => search(e)}
-                  type="submit"
-                  sx={{ p: '10px', height: 50 }}
-                  aria-label="search"
-                >
-                  <SearchIcon sx={{ color: '#212529' }}/>
-                </IconButton>
-                <ClickAwayListener onClickAway={handleClickAway}>
-                  <Autocomplete
-                    id="combo-box-demo"
-                    sx={{ width: 600 }}
-                    open={open}
-                    loading={loading}
-                    loadingText="Cargando..."
-                    value={opportunityTypeSelect}
-                    isOptionEqualToValue={(option, value) => option.id === value.id}
-                    onChange={(e, value) => autocompleteHandle(e, value)}
-                    filterOptions={(x) => x}
-                    options={opportunitiesTypes}
-                    renderInput={(params, option) => {
-                      const { InputLabelProps, InputProps, ...rest } = params;
-                      return (
-                        <InputBase
-                          key={getKey(rest.inputProps.value)}
-                          onChange={(e) => searchTextHandle(e.target.value)}
-                          onKeyPress={(e) => search(e)}
-                          onClick={() => setOpen(true)}
-                          value={searchText} {...params.InputProps} {...rest} 
-                        />
-                      )
-                    }}
-                  />
-                </ClickAwayListener>
-              </Paper>
+              <SearchAutocomplete
+                options={opportunitiesTypes}
+                optionSelected={opportunityTypeSelect}
+                search={search}
+                autocompleteHandle={autocompleteHandle}
+                className="search-autocomplete"
+              />
             </Col>
-            <Col xs lg="2">
+            <Col lg="2">
               <Button
                 style={{height: 59 }}
                 variant="light"
@@ -405,110 +377,46 @@ const SearchFilter = ({ mainFilterParameter, cleanParams }) => {
       }
       {/* Filter expanded */}
       {btnFilter &&
-        <InputGroup>
-          <Row className="d-flex justify-content-center m-auto">
-            <Col
-              xs="auto"
-              md="3"
-              lg="4"
-              xl="4"
-              className="list-filter-left-col"
-            >
-              <Paper
-                elevation={1}
-                onSubmit={(e) => setSearchText(e.preventDefault())}
-                sx={{
-                  p: '2px 4px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  width: '100%',
-                  height: 59,
-                  backgroundColor: '#fff',
-                  borderRight: '2px solid #ccc',
-                  borderTopRightRadius: '0px',
-                  borderBottomRightRadius: '0px',
-                  paddingRight: '15px',
-                  marginRight: '10px'
-                }}
-              >
-                <IconButton
-                  onClick={() => getResults(opportunityTypeSelect)}
-                  type="submit"
-                  sx={{ p: '10px' }}
-                  aria-label="search"
+        <Row className="d-flex justify-content-center m-auto">
+          <Col
+            xs="12"
+            md="3"
+            lg="4"
+            xl="6"
+            className="list-filter-left-col"
+          >
+            <SearchAutocomplete
+              options={opportunitiesTypes}
+              optionSelected={opportunityTypeSelect}
+              search={search}
+              autocompleteHandle={autocompleteHandle}
+              className="search-autocomplete colapse"
+            />
+          </Col>
+          <Col
+            xs="12"
+            md="9"
+            lg="8"
+            xl="6"
+            className="list-filter-right-col"
+          >
+            <Card className="list-filters-card-containers">
+              {Object.keys(filters).map(f => (
+                <Badge
+                  className={filters[f].active ? 'badge-filter-active' : ''}
+                  key={f}
+                  pill
+                  bg={`${filters[f].active ? 'dark' : 'light'}`}
+                  text={`${filters[f].active ? 'light' : 'dark'}`}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => filterHandle(filters[f])}
                 >
-                  <SearchIcon sx={{ color: '#212529' }} />
-                </IconButton>
-                <ClickAwayListener onClickAway={handleClickAway}>
-                  <Autocomplete
-                    id="combo-box-demo"
-                    sx={{ width: 646 }}
-                    open={open}
-                    loading={loading}
-                    loadingText="Cargando..."
-                    value={opportunityTypeSelect}
-                    isOptionEqualToValue={(option, value) => option.id === value.id}
-                    onChange={(e, value) => autocompleteHandle(e, value)}
-                    filterOptions={(x) => x}
-                    options={opportunitiesTypes}
-                    renderInput={(params, option) => {
-                      const { InputLabelProps, InputProps, ...rest } = params;
-                      return (
-                        <InputBase
-                          key={getKey(rest.inputProps.value)}
-                          onChange={(e) => searchTextHandle(e.target.value)}
-                          onKeyPress={(e) => search(e)}
-                          onClick={() => setOpen(true)}
-                          value={searchText} {...params.InputProps} {...rest} 
-                        />
-                      )
-                    }}
-                  />
-                </ClickAwayListener>
-              </Paper>
-            </Col>
-            <Col
-              xs="12"
-              md="9"
-              lg="8"
-              xl="6"
-              className="list-filter-right-col"
-            >
-              <Paper
-                elevation={1}
-                sx={{
-                  p: '2px 4px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  width: '100%',
-                  minHeight: 59,
-                  backgroundColor: '#fff',
-                  borderColor: 'transparent',
-                  borderLeftColor: 'transparent',
-                  borderTopLeftRadius: 0,
-                  borderBottomLeftRadius: 0,
-                  gap: '.3rem',
-                  paddingInline: '1rem',
-                  overflow: 'hidden'
-                }}
-              >
-                {Object.keys(filters).map(f => (
-                  <Badge
-                    className={filters[f].active ? 'badge-filter-active' : ''}
-                    key={f}
-                    pill
-                    bg={`${filters[f].active ? 'dark' : 'light'}`}
-                    text={`${filters[f].active ? 'light' : 'dark'}`}
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => filterHandle(filters[f])}
-                  >
-                    {filters[f].realName}
-                  </Badge>
-                ))}
-              </Paper>
-            </Col>
-          </Row>
-        </InputGroup>
+                  {filters[f].realName}
+                </Badge>
+              ))}
+            </Card>
+          </Col>
+        </Row>
       }
       {btnFilter && (
         <Row

@@ -1,10 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Row, Col } from 'react-bootstrap';
-import Button from '@mui/material/Button'
-import SendIcon from '@mui/icons-material/Send'
-import DeleteIcon from '@mui/icons-material/Delete'
-import TextareaAutosize from '@mui/material/TextareaAutosize'
+import { Row, Col, Button, Form } from 'react-bootstrap';
 import Select from 'react-select'
 
 const NewMessage = ({ contacts, inputMessage, setInputMessage, sendMessage, cancelMessage }) => {
@@ -59,12 +55,12 @@ const NewMessage = ({ contacts, inputMessage, setInputMessage, sendMessage, canc
       </Row>
       <Row>
         <Col xs={12}>
-          <TextareaAutosize
-            minRows={14}
-            maxRows={16}
+          <Form.Control
+            as="textarea"
             aria-label="Escribe un mensaje"
             placeholder="Escribe un mensaje"
-            className="input-new-message"
+            className="input-new-message mb-3"
+            style={{ height: '350px' }}
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
           />
@@ -74,8 +70,7 @@ const NewMessage = ({ contacts, inputMessage, setInputMessage, sendMessage, canc
         <Col xs={2}>
           <Button
             className="btn-cancel"
-            variant="outlined"
-            startIcon={<DeleteIcon />}
+            variant="outline-danger"
             onClick={cancelMessage}
           >
             Cancelar
@@ -85,8 +80,6 @@ const NewMessage = ({ contacts, inputMessage, setInputMessage, sendMessage, canc
           <Button
             disabled={!ready}
             className={ ready ? 'btn-send active' : '' }
-            variant="contained"
-            endIcon={<SendIcon />}
             onClick={handleSendMessage}
           >
             Enviar

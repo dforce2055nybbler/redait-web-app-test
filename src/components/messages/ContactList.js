@@ -1,8 +1,6 @@
 
 import React from 'react';
-import { Button, Row, Col } from 'react-bootstrap';
-import { Link } from 'gatsby'
-import Avatar from '@mui/material/Avatar';
+import { Button, Row, Col, Image } from 'react-bootstrap';
 
 const ContactList = ({ conversations, handleConversationActive }) => {
   const maxTitle = 30
@@ -21,25 +19,30 @@ const ContactList = ({ conversations, handleConversationActive }) => {
             >
               <Row className="justify-content-md-end">
                 <Col xs={6} className="d-flex flex-column justify-content-end ">
-                  <span className="date">{conversation.contact.lastUpdate}</span>
+                    <span className="date">{conversation.contact.lastUpdate}</span>
                 </Col>
               </Row>
               <Row className="align-items-center">
                 <Col xs="auto" style={{ verticalAlign: 'middle' }}>
-                  <span className="dot">&nbsp;</span>
+                  {conversation.status.unread &&
+                    <span className="dot">&nbsp;</span>
+                  }
                 </Col>
                 <Col xs="auto" style={{ paddingLeft: '0', paddingRight: '0' }}>
-                  <Avatar className="avatar-container">
+                  <div className="avatar-container">
                     {conversation.contact.src ? 
-                      <img
-                        alt=""
+                      <Image
+                        thumbnail
+                        alt={conversation.contact.company}
                         className={ 'item-left-icon ' + conversation.contact.bgcolor }
                         src={ conversation.contact.src }
                       />
                     :
-                      conversation.contact.company[0]
+                      <div>
+                        {conversation.contact.company[0]}
+                      </div>
                     }
-                  </Avatar>
+                  </div>
                 </Col>
                 <Col xs={8} style={{ textAlign: 'start', minWidth: '250px' }}>
                   <Row>
