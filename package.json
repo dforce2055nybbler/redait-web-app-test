@@ -2,7 +2,7 @@
   "name": "readit-app",
   "private": true,
   "description": "App de la RedAIT",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "REDIT",
   "dev": "Diego Pérez <dperez2055@gmail.com>",
   "dependencies": {

@@ -1,5 +1,5 @@
-import * as React from 'react';
-
+import React, { useEffect } from 'react';
+import packageJson from '../../package.json';
 import Layout from '../components/ui/layout';
 import Seo from '../components/seo';
 
@@ -24,6 +24,11 @@ const IndexPage = () => {
     params.delete('id')
     navigate('/')
   }
+
+  useEffect(() => {
+    console.log('App name: ', packageJson.name)
+    console.log('App version: ', packageJson.version)
+  }, [])
 
   return (
     <Layout>
