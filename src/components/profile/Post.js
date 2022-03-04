@@ -24,7 +24,6 @@ const Post = ({ post, editPost }) => {
     'strapiId',
     'name'
   );
-  console.log(optionsTypesOpportunities)
   const getPostType = (id) => {
     const result = optionsTypesOpportunities.find(item => item.value === id)
     if (result)
@@ -32,6 +31,7 @@ const Post = ({ post, editPost }) => {
     else
       return id
   }
+  
   return (
     <>
       <Row className="pt-1 justify-content-start g-0">
