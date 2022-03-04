@@ -14,7 +14,7 @@ const Login = () => {
 
   useEffect(() => {
     if (user.jwt && user.onboarding) {
-      navigate('/login');
+      navigate('/');
     }
   }, [user]);
 
