@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../components/ui/layout'
 import Seo from '../components/seo'
 import Hero from '../components/home/Hero'
@@ -8,10 +8,15 @@ import { navigate, graphql } from 'gatsby';
 export default function CompanyDetails({ pageContext, data }) {
   const { id, slug, name, description, subtitle } = pageContext
   const { companyDetails } = data
+  const [hasMounted, setHasMounted] = useState(false)
 
   const goHome = () => {
     navigate('/')
   }
+
+  useEffect(() => {
+    setHasMounted(true)
+  }, [])
 
   useEffect(() => {
     if (!companyDetails)
@@ -20,11 +25,17 @@ export default function CompanyDetails({ pageContext, data }) {
   }, [companyDetails])
 
   return (
-    <Layout>
-      <Seo title={name} />
-      <Hero />
-      {companyDetails && <ProfilePage companyDetails={companyDetails} />}
-    </Layout>
+    <>
+      {!hasMounted ?
+        <span>Cargando...</span>
+        :
+        <Layout>
+          <Seo title={name} />
+          <Hero />
+          {companyDetails && <ProfilePage companyDetails={companyDetails} />}
+        </Layout>
+      }
+    </>
   )
 }
 

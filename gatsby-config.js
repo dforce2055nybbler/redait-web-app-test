@@ -8,6 +8,9 @@ module.exports = {
     dev: `Diego Pérez <dperez2055@gmail.com>`,
     siteUrl: `http://redargentinait.com/`,
   },
+  flags: {
+    DEV_SSR: false
+  },
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
