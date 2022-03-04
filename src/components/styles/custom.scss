@@ -326,6 +326,20 @@ span.badge-filter-active {
 }
 
 /* FORMS */
+.form-container {
+  background-color: transparent !important;
+  border: none !important;
+}
+.form-result {
+  background-color: white !important;
+  overflow: hidden;
+  box-shadow: -2px 2px 6px 0 rgb(38 74 117 / 9%);
+  position: relative !important;
+  border: none !important;
+  height: 350px;
+  padding: 6rem 1rem;
+  border-radius: 20px !important;
+}
 #select-w100 > div {
   width: 100% !important;
 }

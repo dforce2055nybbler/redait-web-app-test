@@ -1,22 +1,22 @@
-import  React, { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
+import React, { useState, useEffect } from 'react'
+import StepperNew from 'react-stepper-horizontal'
 import ContactForm from './ContactForm'
 import PerfilForm from './PerfilForm'
-import TechnologiesForm from './TechnologiesForm';
-import ConfirmationForm from './ConfirmationForm';
-import Loader from '../ui/loader';
-import Paper from '@mui/material/Paper';
-import { Row, Col } from 'react-bootstrap';
-import Button from '@mui/material/Button';
+import TechnologiesForm from './TechnologiesForm'
+import ConfirmationForm from './ConfirmationForm'
+import Loader from '../ui/loader'
+import { Row, Col, Card, Button } from 'react-bootstrap'
 import { useMutation } from '@apollo/client'
 import { REGISTER_PARTNETSHIP } from '../../apollo/queries'
-import { Link } from 'gatsby';
+import { Link } from 'gatsby'
 
 
-const steps = ['Contacto', 'Perfil', 'Tecnologías', 'Confirmación'];
+const steps = [
+  { title: 'Contacto' },
+  { title: 'Perfil' },
+  { title: 'Tecnologías' },
+  { title: 'Confirmación' }
+]
 
 export default function PartnershipStepper() {
   const [loading, setLoading] = useState(false)
@@ -44,49 +44,26 @@ export default function PartnershipStepper() {
     otrasHabilidades: '',
   })
 
-  
-
-  const isStepOptional = (step) => {
-    return step === 99999;
-  };
 
   const isStepSkipped = (step) => {
-    return skipped.has(step);
-  };
+    return skipped.has(step)
+  }
 
   const handleNext = () => {
-    let newSkipped = skipped;
+    let newSkipped = skipped
     if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
+      newSkipped = new Set(newSkipped.values())
+      newSkipped.delete(activeStep)
     }
 
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
-  };
+    setActiveStep((prevActiveStep) => prevActiveStep + 1)
+    setSkipped(newSkipped)
+  }
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+    setActiveStep((prevActiveStep) => prevActiveStep - 1)
+  }
 
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-  };
 
   const handleContactForm = (values) => {
     setContact(values)
@@ -137,7 +114,6 @@ export default function PartnershipStepper() {
       duration: technologies.duracion,
       skills: technologies.otrasHabilidades
     }
-    debugger
     try {
       const { data, error } = await registerTalent({ variables: { item } })
       if (!error) {
@@ -156,25 +132,16 @@ export default function PartnershipStepper() {
     }
     else
       setNavigation('/')
-  }, [newItem]);
+  }, [newItem])
   
   return (
-    <Box sx={{ width: '100%', height: '100vmax' }}>
-      <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label, index) => {
-          const stepProps = {};
-          const labelProps = {};
-
-          if (isStepSkipped(index)) {
-            stepProps.completed = false;
-          }
-          return (
-            <Step key={label} {...stepProps}>
-              <StepLabel {...labelProps}>{label}</StepLabel>
-            </Step>
-          );
-        })}
-      </Stepper>
+    <Card className="form-container">
+      <div className="stepper">
+        <StepperNew
+          steps={steps}
+          activeStep={activeStep} 
+          />
+      </div>
       
 
       { activeStep === 0 ? (
@@ -219,7 +186,7 @@ export default function PartnershipStepper() {
         <React.Fragment>
           <Row className="align-items-center mt-4 pt-4">
             <Col className="align-items-center text-center">
-                <Paper style={{ height: '350px', padding: '6rem 1rem', borderRadius: '20px' }} elevation={6} square>
+            <Card className="form-result">
                   {loading ? (<Loader />)
                     :
                     (
@@ -235,7 +202,7 @@ export default function PartnershipStepper() {
                               to={navigation}
                               style={{ textDecoration: 'none' }}
                             >
-                              <Button variant="outlined" color="primary">
+                              <Button variant="outline-primary">
                                 Ver resultado
                               </Button>
                             </Link>
@@ -244,11 +211,11 @@ export default function PartnershipStepper() {
                       </>
                     )
                   }
-                </Paper>
+                </Card>
             </Col>
           </Row>
         </React.Fragment>
       ) : null }
-    </Box>
-  );
+    </Card>
+  )
 }
