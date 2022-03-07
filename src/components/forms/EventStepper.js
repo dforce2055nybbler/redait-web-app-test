@@ -114,7 +114,6 @@ export default function EventStepper() {
       description: aditionals.description,
     }
     console.log('event', item)
-    debugger
     try {
       const { data, error } = await registerEvent({ variables: { item } })
       if (!error) {
@@ -177,7 +176,7 @@ export default function EventStepper() {
       { activeStep === 3 ? (
         <React.Fragment>
           <ConfirmationForm
-            values={{ contact, perfil, aditionals, type='event' }}
+            values={{ contact, perfil, aditionals, type:'event' }}
             handleSubmitForm={handleConfirmationForm}
             handleBack={handleBack}
           />
