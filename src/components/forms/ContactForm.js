@@ -7,7 +7,11 @@ import { graphql, useStaticQuery } from 'gatsby';
 import { formatDataSelect } from '../../helpers/formatDataSelect';
 import Select from 'react-select';
 
-const ContactForm = ({ values, handleSubmitForm, title='Información de contacto' }) => {
+const ContactForm = ({
+  values,
+  handleSubmitForm,
+  companyLabel = 'Empresa',
+  title = 'Información de contacto' }) => {
   const [validate, setValidate] = useState(false);
   const [loading, setLoading] = useState(false);
   const [empresa, setEmpresa] = useState(null);
@@ -112,7 +116,7 @@ const ContactForm = ({ values, handleSubmitForm, title='Información de contacto
           <Loader />
         ) : (
           <>
-            <Form.Label className="form-label redit1-text mb-1">Empresa</Form.Label>
+              <Form.Label className="form-label redit1-text mb-1">{companyLabel}</Form.Label>
               <InputGroup id="select-w100" className="mb-3">
               <Select
                 style={{ width: '100% !important'}}

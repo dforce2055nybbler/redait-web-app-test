@@ -325,6 +325,22 @@ span.badge-filter-active {
   }
 }
 
+.event {
+  .date, .time, .type {
+    font-style: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: map.get($theme-colors, "redit2")
+  }
+  .date {
+    font-weight: bold;
+  }
+  .cost {
+    background-color: map.get($theme-colors, "redit4") !important;
+    color: map.get($theme-colors, "redit1") !important;
+  }
+}
+
 /* FORMS */
 .form-container {
   background-color: transparent !important;
@@ -339,6 +355,13 @@ span.badge-filter-active {
   height: 350px;
   padding: 6rem 1rem;
   border-radius: 20px !important;
+}
+input.date-picker {
+  width: 100% !important;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  padding: 0.5rem;
+  color: #212529;
 }
 #select-w100 > div {
   width: 100% !important;

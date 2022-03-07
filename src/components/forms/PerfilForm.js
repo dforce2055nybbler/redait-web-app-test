@@ -172,7 +172,7 @@ const PerfilForm = ({ values, handleSubmitForm, handleBack, title='Información 
               )}
               </InputGroup>
             <Row className="justify-content-end mb-3 character-limit">
-              <Col sm={1}>
+              <Col sm={2}>
                 <em>{( characterLimit - valueDescripcion.length )}</em>
               </Col>
             </Row>

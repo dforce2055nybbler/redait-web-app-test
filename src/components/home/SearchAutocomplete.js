@@ -34,7 +34,6 @@ const SearchAutocomplete = (props) => {
     e.preventDefault()
     e.stopPropagation()
     try {
-      debugger
       if (inputValue) {
         e.type = 'click'
         e.target.value = inputValue
@@ -55,9 +54,16 @@ const SearchAutocomplete = (props) => {
   }
 
   const filterSearchOptions = (inputValue) => {
-    return searchOptions.filter((i) =>
-      i.label.toLowerCase().includes(inputValue?.toLowerCase())
-    );
+    try {
+      if (inputValue) {
+        return searchOptions.filter((i) =>
+          i.label.toLowerCase().includes(inputValue?.toLowerCase())
+        )
+      }
+    } catch (error) {
+      return searchOptions
+    }
+    
   };
 
   const promiseOptions = () =>

@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import StepperNew from 'react-stepper-horizontal'
 import ContactForm from './ContactForm'
-import PerfilForm from './PerfilBusinessOpportunityForm'
+import PerfilEventForm from './PerfilEventForm'
+import AditionalEventForm from './AditionalEventForm'
 import ConfirmationForm from './ConfirmationForm'
 import Loader from '../ui/loader'
 import { Row, Col, Card, Button } from 'react-bootstrap'
 import { useMutation } from '@apollo/client'
-import { REGISTER_BUSINESS_OPPORTUNITY } from '../../apollo/queries'
+import { REGISTER_EVENT } from '../../apollo/queries'
 import { Link } from 'gatsby'
 
 
 const steps = [
   { title: 'Contacto' },
-  { title: 'Perfil' },
+  { title: 'Evento' },
+  { title: 'Adicional' },
   { title: 'Confirmación' }
 ]
 
-export default function PartnershipStepper() {
+export default function EventStepper() {
   const [loading, setLoading] = useState(false)
   const [finalMessage, setFinalMessage] = useState('')
   const [newItem, setNewItem] = useState(null)
@@ -31,15 +33,18 @@ export default function PartnershipStepper() {
   })
   const [perfil, setPerfil] = useState({
     nombre: '',
+    fecha: new Date(),
+    lugar: '',
+    tipoEvento: 'presencial',
+    valorUSD: ''
+  })
+  const [aditionals, setAditionals] = useState({
     descripcion: '',
     verticales: '',
     mercados: ''
   })
 
-  const isStepOptional = (step) => {
-    return step === 99999
-  }
-
+  
   const isStepSkipped = (step) => {
     return skipped.has(step)
   }
@@ -68,12 +73,16 @@ export default function PartnershipStepper() {
     setPerfil(values)
     handleNext()
   }
+  const handleAditionalEventForm = (values) => {
+    setAditionals(values)
+    handleNext()
+  }
 
   const handleNewItem = async (data) => {
     try {
       const newItem = await data.result.newItem
-      console.log('Business Opportunity added', newItem)
-      setFinalMessage('Gracias, se agrego un nuevo Business Opportunity a nuestra base.')
+      console.log('Talent added', newItem)
+      setFinalMessage('Gracias, se agrego un nuevo talento a nuestra base.')
       const result = await setNewItem(newItem)
       console.log(result)
       setNavigation(`/?type=${newItem.__typename}&id=${newItem.id}`)
@@ -83,29 +92,34 @@ export default function PartnershipStepper() {
       throw new Error(error)
     }
   }
-  const [ registerTalent ] = useMutation(REGISTER_BUSINESS_OPPORTUNITY)
+  const [ registerEvent ] = useMutation(REGISTER_EVENT)
 
   const handleConfirmationForm = async () => {
     window?.scrollTo(0, 0)
     setLoading(true)
 
+    console.log('aditionals', aditionals)
+    debugger
     const item = {
       company: contact.empresa.value,
       contact: contact.contacto,
       email: contact.email,
       phone: contact.telefono,
+      profile: perfil.perfil,
       active: true,
       name: perfil.nombre,
-      description: perfil.descripcion,
-      verticals: perfil.verticales.map(item => item.value), // ARRAY ID
-      markets: perfil.mercados.map(item => item.value), // ARRAY ID
-      // TODO: Verificar si es necesario definir un país y una región
-      // country: null,
-      // region: null,
+      date: perfil.fecha,
+      place: perfil.lugar,
+      event_type: perfil.tipoEvento,
+      valor_usd: perfil.valorUSD,
+      verticals: aditionals.verticales.map(item => item.value), // ARRAY ID
+      markets: aditionals.mercados.map(item => item.value), // ARRAY ID
+      description: aditionals.descriptions,
     }
-
+    debugger
+    
     try {
-      const { data, error } = await registerTalent({ variables: { item } })
+      const { data, error } = await registerEvent({ variables: { item } })
       if (!error) {
         handleNewItem(data)
       }
@@ -137,13 +151,15 @@ export default function PartnershipStepper() {
         <React.Fragment>
           <ContactForm
             values={contact}
-            handleSubmitForm={handleContactForm} />
+            handleSubmitForm={handleContactForm}
+            companyLabel='Empresa organizadora'
+          />
         </React.Fragment>
       ) : null }
 
       { activeStep === 1 ? (
         <React.Fragment>
-          <PerfilForm
+          <PerfilEventForm
             values={perfil}
             handleSubmitForm={handlePerfilForm}
             handleBack={handleBack}
@@ -153,19 +169,29 @@ export default function PartnershipStepper() {
 
       { activeStep === 2 ? (
         <React.Fragment>
-          <ConfirmationForm
-            values={{ contact, perfil }}
-            handleSubmitForm={handleConfirmationForm}
+          <AditionalEventForm
+            values={aditionals}
+            handleSubmitForm={handleAditionalEventForm}
             handleBack={handleBack}
           />
         </React.Fragment>
       ) : null}
 
+      { activeStep === 3 ? (
+        <React.Fragment>
+          <ConfirmationForm
+            values={{ contact, perfil, aditionals }}
+            handleSubmitForm={handleConfirmationForm}
+            handleBack={handleBack}
+          />
+        </React.Fragment>
+      ) : null }
+
       {activeStep === steps.length ? (
         <React.Fragment>
           <Row className="align-items-center mt-4 pt-4">
             <Col className="align-items-center text-center">
-              <Card className="form-result">
+                <Card className="form-result">
                   {loading ? (<Loader />)
                     :
                     (

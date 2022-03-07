@@ -4,6 +4,7 @@ import Opportunity from './Opportunity';
 import Talent from './Talent';
 import Product from './Product';
 import Partnership from './Partnership';
+import Event from './Event';
 import { SearchContext } from '../../contexts/wrappers/SearchContext';
 import { useQuery } from '@apollo/client'
 import {
@@ -57,7 +58,7 @@ const OpportunitiesGrid = ({ id }) => {
   }
 
   const handleResults = (results) => {
-    // console.log('Resultados => ', results)
+    console.log('Resultados => ', results)
 
     try {
       totalResults = 0
@@ -155,6 +156,15 @@ const OpportunitiesGrid = ({ id }) => {
               {data.partnerships.map(partnership => (
                 <Col key={partnership.id} sm={12} md={6} lg={4} xl={3}>
                   <Partnership opportunity={partnership} />
+                </Col>
+              ))}
+            </Row>
+          }
+          {data.events &&
+            <Row>
+              {data.events.map(event => (
+                <Col key={event.id} sm={12} md={6} lg={4} xl={3}>
+                  <Event event={event} />
                 </Col>
               ))}
             </Row>

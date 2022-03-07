@@ -36,7 +36,7 @@ const PostMenu = () => {
       title: 'Eventos',
       subtitle: 'Alguna bajada sobre este item',
       src: eventIcon,
-      to:'/'
+      to:'/post/event'
     }
   ]
   const popover = (

@@ -102,10 +102,6 @@ const SearchFilter = ({ mainFilterParameter, cleanParams }) => {
       type: 'SET_AUX_FILTERS',
       auxFilters: { ...auxFilters, ...newFilter }
     })
-    // setSelectFilter({
-    //   ...e,
-    //   [filter.value]: (e && e.value) || '',
-    // })
   }
 
   const data = useStaticQuery(graphql`
@@ -199,7 +195,7 @@ const SearchFilter = ({ mainFilterParameter, cleanParams }) => {
   );
 
   useEffect(() => {
-    if (optionsOpportunitiesTypes) {
+    if (optionsOpportunitiesTypes && !btnFilter) {
       setOpportunitiesTypes(optionsOpportunitiesTypes)
     }
     if (mainFilterParameter) {
@@ -209,6 +205,11 @@ const SearchFilter = ({ mainFilterParameter, cleanParams }) => {
       }
     }
   }, [data]);
+  useEffect(() => {
+    if (btnFilter) {
+      setOpportunitiesTypes([])
+    }
+  }, [btnFilter]);
   
 
   const filtersOptions = [
@@ -239,10 +240,6 @@ const SearchFilter = ({ mainFilterParameter, cleanParams }) => {
     },
   ];
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    console.log("submission prevented");
-  };
 
   const search = (e, paramText) => {
     const text = e.target.value
@@ -278,7 +275,7 @@ const SearchFilter = ({ mainFilterParameter, cleanParams }) => {
   }
 
   const autocompleteHandle = (event, value) => {
-    if (!value)
+    if (!value && !btnFilter)
       setOpportunitiesTypes(optionsOpportunitiesTypes)
     
     const filter = getFilterByRealName(value?.label)
@@ -330,18 +327,6 @@ const SearchFilter = ({ mainFilterParameter, cleanParams }) => {
     }
   }
 
-  const getKey = (value) => {
-    try {
-      const result = opportunitiesTypes.filter(item => item.value === value)
-      return result.id
-    } catch (error) {
-      return Math.floor(Math.random() * (9999 - 1)) + 1
-    }
-  }
-
-  const handleClickAway = () => {
-    setOpen(false)
-  }
 
   return (
     <Container style={{ marginTop: '-1.5rem' }}>

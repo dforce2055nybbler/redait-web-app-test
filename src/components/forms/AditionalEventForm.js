@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, InputGroup, Row, Col } from 'react-bootstrap';
 import { useFormik } from 'formik';
-import Select from 'react-select';
 import * as Yup from 'yup';
-import Loader from '../ui/loader';
-import { graphql, useStaticQuery } from 'gatsby';
-import { formatDataSelect } from '../../helpers/formatDataSelect';
+import Loader from '../ui/loader'
+import { formatDataSelect } from '../../helpers/formatDataSelect'
+import Select from 'react-select'
+import { graphql, useStaticQuery } from 'gatsby'
 
-const PerfilBusinessOpportunityForm = ({ values, handleSubmitForm, handleBack, title='Información de perfil' }) => {
+const AditionalEventForm = ({ values, handleSubmitForm, handleBack, title='Información adicional' }) => {
   const [validate, setValidate] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [verticales, setVerticales] = useState([]);
-  const [mercados, setMercados] = useState([]);
-  const showBackButton = false
+  const [verticales, setVerticales] = useState([])
+  const [mercados, setMercados] = useState([])
   const characterLimit = 1000
+  const showBackButton = false
   const { handleSubmit, touched, errors, getFieldProps } = useFormik({
     initialValues: {
-      nombre: values.nombre,
       descripcion: values.descripcion,
-      verticales: values.verticales,
       mercados: values.mercados,
+      verticales: values.verticales,
     },
     onSubmit: values => {
       setLoading(true);
@@ -33,9 +32,6 @@ const PerfilBusinessOpportunityForm = ({ values, handleSubmitForm, handleBack, t
       setLoading(false);
     },
     validationSchema: Yup.object({
-      nombre: Yup.string()
-        .min(3, 'Debe tener al menos 3 caractéres')
-        .required('Requerido'),
       descripcion: Yup.string()
         .min(3, 'Debe tener al menos 3 caractéres')
         .max(characterLimit, `Debe tener menos de ${characterLimit} caractéres`)
@@ -44,7 +40,6 @@ const PerfilBusinessOpportunityForm = ({ values, handleSubmitForm, handleBack, t
   });
 
 
-  const { value: valueNombre } = getFieldProps('nombre');
   const { value: valueDescripcion } = getFieldProps('descripcion');
 
   let mounted = true
@@ -52,7 +47,6 @@ const PerfilBusinessOpportunityForm = ({ values, handleSubmitForm, handleBack, t
   useEffect(() => {
     if (
       mounted &&
-      valueNombre.trim() &&
       valueDescripcion.trim() &&
       verticales !== null &&
       mercados !== null &&
@@ -67,19 +61,18 @@ const PerfilBusinessOpportunityForm = ({ values, handleSubmitForm, handleBack, t
       mounted = false
     }
   }, [
-    valueNombre,
     valueDescripcion,
     verticales,
     mercados,
     errors,
-  ]);
+  ])
 
   useEffect(() => () => {
     mounted = false
-  }, [] );
-
+  }, [])
+  
   const data = useStaticQuery(graphql`
-    query PerfilBusinessOpportunityFormData {
+    query AditionalEventFormData {
       allStrapiVerticals(filter: {active: {eq: true}}) {
         edges {
           node {
@@ -125,21 +118,7 @@ const PerfilBusinessOpportunityForm = ({ values, handleSubmitForm, handleBack, t
           <Loader />
         ) : (
           <>
-            <Form.Label className="form-label redit1-text mb-1">Nombre</Form.Label>
-            <InputGroup className="mb-3">
-              <Form.Control
-                isInvalid={!!errors.nombre && touched.nombre}
-                type="text"
-                placeholder="Ej: Diseñador UX UI, Desarrollador Java"
-                {...getFieldProps('nombre')}
-              />
-              {touched.nombre && errors.nombre && (
-                <Form.Control.Feedback type="invalid">
-                  {errors.nombre}
-                </Form.Control.Feedback>
-              )}
-            </InputGroup>
-            <Form.Label className="form-label redit1-text mb-1">Vertical</Form.Label>
+          <Form.Label className="form-label redit1-text mb-1">Vertical</Form.Label>
             <InputGroup id="select-w100" className="mb-3">
                 <Select
                   isMulti
@@ -238,4 +217,4 @@ const PerfilBusinessOpportunityForm = ({ values, handleSubmitForm, handleBack, t
   );
 };
 
-export default PerfilBusinessOpportunityForm;
+export default AditionalEventForm;

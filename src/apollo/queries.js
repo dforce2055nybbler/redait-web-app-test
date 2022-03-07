@@ -431,6 +431,17 @@ const REGISTER_BUSINESS_OPPORTUNITY = gql `
     }
   }
 `
+const REGISTER_EVENT = gql `
+  mutation registerBusinessOpportunity($item: BusinessOpportunityInput){
+    result: createBusinessOpportunity (input: { data: $item }) {
+      newItem: businessOpportunity {
+        id
+        name
+        description
+      }
+    }
+  }
+`
 
 export {
   TYPES_OPPORTUNITIES,
@@ -445,5 +456,6 @@ export {
   EVENTS,
   REGISTER_TALEN,
   REGISTER_PARTNETSHIP,
-  REGISTER_BUSINESS_OPPORTUNITY
+  REGISTER_BUSINESS_OPPORTUNITY,
+  REGISTER_EVENT
 }
