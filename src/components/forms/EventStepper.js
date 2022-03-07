@@ -98,14 +98,11 @@ export default function EventStepper() {
     window?.scrollTo(0, 0)
     setLoading(true)
 
-    console.log('aditionals', aditionals)
-    debugger
     const item = {
       company: contact.empresa.value,
       contact: contact.contacto,
       email: contact.email,
       phone: contact.telefono,
-      profile: perfil.perfil,
       active: true,
       name: perfil.nombre,
       date: perfil.fecha,
@@ -114,10 +111,10 @@ export default function EventStepper() {
       valor_usd: perfil.valorUSD,
       verticals: aditionals.verticales.map(item => item.value), // ARRAY ID
       markets: aditionals.mercados.map(item => item.value), // ARRAY ID
-      description: aditionals.descriptions,
+      description: aditionals.description,
     }
+    console.log('event', item)
     debugger
-    
     try {
       const { data, error } = await registerEvent({ variables: { item } })
       if (!error) {
@@ -180,7 +177,7 @@ export default function EventStepper() {
       { activeStep === 3 ? (
         <React.Fragment>
           <ConfirmationForm
-            values={{ contact, perfil, aditionals }}
+            values={{ contact, perfil, aditionals, type='event' }}
             handleSubmitForm={handleConfirmationForm}
             handleBack={handleBack}
           />

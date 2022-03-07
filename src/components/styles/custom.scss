@@ -19,6 +19,7 @@ $theme-colors: (
   'azulreditdarken-1': #0027c4,
   'verderedit': #2EE7BA,
   'naranjaredit': #FF5C40,
+  'naranjaredithover': #ff5c40c2,
   'naranjalightredit': #ff5c4014,
   'azulcelesteredit': #BDCAFF,
   'celesteclaroredit': #E3E9FF,
@@ -362,6 +363,18 @@ input.date-picker {
   border: 1px solid #ced4da;
   padding: 0.5rem;
   color: #212529;
+}
+.btn-publicar {
+  background-color: map.get($theme-colors, "naranjaredit") !important;
+  border: none !important;
+  color: white;
+  margin-top: 3rem;
+}
+.btn-publicar:hover {
+  background-color: map.get($theme-colors, "naranjaredithover") !important;
+  border: none;
+  color: white;
+  margin-top: 3rem;
 }
 #select-w100 > div {
   width: 100% !important;
