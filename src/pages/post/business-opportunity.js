@@ -30,7 +30,7 @@ const BusinessOportunity = () => {
           <Seo title="Oportunidad de Negocio" />
           <Hero
             title="Oportunidad de Negocio"
-            message="Colocar alguna bajada de este item"
+            message="Un 3ro busca una solución y quiero compartirlo"
           />
           <Row
             className="justify-content-md-center mt-4 pt-4 h-100"
