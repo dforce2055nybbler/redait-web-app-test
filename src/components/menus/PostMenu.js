@@ -13,28 +13,28 @@ const PostMenu = () => {
     {
       id: 1,
       title: 'Talento',
-      subtitle: 'Alguna bajada sobre este item',
+      subtitle: 'Tengo perfiles disponibles para proyectos',
       src: talentIcon,
       to:'/post/talent'
     },
     {
       id: 2,
       title: 'Partnership',
-      subtitle: 'Alguna bajada sobre este item',
+      subtitle: 'Tengo un cliente y busco recursos',
       src: partnershipIcon,
       to:'/post/partnership'
     },
     {
       id: 3,
       title: 'Oportunidades de negocio',
-      subtitle: 'Alguna bajada sobre este item',
+      subtitle: 'Un 3ro busca una solución y quiero compartirlo',
       src: businessOportunityIcon,
       to:'/post/business-opportunity'
     },
     {
       id: 4,
       title: 'Eventos',
-      subtitle: 'Alguna bajada sobre este item',
+      subtitle: 'Propongo un evento comercial interesante',
       src: eventIcon,
       to:'/post/event'
     }

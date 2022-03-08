@@ -30,7 +30,7 @@ const Partnership = () => {
           <Seo title="Partnership" />
           <Hero
             title="Partnership"
-            message="Colocar alguna bajada de este item"
+            message="Tengo un cliente y busco recursos"
           />
           <Row
             className="justify-content-md-center mt-4 pt-4 h-100"

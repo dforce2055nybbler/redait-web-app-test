@@ -29,7 +29,7 @@ const Event = () => {
           <Seo title="Eventos" />
           <Hero
             title="Eventos"
-            message="Colocar alguna bajada de este item"
+            message="Propongo un evento comercial interesante"
           />
           <Row
             className="justify-content-md-center mt-4 pt-4 h-100"

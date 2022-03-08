@@ -34,9 +34,8 @@ const IndexPage = () => {
     <Layout>
       <Seo title="Inicio" />
       <Hero
-        title="Oportunidades"
-        message="Descubre todas las opotunidades de proyectos y perfiles que ofrecen
-            las diferentes empresas del sector."
+        title="Publicaciones"
+        message="Descubre todas las oportunidades comerciales, proyectos, partnerships, eventos y toda la oferta de la red."
       />
       <SearchContextProvider>
         <SearchFilter mainFilterParameter={type} cleanParams={cleanParams}/>

@@ -30,7 +30,7 @@ const Talent = () => {
           <Seo title="Talento" />
           <Hero
             title="Talento"
-            message="Vacante que necesita un talento o un talento disponible para trabajar."
+            message="Tengo perfiles disponibles para proyectos"
           />
           <Row
             className="justify-content-md-center mt-4 pt-4 h-100"
