@@ -81,7 +81,7 @@ const PostMenu = () => {
   );
   
   const Menu = () => (
-    <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+    <OverlayTrigger rootClose trigger="click" placement="bottom" overlay={popover}>
       <Button
         className="btn-light-main-naranjaredait"
         aria-label="Publicar"

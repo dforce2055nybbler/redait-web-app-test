@@ -173,7 +173,7 @@ const MessagesMenu = () => {
   );
   
   const Menu = () => (
-    <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+    <OverlayTrigger rootClose trigger="click" placement="bottom" overlay={popover}>
       <Button
         className="button-transparent notifications"
         aria-label="Menú de mensajes"

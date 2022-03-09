@@ -113,7 +113,7 @@ const UserMenu = ({ logoutHandler, user }) => {
   );
   
   const Menu = () => (
-    <OverlayTrigger trigger="click" placement="bottom-end" overlay={popover}>
+    <OverlayTrigger rootClose trigger="click" placement="bottom-end" overlay={popover}>
       <Button
         className="button-transparent"
         aria-label="Menú de usuario"
