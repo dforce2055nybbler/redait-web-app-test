@@ -15,8 +15,11 @@ const Event = ({ event }) => {
     console.log('more skills')
   }
 
+  const date = new Date(event.date).toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' })
+  const time = new Date(event.date).toLocaleTimeString('es-AR')
+
   return (
-    <Card className="my-3 p-3 rounded event">
+    <Card className="p-2 pt-2 rounded event">
       {fav ? (
         <FaBookmark
           onClick={() => setFav(!fav)}
@@ -32,7 +35,7 @@ const Event = ({ event }) => {
         <Row className="align-items-center mb-2">
           <Col sm={12}>
             <Card.Title as="div" className="opportunity-company mb-0">
-              {event.title}
+              {event.name}
             </Card.Title>
             <Card.Title as="div" className="opportunity-location">
               <FaMapMarkerAlt color="#264A75" /> {event.location || 'Buenos Aires, Argentina'}
@@ -41,8 +44,8 @@ const Event = ({ event }) => {
         </Row>
         <Row className="align-items-center">
           <Col sm={12}>
-            <span className="date">{event.date || '13 de marzo'}</span>
-            <span className="time"> | {event.time || '10:00 hs'}</span>
+            <span className="date">{ date || '13 de marzo'}</span>
+            <span className="time"> | { time || '10:00 hs'}</span>
           </Col>
         </Row>
         <Row className="align-items-center mb-3">
@@ -50,8 +53,8 @@ const Event = ({ event }) => {
           <span className="type">{event.type || 'Evento presencial'}</span>
           </Col>
         </Row>
-        <Row className="justify-content-end mb-3">
-          <Col sm={8}>
+        <Row className="justify-content-end">
+          <Col sm={6}>
             <Badge className="chip cost"
             >
               {event.cost || 'Valor USD150'}

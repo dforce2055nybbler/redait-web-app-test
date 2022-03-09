@@ -167,7 +167,7 @@ const ConfirmationForm = ({
               </Row>
               <Row>
                 <Col>
-                  <Form.Label className="form-label redit2-text mb-1">{ values.perfil?.fecha }</Form.Label>
+                  <Form.Label className="form-label redit2-text mb-1">{ values.perfil?.fecha?.toLocaleDateString() }</Form.Label>
                 </Col>
               </Row>
               <Row className="g-0 pb-0 mb-0 pt-2">

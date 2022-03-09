@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 import Loader from '../ui/loader';
 import DatePicker from "react-datepicker"
 import 'react-datepicker/dist/react-datepicker.css'
+import { graphql, useStaticQuery } from 'gatsby'
+import { formatDataSelect } from '../../helpers/formatDataSelect'
 
 const PerfilEventForm = ({ values, handleSubmitForm, handleBack, title='Información del evento' }) => {
   const [validate, setValidate] = useState(false)
@@ -74,8 +76,28 @@ const PerfilEventForm = ({ values, handleSubmitForm, handleBack, title='Informac
 
   useEffect(() => () => {
     mounted = false
-  }, [] );
+  }, []);
+  
+  const data = useStaticQuery(graphql`
+    query allStrapiEventTypes {
+      allStrapiEventTypes {
+        edges {
+          node {
+            name
+            strapiId
+          }
+        }
+      }
+    }
+  `);
 
+  const optionsEvents = formatDataSelect(
+    data.allStrapiEventTypes.edges,
+    'strapiId',
+    'name'
+  )
+  console.log('allStrapiEventTypes', data)
+  console.log('optionsEvents', optionsEvents)
   return (
     <>
       <h5 className="header-forms mb-4 mt-4">
@@ -138,46 +160,27 @@ const PerfilEventForm = ({ values, handleSubmitForm, handleBack, title='Informac
                     {errors.lugar}
                   </Form.Control.Feedback>
                 )}
-              </InputGroup>
-                <Col sm={4}>
-                  <Form.Check
-                    defaultChecked={tipoEvento === 'presencial' ? true : false}
-                    type="radio"
-                    label="Presencial"
-                    name="tipo"
-                    id="presencial"
-                    value="presencial"
-                    onChange={() => setTipoEvento("presencial") }
-                  />
-                </Col>
-                <Col sm={4}>
-                  <Form.Check
-                    defaultChecked={tipoEvento === 'virtual' ? true : false}
-                    type="radio"
-                    label="Virtual"
-                    name="tipo"
-                    id="virtual"
-                    value="virtual"
-                    onChange={() => setTipoEvento("virtual") }
-                  />
-                </Col>
-                <Col sm={4}>
-                  <Form.Check
-                    defaultChecked={tipoEvento === 'mixto' ? true : false}
-                    type="radio"
-                    label="Mixto"
-                    name="tipo"
-                    id="mixto"
-                    value="mixto"
-                    onChange={() => setTipoEvento("mixto") }
-                  />
-                </Col>
-                
-                {touched.tipoEvento && errors.tipoEvento && (
-                  <Form.Check.Feedback type="invalid">
-                    {errors.tipoEvento}
-                  </Form.Check.Feedback>
-                )}
+                </InputGroup>
+                <Row className="justify-content-md-start">
+                  {optionsEvents.map((event, index) => (
+                    <Col key={index} sm="auto">
+                      <Form.Check
+                        defaultChecked={tipoEvento === event.value ? true : false}
+                        type="radio"
+                        label={event.label}
+                        name="tipo"
+                        id={event.label}
+                        value={event.value}
+                        onChange={() => setTipoEvento(event.value) }
+                      />
+                    </Col>
+                  ))}
+                  {touched.tipoEvento && errors.tipoEvento && (
+                    <Form.Check.Feedback type="invalid">
+                      {errors.tipoEvento}
+                    </Form.Check.Feedback>
+                  )}
+                </Row>
             </InputGroup>
             
             <Form.Label className="form-label redit1-text mb-1">Valor USD</Form.Label>

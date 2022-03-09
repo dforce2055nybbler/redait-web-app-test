@@ -35,7 +35,7 @@ export default function EventStepper() {
     nombre: '',
     fecha: new Date(),
     lugar: '',
-    tipoEvento: 'presencial',
+    tipoEvento: 1,
     valorUSD: ''
   })
   const [aditionals, setAditionals] = useState({
@@ -66,14 +66,17 @@ export default function EventStepper() {
 
 
   const handleContactForm = (values) => {
+    debugger
     setContact(values)
     handleNext()
   }
   const handlePerfilForm = (values) => {
+    debugger
     setPerfil(values)
     handleNext()
   }
   const handleAditionalEventForm = (values) => {
+    debugger
     setAditionals(values)
     handleNext()
   }
@@ -81,8 +84,8 @@ export default function EventStepper() {
   const handleNewItem = async (data) => {
     try {
       const newItem = await data.result.newItem
-      console.log('Talent added', newItem)
-      setFinalMessage('Gracias, se agrego un nuevo talento a nuestra base.')
+      console.log('Event added', newItem)
+      setFinalMessage('Gracias, se agrego un nuevo evento a nuestra base.')
       const result = await setNewItem(newItem)
       console.log(result)
       setNavigation(`/?type=${newItem.__typename}&id=${newItem.id}`)
@@ -105,14 +108,15 @@ export default function EventStepper() {
       phone: contact.telefono,
       active: true,
       name: perfil.nombre,
-      date: perfil.fecha,
+      date: perfil?.fecha,
       place: perfil.lugar,
       event_type: perfil.tipoEvento,
       valor_usd: perfil.valorUSD,
       verticals: aditionals.verticales.map(item => item.value), // ARRAY ID
       markets: aditionals.mercados.map(item => item.value), // ARRAY ID
-      description: aditionals.description,
+      description: aditionals.descripcion,
     }
+    debugger
     console.log('event', item)
     try {
       const { data, error } = await registerEvent({ variables: { item } })

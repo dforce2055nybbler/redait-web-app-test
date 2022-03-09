@@ -377,20 +377,34 @@ const EVENTS = gql `
       aggregate { count }
     }
     events (where: {  
-      _or: [{title_contains:$search},{description_contains:$search}], 
+      _or: [{name_contains:$search},{description_contains:$search}], 
       active: true, id: $id }, limit: $limit) {
       id
-      title
+      name
       description
+      company {
+        id
+        name
+      }
+      contact
+      date
+      email
+      phone
+      place
+      valor_usd
+      event_type {
+        id
+        name
+      }
+      markets {
+        id
+        name
+      }
+      verticals {
+        id
+        name
+      }
       created_at
-      country {
-        id
-        name
-      }
-      region {
-        id
-        name
-      }
       published_at
       updated_at
     }
@@ -432,9 +446,9 @@ const REGISTER_BUSINESS_OPPORTUNITY = gql `
   }
 `
 const REGISTER_EVENT = gql `
-  mutation registerBusinessOpportunity($item: BusinessOpportunityInput){
-    result: createBusinessOpportunity (input: { data: $item }) {
-      newItem: businessOpportunity {
+  mutation registerEvent($item: EventInput){
+    result: createEvent (input: { data: $item }) {
+      newItem: event {
         id
         name
         description
