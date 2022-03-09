@@ -3,29 +3,23 @@ import Layout from '../../components/ui/layout'
 import Seo from '../../components/seo'
 import EventStepper from '../../components/forms/EventStepper'
 import Hero from '../../components/home/Hero'
-import useBreakpoint from '../../hooks/useBreakpoint'
 import { Row, Col } from 'react-bootstrap'
 import { UserContext } from '../../contexts'
-
+import { navigate } from 'gatsby'
 
 const Event = () => {
-  const size = useBreakpoint()
   const { user } = useContext(UserContext)
   
-  useEffect(() => () => {
-    if (!user || user?.username === 'Guest') {
-      console.log('no hay usuario go to Login!')
-      // navigate('/login/');
-      if (typeof window !== 'undefined') {
-        window.location = '/';
-      }
+  useEffect(() => {
+    if (!user || user.username === 'Guest') {
+      navigate('/login')
     }
-  }, )
+  }, [user])
 
   return (
-    <Layout>
+    <>
       {user?.username !== 'Guest' &&
-        <>
+        <Layout>
           <Seo title="Eventos" />
           <Hero
             title="Eventos"
@@ -43,9 +37,9 @@ const Event = () => {
               <EventStepper className="overflow-auto" />
             </Col>
           </Row>
-        </>
+        </Layout>
       }
-    </Layout>
+    </>
   )
 }
 
