@@ -455,6 +455,60 @@ const REGISTER_EVENT = gql `
       }
     }
   }
+
+`
+const CONVERSATIONS = gql `
+  query ($limit:Int!, $id:Int) {
+    conversations (where: { contact:$id }) {
+      id
+      contact {
+        id
+        companies{
+          name
+        }
+        username
+        firstName
+        lastName
+        profileImage{
+          url
+        }
+      }
+      updated_at
+      status
+      messages (limit:$limit, sort: "created_at:desc") {
+        id
+        from{
+          id
+          firstName
+          lastName
+        }
+        value
+        read
+        delivered
+        created_at
+      }
+    }
+  }
+`
+
+const MESSAGES = gql `
+  query ($limit:Int!) {
+    messages (limit:$limit, sort: "created_at:desc") {
+      id
+      value
+      read
+      delivered
+      from {
+        id
+        username
+        firstName
+        lastName
+      }
+      created_at
+      published_at
+      updated_at
+    }
+  }
 `
 
 export {
@@ -471,5 +525,6 @@ export {
   REGISTER_TALEN,
   REGISTER_PARTNETSHIP,
   REGISTER_BUSINESS_OPPORTUNITY,
-  REGISTER_EVENT
+  REGISTER_EVENT,
+  CONVERSATIONS
 }
