@@ -1108,6 +1108,9 @@ div#popover-post {
     padding-left: 1rem;
     padding-top: .4rem;
     overflow: hidden;
+    height: 772px;
+    overflow-y: scroll;
+    overflow-x: hidden;
     .messages-container {
       min-height: 700px;
     }
@@ -1117,6 +1120,8 @@ div#popover-post {
       background-color: map.get($theme-colors, "redit4");
       margin-left: -20px;
       overflow: hidden;
+      position: sticky;
+      bottom: 0;
     }
     .input-message {
       width: 100%;
@@ -1280,6 +1285,7 @@ div#popover-post {
 
   .messages {
     font-family: $font-family !important;
+    
     .avatar-container.me {
       background-color: #EF5DA8;
       color: white;
@@ -1291,7 +1297,7 @@ div#popover-post {
       background-color: map.get($theme-colors, "redit5") !important;
       color: map.get($theme-colors, "redit1");
       height: 100%;
-      width: 100%;
+      width: 75%;
       font-family: $font-family;
       font-size: 14px;
       font-weight: 400;
@@ -1299,6 +1305,7 @@ div#popover-post {
       padding: .8rem;
       position: relative;
       border-radius: 1rem 1rem 1rem 0;
+      overflow-wrap: break-word;
     }
     .from-them:after {
       content: '';
@@ -1312,6 +1319,7 @@ div#popover-post {
       top: 81%;
       left: -20px;
       margin-top: -10px;
+      z-index: 0;
     }
     .message-container:hover .from-them {
       background-color: map.get($theme-colors, "redit4") !important;
@@ -1327,7 +1335,7 @@ div#popover-post {
       background-color: map.get($theme-colors, "redit2") !important;
       color: map.get($theme-colors, "redit5");
       height: 100%;
-      width: 100%;
+      width: 75%;
       font-family: $font-family;
       font-size: 14px;
       font-weight: 400;
@@ -1335,6 +1343,8 @@ div#popover-post {
       padding: .8rem;
       position: relative;
       border-radius: 1rem 1rem 0 1rem;
+      z-index: 0;
+      overflow-wrap: break-word;
     }
     .from-me:after {
       content: '';

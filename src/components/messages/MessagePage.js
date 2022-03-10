@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef,  } from 'react';
 import { Row, Col, Container, Form, Button } from 'react-bootstrap'
 import { FaRegEdit } from 'react-icons/fa'
 import Search from './Search';
@@ -11,8 +11,11 @@ import logoGlobant from '../../images/logo-globant.png'
 import logoClarika from '../../images/logo-clarika.png'
 import MessageList from './MessageList'
 import NewMessage from './NewMessage'
+import { useLazyQuery } from '@apollo/client'
+import { CONVERSATIONS } from '../../apollo/queries'
+import { v1 as uuid } from 'uuid'
 
-const MessagePage = () => {
+const MessagePage = ({ user }) => {
   const [conversations, setConversations] = useState([
     {
       contact: {
@@ -41,7 +44,7 @@ const MessagePage = () => {
         },
         {
           id: 2,
-          from: 2055,
+          from: 34,
           value: 'Hola Marcelo, cómo estás? Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual antes de insertar.',
           read: true,
           delivered: {
@@ -61,7 +64,7 @@ const MessagePage = () => {
         },
         {
           id: 4,
-          from: 2055,
+          from: 34,
           value: 'Hola Marcelo, cómo estás? Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual antes de insertar.',
           read: false,
           delivered: {
@@ -242,8 +245,9 @@ const MessagePage = () => {
   const [sendNewMessage, setSendNewMessage] = useState(false)
   const [title, setTitle] = useState('Seleccione una conversación para empezar')
   const [ready, setReady] = useState(false)
-  
-  
+  const [getConversations, { loading, error, data }] = useLazyQuery(CONVERSATIONS, { variables: { id: 1, limit: 100 } });
+  const messagesEndRef = useRef(null)
+
   const setFilter = message => {
     try {
       if(message.id)
@@ -274,12 +278,60 @@ const MessagePage = () => {
     setTitle('Seleccione una conversación para empezar')
   }
 
-  const sendMessage = () => {
-    console.log("Sending new message...", inputMessage)
-    setInputMessage('')
+  const handleInputMessage = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey && inputMessage.trim() && conversationActive) { 
+      setInputMessage(e.target.value.trim())
+      sendMessage()
+    }
+  }
+
+  const scrollToBottom = () => {
+    setTimeout(() => {
+      messagesEndRef.current?.scrollIntoView({
+        behavior: "smooth",
+      })
+    }, 100)
   }
 
   useEffect(() => {
+    scrollToBottom()
+  }, [])
+
+
+  const sendMessage = () => {
+    try {
+      if (user && inputMessage.trim()) {
+        const newMessage = {
+          id: uuid(),
+          from: user.id,
+          value: inputMessage.trim(),
+          read: false,
+          delivered: {
+            date: new Date(),
+            time: new Date().toLocaleTimeString('es-AR')
+          }
+        }
+        conversationActive.messages.push(newMessage)
+        setTimeout(() => {
+          setInputMessage('')
+        }, 100)
+        scrollToBottom()
+        // TODO: send message to BE
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    if (conversations.length === 0) {
+      getConversations()
+        .then(result => {
+          const conversaciones = result.data
+          console.log('conversaciones', conversaciones)
+        })
+      .catch(error => console.error(error))
+    }
     if (conversations) {
       const contacts = conversations.map(conversation => conversation.contact)
       setContacts(contacts)
@@ -296,6 +348,7 @@ const MessagePage = () => {
 
   useEffect(() => { 
     try {
+      scrollToBottom()
       if (conversationActive && inputMessage.length > 1)
         setReady(true)
       else
@@ -304,6 +357,8 @@ const MessagePage = () => {
       setReady(false)
     }
   }, [conversationActive, inputMessage])
+
+
 
   return (
     <>
@@ -366,7 +421,8 @@ const MessagePage = () => {
               <>
                 <Row className="messages-container">
                   <Col>
-                    {conversationActive && <MessageList conversationActive={conversationActive} />}
+                    {conversationActive && <MessageList user={user} conversationActive={conversationActive} />}
+                  <div ref={messagesEndRef}></div>
                   </Col>
                 </Row>
                 
@@ -379,6 +435,7 @@ const MessagePage = () => {
                       className="input-message"
                       rows={1}
                       value={inputMessage}
+                      onKeyPress={(e) => handleInputMessage(e)}
                       onChange={(e) => setInputMessage(e.target.value)}
                     />
                   </Col>
@@ -397,6 +454,7 @@ const MessagePage = () => {
             
           </Col>
         </Row>
+        
       </Container>
     </>
   )

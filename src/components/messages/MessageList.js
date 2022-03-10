@@ -1,23 +1,20 @@
 
 import React from 'react';
-import { Row, Col, Image } from 'react-bootstrap';
+import { Container, Row, Col, Image } from 'react-bootstrap';
 import { FaRegCheckSquare } from 'react-icons/fa'
 
-const MessageList = ({ conversationActive }) => {
-  const user = {
-    id: 2055,
-    name: 'Esteban Quito'
-  }
+const MessageList = ({ user, conversationActive }) => {
+
   return (
     <div className="messages">
       <div className="d-grid gap-0 items">
         {conversationActive.messages.map(message => (
-          <div key={message.id} className="item" size="lg">
+          <Container fluid="md" key={message.id} className="item" size="lg">
             <Row className={ message.from === user.id ? 'align-items-center from-me-container': 'align-items-center'}>
-              <Col xs="auto" style={{ paddingLeft: '0', paddingRight: '0' }}>
+              <Col xs="1" style={{ paddingLeft: '0', paddingRight: '0' }}>
                 <div className={message.from === user.id ? 'avatar-container me' : 'avatar-container'}>
                   {message.from === user.id ?
-                    user.name[0]
+                    user.firstName[0]
                     :
                     <Image
                       thumbnail
@@ -28,7 +25,7 @@ const MessageList = ({ conversationActive }) => {
                   }
                 </div>
               </Col>
-              <Col xs={8} style={{ textAlign: 'start' }}>
+              <Col xs="7" style={{ textAlign: 'start' }}>
                 <Row>
                   <Col style={{ lineHeight: '10px' }} className="message-container">
                     <div className={message.from === user.id ? 'from-me' : 'from-them'}
@@ -38,7 +35,7 @@ const MessageList = ({ conversationActive }) => {
                   </Col>
                 </Row>
               </Col>
-              <Col xs="auto">
+              <Col xs="1">
                 <span className="date">{message.delivered.time}</span>
                 {message.read ?
                   <span className="status-check"><FaRegCheckSquare /></span>
@@ -47,7 +44,7 @@ const MessageList = ({ conversationActive }) => {
                 }
               </Col>
             </Row>
-          </div>
+          </Container>
         ))}
       </div>
     </div>

@@ -8,7 +8,6 @@ import { navigate } from 'gatsby'
 
 const Messages = () => {
   const { user } = useContext(UserContext)
-  console.log('user', user)
   
   useEffect(() => {
     if (!user || user.username === 'Guest') {
@@ -21,7 +20,7 @@ const Messages = () => {
       {user.username !== 'Guest' &&
         <Layout>
           <Seo title="Mensajes" />
-          <MessagePage />
+          <MessagePage user={user}/>
         </Layout>
       }
     </>
